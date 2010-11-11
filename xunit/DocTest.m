@@ -12,6 +12,7 @@ classdef DocTest < TestComponent
             
             % the software under test is the help document of the supplied
             % method:
+            self.Name = sprintf('DocTest(''%s'')', testMethod);
             self.MethodName = sprintf('help(''%s'')', testMethod);
             self.DocString = help(testMethod);  
             

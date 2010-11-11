@@ -12,11 +12,8 @@ classdef DocTestSuite < TestSuite
             components = DocTestSuite.getAllComponents(name);
             for C = 1:length(components)
                 component = components{C};
-                thisTest = DocTest(component);
-                
-                % only add units that have at least 1 test
-                if thisTest.numTestCases() > 0
-                    self.add(thisTest);
+                if DocTestSuite.functionHasDocTests(component)
+                    self.add(DocTest(component));
                 end
             end
             

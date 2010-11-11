@@ -122,7 +122,7 @@ classdef DocTest < TestComponent
             got = strtrim(got);
             
             if isempty(want) && isempty(got)
-                match = 1;
+                did_pass = 1;
                 return
             end
             

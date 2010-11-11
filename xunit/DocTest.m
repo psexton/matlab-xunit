@@ -6,6 +6,12 @@ classdef DocTest < TestComponent
         Examples
     end
     
+    properties (Constant)
+        % loosely based on Python 2.6 doctest.py, line 510
+        example_re = '(?m)(?-s)(?:^ *>> )(?<source>.*)\n(?<want>(?:(?:^ *$\n)?(?!\s*>>).*\w.*\n)*)';
+    end
+    
+
     methods
         function self = DocTest(testMethod)
             % DocTest Constructor
@@ -17,11 +23,10 @@ classdef DocTest < TestComponent
             self.DocString = help(testMethod);  
             
             
-            % loosely based on Python 2.6 doctest.py, line 510
-            example_re = '(?m)(?-s)(?:^ *>> )(?<source>.*)\n(?<want>(?:(?:^ *$\n)?(?!\s*>>).*\w.*\n)*)';
+           
             
             % Detect all the examples.
-            self.Examples = regexp(self.DocString, example_re, 'names', 'warnings');
+            self.Examples = regexp(self.DocString, DocTest.example_re, 'names', 'warnings');
         end
         
         function num = numTestCases(self)

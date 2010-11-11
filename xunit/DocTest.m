@@ -1,5 +1,12 @@
 classdef DocTest < TestComponent
-    
+    %DocTest
+    %
+    % This TestComponent represents a single help(...) output, which is a
+    % logical unit because variables defined earlier in the help text
+    % should carry over to the rest of it.  A single DocTestCase is created
+    % for each executable line of the test.  A DocTestSuite represents more
+    % than one DocTest.
+    %
     properties
         MethodName
         DocString

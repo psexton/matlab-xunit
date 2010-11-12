@@ -3,9 +3,16 @@ classdef DocTest < TestComponent
     %
     % This TestComponent represents a single help(...) output, which is a
     % logical unit because variables defined earlier in the help text
-    % should carry over to the rest of it.  A single DocTestCase is created
-    % for each executable line of the test.  A DocTestSuite represents more
-    % than one DocTest.
+    % should carry over to later parts.  For instance, this example is
+    % internally represented as two DocTestCases in one DocTest:
+    %
+    % >> x = 17;
+    % >> x
+    % x = 17
+    %
+    %
+    % This lets x be carried over from one to the next.
+    %
     %
     properties
         MethodName
@@ -53,9 +60,11 @@ classdef DocTest < TestComponent
             % 
             % All the variables in this function begin with DOCTEST__.
             % That's because the namespace of this function and of the
-            % doctest that's being run are intermingled.  This way, it's
-            % very hard to unintentionally step on these internal
-            % variables.  It does make it hard to read, though...
+            % doctest that's being run are intermingled.  This is
+            % unavoidable, as far as I can tell. With the DOCTEST__ prefix,
+            % it's very hard to unintentionally step on these internal
+            % variables when writing a doctest.  It does make it hard to
+            % read, though...
             %
             if nargin < 2
                 DOCTEST__monitor = CommandWindowTestRunDisplay();
@@ -110,11 +119,11 @@ classdef DocTest < TestComponent
             % They also sometimes backspace over things for no apparent reason.  This
             % doctest recreates that condition.
             %
-            % >> sprintf('There is no dot here: .\x08')
+            % >> sprintf('There is no letter x here: x\x08')
             %
             % ans =
             %
-            % There is no dot here:
+            % There is no letter x here:
             %
             %
             % All of the doctests should pass, and they manipulate this function.

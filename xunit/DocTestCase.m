@@ -1,5 +1,10 @@
 classdef DocTestCase < TestCase
-  
+    %DocTestCase - a single executable line in a doctest
+    %
+    % This class is essentially a stub, because a single executable line
+    % can't be run without context supplied from earlier lines.  So all of
+    % the logic lies in the DocTest class.
+    %
     methods
         function self = DocTestCase(testMethod)
             %TestCase Constructor

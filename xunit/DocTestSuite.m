@@ -1,4 +1,9 @@
 classdef DocTestSuite < TestSuite
+    %DocTestSuite - a set of DocTests that can be run together.
+    % The DocTest parts of the Suite don't share any state between them.
+    %
+    % A DocTestSuite could contain the DocTests for each of the methods in
+    % a class, or all of the functions in a directory.
     methods
         
         function self = DocTestSuite(name)

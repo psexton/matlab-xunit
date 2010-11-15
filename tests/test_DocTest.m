@@ -17,7 +17,12 @@ function test_suite = test_DocTest
 
 initTestSuite;
 
+more = DocTestSuite('DocTest');
+assertTrue(more.numTestCases() > 5);
+test_suite.add(more);
+
 end
+
 
 function test_thisDoctest
 dt = DocTest('test_DocTest');

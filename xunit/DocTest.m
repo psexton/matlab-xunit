@@ -45,6 +45,10 @@ classdef DocTest < TestComponent
         
         function num = numTestCases(self)
             % The number of test cases in this doctest
+            %
+            % >> dt = DocTest('help'); % it has no test cases
+            % >> dt.numTestCases()
+            % ans = 0
             num = numel(self.Examples);
         end
         
@@ -56,8 +60,6 @@ classdef DocTest < TestComponent
         function DOCTEST__all_passed = run(DOCTEST__self, DOCTEST__monitor)
             % Run all the tests in this unit of documentation.
             %
-            
-            % 
             % All the variables in this function begin with DOCTEST__.
             % That's because the namespace of this function and of the
             % doctest that's being run are intermingled.  This is
@@ -66,6 +68,14 @@ classdef DocTest < TestComponent
             % variables when writing a doctest.  It does make it hard to
             % read, though...
             %
+            % This is a test that shows whether all the variables that are
+            % predefined in a doctest start with the DOCTEST__ prefix:
+            % >> all_names = who();
+            % >> sum(cell2mat(strfind(all_names, 'DOCTEST__'))) == length(all_names)
+            % ans = 1
+            %
+            
+
             if nargin < 2
                 DOCTEST__monitor = CommandWindowTestRunDisplay();
             end
@@ -106,18 +116,22 @@ classdef DocTest < TestComponent
         end
         
         function did_pass = compare_or_exception(self, want, got, testnum)
-            % Matches two strings together... they should be identical, except that the
-            % first one can contain '***', which matches anything in the second string.
+            % Matches two strings together... they should be identical,
+            % except that the first one can contain '***', which matches
+            % anything in the second string. Also, spacing differences are
+            % ignored (one or more vertical or horizontal spaces are
+            % collapsed down to one space).
             %
-            % But there are also some tricksy things that Matlab does to strings.  Such
-            % as add hyperlinks to help.  This doctest tests that condition.
+            % But there are also some tricksy things that Matlab does to
+            % strings.  Such as add hyperlinks to help.  This doctest tests
+            % that condition.
             %
             % >> disp('Hi there!  <a href="matlab:help help">foo</a>')
             % Hi there!  foo
             %
             %
-            % They also sometimes backspace over things for no apparent reason.  This
-            % doctest recreates that condition.
+            % They also sometimes backspace over things for no apparent
+            % reason.  This doctest recreates that condition.
             %
             % >> sprintf('There is no letter x here: x\x08')
             %
@@ -126,14 +140,27 @@ classdef DocTest < TestComponent
             % There is no letter x here:
             %
             %
-            % All of the doctests should pass, and they manipulate this function.
+            % The comparison is space-insensitive:
+            % >> 3
+            % 
+            % ans =
+            % 
+            %      3
+            % 
+            % >> 3
+            % ans = 3
+            %
+            %
+            % All of the doctests should pass, and they manipulate this
+            % function.
             %
 
             want = regexprep(want, '\s+', ' ');
             got = regexprep(got, '\s+', ' ');
             
             % This looks bad, like hardcoding for lower-case "a href"
-            % and a double quote... but that's what MATLAB looks for too.
+            % and a double quote... but that's what MATLAB looks for too:
+            % an <A HREF won't work, only <a href.
             got = regexprep(got, '<a +href=".*?>', '');
             got = regexprep(got, '</a>', '');
             

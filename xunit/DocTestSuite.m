@@ -4,6 +4,8 @@ classdef DocTestSuite < TestSuite
     %
     % A DocTestSuite could contain the DocTests for each of the methods in
     % a class, or all of the functions in a directory.
+    
+    % Copyright 2010-2011 Thomas Grenfell Smith
     methods
         
         function self = DocTestSuite(name)

@@ -13,6 +13,8 @@ classdef DocTest < TestCase
     % This lets x be carried over from one to the next.
     %
     %
+    
+    % Copyright 2010-2011 Thomas Grenfell Smith
     properties
         DocString
         Examples

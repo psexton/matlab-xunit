@@ -9,6 +9,7 @@ function test_suite = testDocTestsHere
 % you're somewhere else, 'runtests /path/to/this/dir'.
 %
 
+% Copyright 2010-2011 Thomas Grenfell Smith
 test_suite = TestSuite();
 test_suite.Name = ['DocTests at ' pwd];
 test_suite.Location = pwd;

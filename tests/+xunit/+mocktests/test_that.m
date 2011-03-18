@@ -1,5 +1,5 @@
 % test_that.m is a subfunction test file.
-function test_suite = test_this
+function test_suite = test_that
 initTestSuite
 
 function test_the_other

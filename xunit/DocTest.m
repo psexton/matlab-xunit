@@ -1,10 +1,9 @@
-classdef DocTest < TestComponent
+classdef DocTest < TestCase
     %DocTest
     %
-    % This TestComponent represents a single help(...) output, which is a
+    % This TestCase represents a single help(...) output, which is a
     % logical unit because variables defined earlier in the help text
-    % should carry over to later parts.  For instance, this example is
-    % internally represented as two DocTestCases in one DocTest:
+    % should carry over to later parts.  Example:
     %
     % >> x = 17;
     % >> x
@@ -15,7 +14,6 @@ classdef DocTest < TestComponent
     %
     %
     properties
-        MethodName
         DocString
         Examples
     end
@@ -32,9 +30,11 @@ classdef DocTest < TestComponent
             
             % the software under test is the help document of the supplied
             % method:
-            self.Name = sprintf('DocTest(''%s'')', testMethod);
-            self.MethodName = sprintf('help(''%s'')', testMethod);
+            self = self@TestCase(testMethod);
+            
             self.DocString = help(testMethod);  
+            
+            self.Location = which(testMethod);
             
             
            
@@ -45,11 +45,9 @@ classdef DocTest < TestComponent
         
         function num = numTestCases(self)
             % The number of test cases in this doctest
-            %
-            % >> dt = DocTest('help'); % it has no test cases
-            % >> dt.numTestCases()
-            % ans = 0
-            num = numel(self.Examples);
+            % The DocTest is itself a test case, there is exactly 1 test
+            % case.
+            num = 1;
         end
         
         function print(self, numLeadingBlanks)
@@ -87,9 +85,6 @@ classdef DocTest < TestComponent
           
             
             for DOCTEST__I = 1:numel(DOCTEST__examples_to_run)
-                DOCTEST__Case = DocTestCase( ...
-                    sprintf('%s_test_%d', DOCTEST__self.MethodName, DOCTEST__I));
-                DOCTEST__monitor.testComponentStarted(DOCTEST__Case);
                 try
                     DOCTEST__testresult = evalc(DOCTEST__examples_to_run(DOCTEST__I).source);
                 
@@ -102,13 +97,13 @@ classdef DocTest < TestComponent
                 try
                     DOCTEST__did_pass = DOCTEST__self.compare_or_exception(DOCTEST__examples_to_run(DOCTEST__I).want, DOCTEST__testresult, DOCTEST__I);
                 catch DOCTEST__compare_exception
-                    DOCTEST__monitor.testCaseFailure(DOCTEST__Case, DOCTEST__compare_exception)
+                    DOCTEST__monitor.testCaseFailure(DOCTEST__self, DOCTEST__compare_exception)
+                    DOCTEST__did_pass = 0;
+                    break
                 end
                 
                 DOCTEST__all_passed = DOCTEST__all_passed && DOCTEST__did_pass;
                 
-              
-                DOCTEST__monitor.testComponentFinished(DOCTEST__Case, DOCTEST__did_pass);
             end
             
             DOCTEST__monitor.testComponentFinished(DOCTEST__self, DOCTEST__all_passed);
@@ -133,11 +128,11 @@ classdef DocTest < TestComponent
             % They also sometimes backspace over things for no apparent
             % reason.  This doctest recreates that condition.
             %
-            % >> sprintf('There is no letter x here: x\x08')
+            % >> sprintf('There is no letter x here: <<x\x08>>')
             %
             % ans =
             %
-            % There is no letter x here:
+            % There is no letter x here: <<>>
             %
             %
             % The comparison is space-insensitive:

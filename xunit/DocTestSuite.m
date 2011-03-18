@@ -31,6 +31,10 @@ classdef DocTestSuite < TestSuite
             % Find all bits of a function or class that *might* have
             % doctests.  That is, the top-level doc, and all the methods
             % including the constructor.
+            %
+            % At some point, *might* want to rewrite this using
+            % helpUtils.containers.HelpContainerFactory.  But this works
+            % fine for now.
             allComponents = {name};
     
             theMethods = methods(name);

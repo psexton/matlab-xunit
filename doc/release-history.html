@@ -6,6 +6,33 @@
     <body>
         <h1>MATLAB xUnit Release History</h1>
         
+        <h3>3.1 19-Nov-2010</h3>
+        <ul>
+            <li>
+                Add -logfile option to runtests.
+            </li>
+            <li>
+                Allow test names to be passed to runtests as a cell array of strings.
+            </li>
+            <li>
+                Add test suite name and execution date to output of runtests.
+            </li>
+            <li>
+                Added warning message if function-handle-based test file has a setup function
+                that returns more than one output argument.
+            </li>
+            <li>
+                Fix bug related to handling subfunction test files in packages.
+            </li>
+            <li>
+                Fix TestSuite.fromPackageName to find tests inside subpackages.
+            </li>
+            <li>
+                Correct text in exTestCaseSearching.m to show that test files and functions
+                can begin or end with "test" or "Test".
+            </li>
+        </ul>
+        
         <h3>3.0.2 30-Jul-2010</h3>
         <ul>
             <li>

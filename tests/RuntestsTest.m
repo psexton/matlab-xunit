@@ -80,6 +80,34 @@ classdef RuntestsTest < TestCaseInDir
           assertFalse(did_pass);
       end
       
+      function test_logfile(self)
+          name = tempname;
+          command = sprintf('runtests(''../dir1'', ''-logfile'', ''%s'')', name);
+          [T, did_pass] = evalc(command);
+          assertTrue(did_pass);
+          assertTrue(exist(name, 'file') ~= 0);
+          delete(name);
+      end
+      
+      function test_logfileWithNoFile(self)
+          assertExceptionThrown(@() runtests('../dir1', '-logfile'), ...
+              'xunit:runtests:MissingLogfile');
+      end
+      
+      function test_logfileWithNoWritePermission(self)
+          assertExceptionThrown(@() runtests('../dir1', '-logfile', ...
+              'C:\dir__does__not__exist\foobar.txt'), ...
+              'xunit:runtests:FileOpenFailed');
+      end
+      
+      function test_namesInCellArray(self)
+          [T, did_pass] = evalc('runtests({''TestCaseSubclass:testA''})');
+          assertTrue(did_pass);
+          
+          [T, did_pass] = evalc('runtests({''TestCaseSubclass:testA'', ''TestCaseSubclass:testB''})');
+          assertFalse(did_pass);
+      end
+      
    end
 
 end

@@ -5,20 +5,37 @@ function test_happyCase
 suite = TestSuite.fromPackageName('xunit.mocktests');
 assertEqual(numel(suite.TestComponents), 5);
 
-assertEqual(numel(suite.TestComponents{1}.TestComponents), 1);
-assertEqual(suite.TestComponents{1}.Name, 'xunit.mocktests.subpkg');
+theTestComponent = findTestComponent(suite, 'xunit.mocktests.subpkg');
+assertEqual(numel(theTestComponent.TestComponents), 1);
 
-assertEqual(numel(suite.TestComponents{2}.TestComponents), 2);
-assertEqual(suite.TestComponents{2}.Name, 'xunit.mocktests.A');
+theTestComponent = findTestComponent(suite, 'xunit.mocktests.A');
+assertEqual(numel(theTestComponent.TestComponents), 2);
 
-assertEqual(numel(suite.TestComponents{3}.TestComponents), 1);
-assertEqual(suite.TestComponents{3}.Name, 'xunit.mocktests.FooTest');
+theTestComponent = findTestComponent(suite, 'xunit.mocktests.FooTest');
+assertEqual(numel(theTestComponent.TestComponents), 1);
 
-assertEqual(numel(suite.TestComponents{4}.TestComponents), 2);
-assertEqual(suite.TestComponents{4}.Name, 'test_that');
+theTestComponent = findTestComponent(suite, 'xunit.mocktests.test_this');
+assertEqual(numel(theTestComponent.TestComponents), 1);
 
-assertEqual(numel(suite.TestComponents{5}.TestComponents), 1);
-assertEqual(suite.TestComponents{5}.Name, 'xunit.mocktests.test_this');
+theTestComponent = findTestComponent(suite, 'test_that');
+assertEqual(numel(theTestComponent.TestComponents), 2);
+
+% Make sure we'd get an exception if a test wasn't there
+assertExceptionThrown(...
+    @() findTestComponent(suite, 'test_does_not_exist'), ...
+    'assertTrue:falseCondition');
+
+function theTestComponent = findTestComponent(suite, name)
+% Find the TestComponent given a name of a function under test.
+%
+% This is needed because meta.package.fromName() doesn't sort its list of
+% functions, so the ordering isn't always stable.
+
+components = [suite.TestComponents{:}];
+index = find(strcmp(name, {components.Name}), 1);
+assertTrue(~ isempty(index), ['Could not find test component for ' name]);
+
+theTestComponent = suite.TestComponents{index};
 
 function test_badPackageName
 assertExceptionThrown(@() TestSuite.fromPackageName('bogus'), ...

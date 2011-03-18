@@ -1,5 +1,5 @@
 % MATLAB xUnit Test Framework
-% Version 3.0.2 (R2010a) 30-Jul-2010
+% Version 3.1 (R2010b) 19-Nov-2010
 %
 % Running Unit Tests
 %   runtests                  - Run unit tests
@@ -16,7 +16,6 @@
 %
 % Framework Classes
 %   CommandWindowTestRunDisplay - Print test suite results to command window
-%   VerboseCommandWindowTestRunDisplay - Print verbose test suite results to command window
 %   FunctionHandleTestCase    - Test case based on a function handle
 %   TestCase                  - Class defining interface for test cases
 %   TestCaseInDir             - Test case requiring temporary directory change
@@ -24,9 +23,11 @@
 %   TestComponent             - Abstract base class for TestCase and TestSuite
 %   TestComponentInDir        - Test component requiring temporary directory change
 %   TestLogger                - Collect data (silently) from running test suite
+%   TestRunDisplay            - Print test suite execution results
 %   TestRunMonitor            - Abstract base class for monitoring test suite
 %   TestSuite                 - Collection of TestComponent objects
 %   TestSuiteInDir            - Test suite requiring temporary directory change
+%   %VerboseTestRunDisplay    - Print test suite execution results
 
 % Steven L. Eddins
 % Copyright 2008-2010 The MathWorks, Inc.

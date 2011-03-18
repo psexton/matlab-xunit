@@ -15,9 +15,10 @@
 %   Steven L. Eddins
 %   Copyright 2008-2009 The MathWorks, Inc.
 
-[ST,I] = dbstack;
+[ST,I] = dbstack('-completenames');
 caller_name = ST(I + 1).name;
-subFcns = which('-subfun', caller_name);
+caller_file = ST(I + 1).file;
+subFcns = which('-subfun', caller_file);
 
 setup_fcn_name = subFcns(xunit.utils.isSetUpString(subFcns));
 if numel(setup_fcn_name) > 1
@@ -44,7 +45,7 @@ test_fcns = cellfun(@str2func, subFcns(xunit.utils.isTestString(subFcns)), ...
 
 suite = TestSuite;
 suite.Name = caller_name;
-suite.Location = which(caller_name);
+suite.Location = which(caller_file);
 for k = 1:numel(test_fcns)
     suite.add(FunctionHandleTestCase(test_fcns{k}, setup_fcn, teardown_fcn));
 end

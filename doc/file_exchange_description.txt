@@ -6,4 +6,4 @@ MATLAB xUnit comes with extensive documentation that ranges in scope from a "Get
 
 Only the "xunit" directory is needed to use the framework.  The "tests" directory contains the framework's own test suite.  The "architecture" directory contains architectural notes on the framework's design and how it might be extended.
 
-MATLAB xUnit has been tested for use with MATLAB R2008a, R2008b, and R2009a. MATLAB xUnit relies heavily on object-oriented language features introduced in R2008a and will not work with earlier releases.
+MATLAB xUnit can be used with MATLAB releases R2008a and later. MATLAB xUnit relies heavily on object-oriented language features introduced in R2008a and will not work with earlier releases.

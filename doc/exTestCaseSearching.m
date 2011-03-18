@@ -6,16 +6,16 @@
 % it automatically searches for all the test cases in the current directory.  It
 % looks for test cases in three types of M-files:
 %
-% 1. An M-file function whose name begins with "test" or "Test" and that does
+% 1. An M-file function whose name begins or ends with "test" or "Test" and that does
 % not return an output argument.  Such a function is considered to be a single
 % test case. 
 %
-% 2. An M-file function whose name begins with "test" or "Test" and that returns
+% 2. An M-file function whose name begins or ends with "test" or "Test" and that returns
 % an output argument that is a test suite.  Such a function is considered to contain
-% subfunction-style test cases.  Each subfunction whose name begins with "test"
+% subfunction-style test cases.  Each subfunction whose name begins or ends with "test"
 % or "Test" is a test case. 
 %
-% 3. An M-file that defines a subclass of TestCase.  Each method beginning with
+% 3. An M-file that defines a subclass of TestCase.  Each method beginning or ending with
 % "test" or "Test" is a test case.
 %
 % |runtests| uses the |TestSuite| static methods |fromName| and |fromPwd| to

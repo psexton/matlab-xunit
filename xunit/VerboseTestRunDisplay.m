@@ -1,14 +1,14 @@
-classdef VerboseCommandWindowTestRunDisplay < CommandWindowTestRunDisplay
-%VerboseCommandWindowTestRunDisplay Print test suite execution results to Command Window.
-%   VerboseCommandWindowTestRunDisplay is a subclass of
-%   CommandWindowTestRunDisplay.  It supports the -verbose option of runtests.
+classdef VerboseTestRunDisplay < TestRunDisplay
+%VerboseTestRunDisplay Print test suite execution results.
+%   VerboseTestRunDisplay is a subclass of
+%   TestRunDisplay.  It supports the -verbose option of runtests.
 %
 %   Overriddent methods:
 %       testComponentStarted  - Update Command Window display
 %       testComponentFinished - Update Command Window display
 %       testRunFinished       - Update Command Window display at end of run
 %
-%   See also CommandWindowTestRunDisplay, TestRunLogger, TestRunMonitor, TestSuite
+%   See also TestRunDisplay, TestRunLogger, TestRunMonitor, TestSuite
 
 %   Steven L. Eddins
 %   Copyright 2010 The MathWorks, Inc.     
@@ -18,6 +18,13 @@ classdef VerboseCommandWindowTestRunDisplay < CommandWindowTestRunDisplay
     end
     
     methods
+        function self = VerboseTestRunDisplay(output)
+            if nargin < 1
+                output = 1;
+            end
+            
+            self = self@TestRunDisplay(output);
+        end
         
         function testComponentStarted(self, component)
             %testComponentStarted Update Command Window display
@@ -25,15 +32,15 @@ classdef VerboseCommandWindowTestRunDisplay < CommandWindowTestRunDisplay
             self.pushTic();
             
             if ~isa(component, 'TestCase')
-                fprintf('\n');
+                fprintf(self.FileHandle, '\n');
             end
             
-            fprintf('%s%s', self.indentationSpaces(), component.Name);
+            fprintf(self.FileHandle, '%s%s', self.indentationSpaces(), component.Name);
             
             if ~isa(component, 'TestCase')
-                fprintf('\n');
+                fprintf(self.FileHandle, '\n');
             else
-                fprintf(' %s ', self.leaderDots(component.Name));
+                fprintf(self.FileHandle, ' %s ', self.leaderDots(component.Name));
             end
         end    
             
@@ -41,20 +48,20 @@ classdef VerboseCommandWindowTestRunDisplay < CommandWindowTestRunDisplay
             %testComponentFinished Update Command Window display
 
             if ~isa(component, 'TestCase')
-                fprintf('%s%s %s ', self.indentationSpaces(), component.Name, ...
+                fprintf(self.FileHandle, '%s%s %s ', self.indentationSpaces(), component.Name, ...
                     self.leaderDots(component.Name));
             end
             
             component_run_time = toc(self.popTic());
             
             if did_pass
-                fprintf('passed in %12.6f seconds\n', component_run_time);
+                fprintf(self.FileHandle, 'passed in %12.6f seconds\n', component_run_time);
             else
-                fprintf('FAILED in %12.6f seconds\n', component_run_time);
+                fprintf(self.FileHandle, 'FAILED in %12.6f seconds\n', component_run_time);
             end
             
             if ~isa(component, 'TestCase')
-                fprintf('\n');
+                fprintf(self.FileHandle, '\n');
             end
             
             if isempty(self.TicStack)

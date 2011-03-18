@@ -290,6 +290,14 @@ classdef TestSuite < TestComponent
             test_suite.Name = name;
             test_suite.Location = 'Package';
             
+            for k = 1:numel(package_info.Packages)
+                pkg_name = package_info.Packages{k}.Name;
+                pkg_suite = TestSuite.fromPackageName(pkg_name);
+                if ~isempty(pkg_suite.TestComponents)
+                    test_suite.add(TestSuite.fromPackageName(pkg_name));
+                end
+            end
+            
             class_names = cell(1, numel(package_info.Classes));
             for k = 1:numel(package_info.Classes)
                 class_name = package_info.Classes{k}.Name;

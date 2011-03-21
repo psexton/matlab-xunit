@@ -75,7 +75,7 @@ classdef DocTest < TestCase
             % ans = 1
             %
             
-
+            
             if nargin < 2
                 DOCTEST__monitor = CommandWindowTestRunDisplay();
             end
@@ -84,14 +84,14 @@ classdef DocTest < TestCase
             DOCTEST__monitor.testComponentStarted(DOCTEST__self);
             
             DOCTEST__examples_to_run = DOCTEST__self.Examples;
-          
+            
             
             for DOCTEST__I = 1:numel(DOCTEST__examples_to_run)
                 try
                     DOCTEST__testresult = evalc(DOCTEST__examples_to_run(DOCTEST__I).source);
-                
+                    
                 catch DOCTEST__exception
-                    DOCTEST__testresult = DOCTEST__format_exception(DOCTEST__exception);
+                    DOCTEST__testresult = DOCTEST__self.format_exception(DOCTEST__exception);
                 end
                 
                 
@@ -109,6 +109,24 @@ classdef DocTest < TestCase
             end
             
             DOCTEST__monitor.testComponentFinished(DOCTEST__self, DOCTEST__all_passed);
+            
+        end
+        
+        
+        function formatted = format_exception(self, ex)
+            % Format an exception like it looks on the command line.
+            %
+            % >> jskdjfkj
+            % ??? Undefined function or variable 'jskdjfkj'.
+            %
+            if strcmp(ex.stack(1).name, 'DocTest.run')
+                % we don't want the report, we just want the message
+                % otherwise it'll talk about evalc, which is not what the user got on
+                % the command line.
+                formatted = ['??? ' ex.message];
+            else
+                formatted = ['??? ' ex.getReport('basic')];
+            end
             
         end
         

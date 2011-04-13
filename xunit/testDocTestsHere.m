@@ -13,10 +13,17 @@ function test_suite = testDocTestsHere
 test_suite = TestSuite();
 test_suite.Name = ['DocTests at ' pwd];
 test_suite.Location = pwd;
+this_dir = pwd;
 
 mfiles = dir(fullfile('.', '*.m'));
 for k = 1:numel(mfiles)
     [path, name] = fileparts(mfiles(k).name);
+    callable_path = fileparts(which(name));
+    if ~ strcmp(callable_path, this_dir)
+        fprintf('Would get %s from %s when you wanted %s\n', ...
+            name, callable_path, this_dir);
+            error('You seem to be testing files that aren''t on the path');
+    end
     this_suite = DocTestSuite(name);
     if this_suite.numTestCases > 0
         test_suite.add(this_suite);

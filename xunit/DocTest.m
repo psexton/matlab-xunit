@@ -101,7 +101,6 @@ classdef DocTest < TestCase
                 catch DOCTEST__compare_exception
                     DOCTEST__monitor.testCaseFailure(DOCTEST__self, DOCTEST__compare_exception)
                     DOCTEST__did_pass = 0;
-                    break
                 end
                 
                 DOCTEST__all_passed = DOCTEST__all_passed && DOCTEST__did_pass;

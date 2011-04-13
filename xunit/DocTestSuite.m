@@ -1,8 +1,8 @@
 classdef DocTestSuite < TestSuite
-    %DocTestSuite - a set of DocTests that can be run together.
-    % The DocTest parts of the Suite don't share any state between them.
+    %DocTestSuite - a set of DocTestCases that can be run together.
+    % The DocTestCase parts of the Suite don't share any state between them.
     %
-    % A DocTestSuite could contain the DocTests for each of the methods in
+    % A DocTestSuite could contain the DocTestCases for each of the methods in
     % a class, or all of the functions in a directory.
     
     % Copyright 2010-2011 Thomas Grenfell Smith
@@ -20,7 +20,7 @@ classdef DocTestSuite < TestSuite
             for C = 1:length(components)
                 component = components{C};
                 if DocTestSuite.functionHasDocTests(component)
-                    self.add(DocTest(component));
+                    self.add(DocTestCase(component));
                 end
             end
             
@@ -52,7 +52,7 @@ classdef DocTestSuite < TestSuite
             docString = help(name);
             
             
-            match = regexp(docString, DocTest.example_re, 'names', 'once');
+            match = regexp(docString, DocTestCase.example_re, 'names', 'once');
             hasTests = ~ isempty(match);
         end
     end

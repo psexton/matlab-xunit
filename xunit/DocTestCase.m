@@ -1,5 +1,5 @@
-classdef DocTest < TestCase
-    %DocTest
+classdef DocTestCase < TestCase
+    %DocTestCase
     %
     % This TestCase represents a single help(...) output, which is a
     % logical unit because variables defined earlier in the help text
@@ -27,8 +27,8 @@ classdef DocTest < TestCase
     
 
     methods
-        function self = DocTest(testMethod)
-            % DocTest Constructor
+        function self = DocTestCase(testMethod)
+            % DocTestCase Constructor
             
             % the software under test is the help document of the supplied
             % method:
@@ -42,12 +42,12 @@ classdef DocTest < TestCase
            
             
             % Detect all the examples.
-            self.Examples = regexp(self.DocString, DocTest.example_re, 'names', 'warnings');
+            self.Examples = regexp(self.DocString, DocTestCase.example_re, 'names', 'warnings');
         end
         
         function num = numTestCases(self)
             % The number of test cases in this doctest
-            % The DocTest is itself a test case, there is exactly 1 test
+            % The DocTestCase is itself a test case, there is exactly 1 test
             % case.
             num = 1;
         end
@@ -118,7 +118,7 @@ classdef DocTest < TestCase
             % >> jskdjfkj
             % ??? Undefined function or variable 'jskdjfkj'.
             %
-            if strcmp(ex.stack(1).name, 'DocTest.run')
+            if strcmp(ex.stack(1).name, 'DocTestCase.run')
                 % we don't want the report, we just want the message
                 % otherwise it'll talk about evalc, which is not what the user got on
                 % the command line.

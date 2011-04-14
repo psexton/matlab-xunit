@@ -36,6 +36,11 @@ function out = runtests(varargin)
 %   runtests(..., '-logfile', filename) directs the output of runtests to
 %   the specified log file instead of to the Command Window.
 %
+%   runtests(..., '-xmlfile', filename) directs the output of runtests to
+%   the specified xUnit-formatted XML log file instead of to the Command
+%   Window.  This format is compatible with JUnit, and can be read by many
+%   tools.
+%
 %   out = runtests(...) returns a logical value that is true if all the
 %   tests passed.
 %
@@ -83,7 +88,7 @@ logfile = '';
 if nargin < 1
     suite = TestSuite.fromPwd();
 else
-    [name_list, verbose, logfile] = getInputNames(varargin{:});
+    [name_list, verbose, logfile, isxml] = getInputNames(varargin{:});
     if numel(name_list) == 0
         suite = TestSuite.fromPwd();
     elseif numel(name_list) == 1
@@ -100,25 +105,29 @@ if isempty(suite.TestComponents)
     error('xunit:runtests:noTestCasesFound', 'No test cases found.');
 end
 
-if isempty(logfile)
-    logfile_handle = 1; % File handle corresponding to Command Window
-else
-    logfile_handle = fopen(logfile, 'w');
-    if logfile_handle < 0
-        error('xunit:runtests:FileOpenFailed', ...
-            'Could not open "%s" for writing.', logfile);
+if ~ isxml
+    if isempty(logfile)
+        logfile_handle = 1; % File handle corresponding to Command Window
     else
-        cleanup = onCleanup(@() fclose(logfile_handle));
+        logfile_handle = fopen(logfile, 'w');
+        if logfile_handle < 0
+            error('xunit:runtests:FileOpenFailed', ...
+                'Could not open "%s" for writing.', logfile);
+        else
+            cleanup = onCleanup(@() fclose(logfile_handle));
+        end
     end
+
+    fprintf(logfile_handle, 'Test suite: %s\n', suite.Name);
+    if ~strcmp(suite.Name, suite.Location)
+        fprintf(logfile_handle, 'Test suite location: %s\n', suite.Location);
+    end
+    fprintf(logfile_handle, '%s\n\n', datestr(now));
 end
 
-fprintf(logfile_handle, 'Test suite: %s\n', suite.Name);
-if ~strcmp(suite.Name, suite.Location)
-    fprintf(logfile_handle, 'Test suite location: %s\n', suite.Location);
-end
-fprintf(logfile_handle, '%s\n\n', datestr(now));
-
-if verbose
+if isxml
+    monitor = XMLTestRunLogger(logfile);
+elseif verbose
     monitor = VerboseTestRunDisplay(logfile_handle);
 else
     monitor = TestRunDisplay(logfile_handle);
@@ -129,10 +138,11 @@ if nargout > 0
     out = did_pass;
 end
 
-function [name_list, verbose, logfile] = getInputNames(varargin)
+function [name_list, verbose, logfile, isxml] = getInputNames(varargin)
 name_list = {};
 verbose = false;
 logfile = '';
+isxml = false;
 k = 1;
 while k <= numel(varargin)
     arg = varargin{k};
@@ -146,6 +156,15 @@ while k <= numel(varargin)
                 error('xunit:runtests:MissingLogfile', ...
                     'The option -logfile must be followed by a filename.');
             else
+                logfile = varargin{k+1};
+                k = k + 1;
+            end
+        elseif strcmp(arg, '-xmlfile')
+            if k == numel(varargin)
+                error('xunit:runtests:MissingXMLfile', ...
+                    'The option -xmlfile must be followed by a filename.');
+            else
+                isxml = true;
                 logfile = varargin{k+1};
                 k = k + 1;
             end

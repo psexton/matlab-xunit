@@ -1,4 +1,4 @@
-classdef XMLVerboseTestRunDisplay < TestRunDisplay
+classdef XMLTestRunLogger < TestRunDisplay
     %VerboseTestRunDisplay Save results to an XML file
     %   See also TestRunDisplay, TestRunLogger, TestRunMonitor, TestSuite
     
@@ -16,9 +16,9 @@ classdef XMLVerboseTestRunDisplay < TestRunDisplay
     end
     
     methods
-        function self = XMLVerboseTestRunDisplay(reportfile)
+        function self = XMLTestRunLogger(reportfile)
             if nargin < 1
-                error('XMLVerboseTestRunDisplay requires a file to write to');
+                error('XMLTestRunLogger requires a file to write to');
             end
             self.ReportFile = reportfile;
             

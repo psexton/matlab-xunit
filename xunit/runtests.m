@@ -126,7 +126,7 @@ if ~ isxml
 end
 
 if isxml
-    monitor = XMLVerboseTestRunDisplay(logfile);
+    monitor = XMLTestRunLogger(logfile);
 elseif verbose
     monitor = VerboseTestRunDisplay(logfile_handle);
 else

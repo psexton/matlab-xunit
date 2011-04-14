@@ -1,22 +1,34 @@
-classdef XMLTestRunLogger < TestRunDisplay
-    %VerboseTestRunDisplay Save results to an XML file
-    %   See also TestRunDisplay, TestRunLogger, TestRunMonitor, TestSuite
-    
-    %   Steven L. Eddins
-    %   Copyright 2010 The MathWorks, Inc.
+%XMLTestRunLogger Save test results to JUnit-compatible XML file
+%   XMLTestRunLogger is a subclass of TestRunMonitor that collects
+%   information from a TestSuite or TestCase as it runs, and then records
+%   the results of all the tests to an XML file that is usable in various
+%   external tools.  For instance, the Jenkins/Hudson continuous
+%   integration server could run your tests every night, and make a pretty
+%   web page with a graph of test failures.
+%
+%   To engage this class, use `runtests -xmlfile output.xml`
+%
+%   See also TestRunDisplay, TestRunLogger, TestRunMonitor, TestSuite
+
+%   Copyright 2011 Thomas G. Smith
+%   https://github.com/tgs/matlab-xunit-doctest (xml branch)
+
+classdef XMLTestRunLogger < TestRunMonitor
     
     properties (SetAccess = private, GetAccess = private)
-        TicStack = uint64([])
-        Results = struct;
-        TCNum = 0;
-        FailureNum = 0;
-        ErrorNum = 0;
-        CurrentClass = '';
-        ReportFile = '';
+        TicStack = uint64([])   % Keep track of several times at once
+        Results = struct;   % will be transformed to xml
+        TCNum = 0;          % the current test case
+        FailureNum = 0;     % how many failures
+        ErrorNum = 0;       % how many errors
+        CurrentClass = '';  % the current file unit
+        ReportFile = '';    % where to put the output
     end
     
     methods
         function self = XMLTestRunLogger(reportfile)
+            %XMLTestRunLogger Log test results to JUnit-compatible xml
+            % XMLTestRunLogger(outputfile)
             if nargin < 1
                 error('XMLTestRunLogger requires a file to write to');
             end
@@ -26,8 +38,6 @@ classdef XMLTestRunLogger < TestRunDisplay
         end
         
         function testComponentStarted(self, component)
-            %testComponentStarted Update Command Window display
-            
             self.pushTic();
             
             if isa(component, 'TestCase')
@@ -81,8 +91,6 @@ classdef XMLTestRunLogger < TestRunDisplay
     
     methods (Access = protected)
         function testRunFinished(self)
-            %testRunFinished
-            
             self.Results.ATTRIBUTE.tests = self.TCNum;
             self.Results.ATTRIBUTE.skip = 0;
             self.Results.ATTRIBUTE.failures = self.FailureNum;

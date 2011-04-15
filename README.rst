@@ -4,9 +4,9 @@ Matlab xUnit Plus Goodies
 Testing is wonderful!  Let's make it easier and more rewarding!
 
 The most popular testing platform for MATLAB functions and classes is
-Steve Eddins' ``Matlab xUnit`` package.
+Steve Eddins' excellent `Matlab xUnit`_ package.
 
-.. _`Matlab xUnit`: http://www.mathworks.com/matlabcentral/fileexchange/22846-matlab-xunit-test-framework.
+.. _`Matlab xUnit`: http://www.mathworks.com/matlabcentral/fileexchange/22846-matlab-xunit-test-framework
 
 I've made two additions to that package:  the ability to give output in
 a JUnit-compatible XML format, and the ability to run DocTests, similar
@@ -15,16 +15,21 @@ to the ``doctest`` module in Python or vignettes in R.
 These modifications, as well as a copy of the upstream source code, are
 available from the `GitHub repository`_.
 
-.. _`GitHub repository`: https://github.com/tgs/matlab-xunit-doctest.
+.. _`GitHub repository`: https://github.com/tgs/matlab-xunit-doctest
 
 XML Output
 ----------
 
-Why would you want to do that?  Well, because other tools understand it.
-In particular, I'm using the Jenkins continuous integration system
-(http://jenkins-ci.org/) to automatically run unit tests when I check in
-code, and make a pretty graph of my progress in writing tests and fixing
-bugs.
+Why would you want to do that?  Well, because other tools understand it.  In
+particular, I'm using the Jenkins continuous integration system
+(http://jenkins-ci.org/) to automatically run unit tests when I check in code,
+and make a pretty graph of my progress in writing tests and fixing bugs.  You
+can see a screenshot of Jenkins' `table generated from this data`_.  Here's a
+graph of the test trend.
+
+.. image:: http://tgs.github.com/images/test-graph.png
+
+.. _`table generated from this data`: http://tgs.github.com/images/test-table.png
 
 The implementation is based on `xml_io_tools`_ by Jaroslaw Tuszynski, which
 is a nice way to generate XML in Matlab.  It uses about 1/3 the lines of

@@ -20,11 +20,16 @@ available from the `GitHub repository`_.
 XML Output
 ----------
 
-Why would you want to do that?  Well, because other tools understand it.
-In particular, I'm using the Jenkins continuous integration system
-(http://jenkins-ci.org/) to automatically run unit tests when I check in
-code, and make a pretty graph of my progress in writing tests and fixing
-bugs.
+Why would you want to do that?  Well, because other tools understand it.  In
+particular, I'm using the Jenkins continuous integration system
+(http://jenkins-ci.org/) to automatically run unit tests when I check in code,
+and make a pretty graph of my progress in writing tests and fixing bugs.  You
+can see a screenshot of Jenkins' `table generated from this data`_.  Here's a
+graph of the test trend.
+
+.. image:: http://tgs.github.com/images/test-graph.png
+
+.. _`table generated from this data`: http://tgs.github.com/images/test-table.png
 
 The implementation is based on `xml_io_tools`_ by Jaroslaw Tuszynski, which
 is a nice way to generate XML in Matlab.  It uses about 1/3 the lines of

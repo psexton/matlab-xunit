@@ -59,12 +59,12 @@ First, you need a build step that will run the tests.  Mine looks
 something like this:
 
     /path/to/matlab -nodisplay -r "try; \
-                addpath /path/to/xunit-matlab-doctest/xunit; \
-                runtests -xmlfile testreport.xml the_tests/; \
-            catch Ex; \
-                fprintf(2, Ex.getReport()); quit(1); \
-            end; \
-            quit(0);"
+        addpath /path/to/xunit-matlab-doctest/xunit; \
+        runtests -xmlfile testreport.xml the_tests/; \
+      catch Ex; \
+        fprintf(2, Ex.getReport()); quit(1); \
+      end; \
+      quit(0);"
 
 And second, you need to check the Jenkins box that says "Publish JUnit
 test result report."  I tell it to look at `**/testreport.xml`.

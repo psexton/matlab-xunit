@@ -4,17 +4,18 @@ Matlab xUnit Plus Goodies
 Testing is wonderful!  Let's make it easier and more rewarding!
 
 The most popular testing platform for MATLAB functions and classes is
-Steve Eddins' Matlab xUnit package, which can be found on the Matlab
-File Exchange at
-http://www.mathworks.com/matlabcentral/fileexchange/22846-matlab-xunit-test-framework.
+Steve Eddins' `Matlab xUnit` package.
+
+.. _`Matlab xUnit`: http://www.mathworks.com/matlabcentral/fileexchange/22846-matlab-xunit-test-framework.
 
 I've made two additions to that package:  the ability to give output in
 a JUnit-compatible XML format, and the ability to run DocTests, similar
 to the `doctest` module in Python or vignettes in R.
 
 These modifications, as well as a copy of the upstream source code, are
-available from the GitHub repository at
-https://github.com/tgs/matlab-xunit-doctest.
+available from the `GitHub repository`_.
+
+.. _`GitHub repository`: https://github.com/tgs/matlab-xunit-doctest.
 
 XML Output
 ----------
@@ -24,6 +25,12 @@ In particular, I'm using the Jenkins continuous integration system
 (http://jenkins-ci.org/) to automatically run unit tests when I check in
 code, and make a pretty graph of my progress in writing tests and fixing
 bugs.
+
+The implementation is based on `xml_io_tools`_ by Jaroslaw Tuszynski, which
+is a nice way to generate XML in Matlab.  It uses about 1/3 the lines of
+code as Matlab's built-in `xmlwrite`.
+
+.. _`xml_io_tools`: http://www.mathworks.com/matlabcentral/fileexchange/12907-xmliotools
 
 Usage
 ~~~~~

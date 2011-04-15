@@ -4,7 +4,7 @@ Matlab xUnit Plus Goodies
 Testing is wonderful!  Let's make it easier and more rewarding!
 
 The most popular testing platform for MATLAB functions and classes is
-Steve Eddins' ``Matlab xUnit`` package.
+Steve Eddins' excellent `Matlab xUnit`_ package.
 
 .. _`Matlab xUnit`: http://www.mathworks.com/matlabcentral/fileexchange/22846-matlab-xunit-test-framework.
 

@@ -4,13 +4,13 @@ Matlab xUnit Plus Goodies
 Testing is wonderful!  Let's make it easier and more rewarding!
 
 The most popular testing platform for MATLAB functions and classes is
-Steve Eddins' `Matlab xUnit` package.
+Steve Eddins' ``Matlab xUnit`` package.
 
 .. _`Matlab xUnit`: http://www.mathworks.com/matlabcentral/fileexchange/22846-matlab-xunit-test-framework.
 
 I've made two additions to that package:  the ability to give output in
 a JUnit-compatible XML format, and the ability to run DocTests, similar
-to the `doctest` module in Python or vignettes in R.
+to the ``doctest`` module in Python or vignettes in R.
 
 These modifications, as well as a copy of the upstream source code, are
 available from the `GitHub repository`_.
@@ -28,24 +28,24 @@ bugs.
 
 The implementation is based on `xml_io_tools`_ by Jaroslaw Tuszynski, which
 is a nice way to generate XML in Matlab.  It uses about 1/3 the lines of
-code as Matlab's built-in `xmlwrite`.
+code as Matlab's built-in ``xmlwrite``.
 
 .. _`xml_io_tools`: http://www.mathworks.com/matlabcentral/fileexchange/12907-xmliotools
 
 Usage
 ~~~~~
 
-To use this feature, grab either the `master` (includes DocTests too) or
-`xml` (doesn't) branches from GitHub, and put the
-`xunit-matlab-doctest/xunit` directory on your MATLAB path (using
-`addpath`).
+To use this feature, grab either the ``master`` (includes DocTests too) or
+``xml`` (doesn't) branches from GitHub, and put the
+``xunit-matlab-doctest/xunit`` directory on your MATLAB path (using
+``addpath``).
 
 Once you've written some unit tests (see `xUnit's help`_), you can then run
 
     runtests path/to/test/dir -xmlfile testreport.xml
 
 Unsurprisingly, this will run your unit tests and put the results into
-`testreport.xml` in the current directory.
+``testreport.xml`` in the current directory.
 
 .. _`xUnit's help`: http://www.mathworks.com/matlabcentral/fx_files/22846/11/content/matlab_xunit/doc/xunit_product_page.html
 
@@ -72,7 +72,7 @@ something like this:
     quit(0);"
 
 And second, you need to check the Jenkins box that says "Publish JUnit
-test result report."  I tell it to look at `**/testreport.xml`.
+test result report."  I tell it to look at ``**/testreport.xml``.
 
 Now save the configuration, tell the project to Build Now, and you should have
 a lovely display of what tests were run, and which failed!
@@ -109,14 +109,14 @@ The DocTest system also has a limited ability to detect that an expected
 exception was thrown, e.g. if you want to make sure an error message is
 printed.  It is not sensitive to whitespace (it collapses all whitespace
 to a single space when comparing the real result with the example).  It
-also supports `***` as a wildcard.
+also supports ``***`` as a wildcard.
 
 Running
 ~~~~~~~
 
 The method for causing DocTests to be run is a little bit in flux.  For
-the moment, the best way is to copy the `testDocTestsHere.m` file from
-`xunit/` into a directory that contains functions with doctests.  Then,
-you can use the normal xUnit `runtests` function to run both unit and
+the moment, the best way is to copy the ``testDocTestsHere.m`` file from
+``xunit/`` into a directory that contains functions with doctests.  Then,
+you can use the normal xUnit ``runtests`` function to run both unit and
 doctests.
 

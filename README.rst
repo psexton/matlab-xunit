@@ -15,7 +15,21 @@ to the ``doctest`` module in Python or vignettes in R.
 These modifications, as well as a copy of the upstream source code, are
 available from the `GitHub repository`_.
 
+Here's a list of the branches available on GitHub:
+
+* The `upstream branch`_ contains a plain vanilla version of Steve
+  Eddins' Matlab xUnit.
+* The `bugfixes branch`_ contains vanilla xUnit, plus a few very small
+  fixes to make the xUnit's own test suite pass on Linux.
+* The `xml branch`_ extends xUnit to give XML output.
+* The `master branch`_ includes the bugfixes, XML output, and also
+  DocTests.
+
 .. _`GitHub repository`: https://github.com/tgs/matlab-xunit-doctest
+.. _`upstream branch`: https://github.com/tgs/matlab-xunit-doctest/tree/upstream
+.. _`bugfixes branch`: https://github.com/tgs/matlab-xunit-doctest/tree/bugfixes
+.. _`xml branch`: https://github.com/tgs/matlab-xunit-doctest/tree/xml
+.. _`master branch`: https://github.com/tgs/matlab-xunit-doctest/tree/master
 
 XML Output
 ----------
@@ -40,12 +54,11 @@ code as Matlab's built-in ``xmlwrite``.
 Usage
 ~~~~~
 
-To use this feature, grab either the ``master`` (includes DocTests too) or
-``xml`` (doesn't) branches from GitHub, and put the
-``xunit-matlab-doctest/xunit`` directory on your MATLAB path (using
-``addpath``).
+To use this feature, grab either the ``master`` or ``xml`` branches from
+GitHub, and put the ``xunit-matlab-doctest/xunit`` directory on your
+MATLAB path (using ``addpath``).
 
-Once you've written some unit tests (see `xUnit's help`_), you can then run
+Once you've written some unit tests (see `xUnit's help`_), you can then run::
 
     runtests path/to/test/dir -xmlfile testreport.xml
 
@@ -68,13 +81,13 @@ or whatever, and then runs your tests.  I'm not going to run you through
 the whole thing, but here are the two important points:
 
 First, you need a build step that will run the tests.  Mine looks
-something like this:
+something like this::
 
     /path/to/matlab -nodisplay -r "try; \
-    addpath /path/to/xunit-matlab-doctest/xunit; \
-    runtests -xmlfile testreport.xml the_tests/; \
-    catch Ex; fprintf(2, Ex.getReport()); quit(1); end; \
-    quit(0);"
+        addpath /path/to/xunit-matlab-doctest/xunit; \
+        runtests -xmlfile testreport.xml the_tests/; \
+      catch Ex; fprintf(2, Ex.getReport()); quit(1); end; \
+      quit(0);"
 
 And second, you need to check the Jenkins box that says "Publish JUnit
 test result report."  I tell it to look at ``**/testreport.xml``.
@@ -96,7 +109,7 @@ and powerful.  In addition, documentation is supposed to be
 documentation, and if you fill up your help file with lots of arcane
 manipulations, no one will thank you.
 
-What does a DocTest look like?  Here's a simple one:
+What does a DocTest look like?  Here's a simple one::
 
         function sum = add2(num)
         %add2 Add two to a number

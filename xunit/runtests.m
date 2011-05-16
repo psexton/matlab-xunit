@@ -85,6 +85,7 @@ function out = runtests(varargin)
 
 verbose = false;
 logfile = '';
+isxml = false;
 if nargin < 1
     suite = TestSuite.fromPwd();
 else

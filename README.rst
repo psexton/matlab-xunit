@@ -1,3 +1,6 @@
+Matlab xUnit Plus Goodies
+=========================
+
 A quick note
 ------------
 
@@ -9,8 +12,8 @@ mechanism for telling the runner which files to examine is awkward.
 I hope that this is useful to someone, and good luck!
 -Thomas Smith, Jan. 4 2012
 
-Matlab xUnit Plus Goodies
-=========================
+README
+------
 
 Testing is wonderful!  Let's make it easier and more rewarding!
 

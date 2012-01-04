@@ -1,3 +1,14 @@
+A quick note
+------------
+
+I have changed jobs, and I no longer work with, or really have access to, Matlab.
+I will not be maintaining this code.
+If someone else feels like picking it up, I would welcome that!
+I believe that the code is in a pretty good state, except that the
+mechanism for telling the runner which files to examine is awkward.
+I hope that this is useful to someone, and good luck!
+-Thomas Smith, Jan. 4 2012
+
 Matlab xUnit Plus Goodies
 =========================
 

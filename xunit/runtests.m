@@ -41,6 +41,10 @@ function out = runtests(varargin)
 %   Window.  This format is compatible with JUnit, and can be read by many
 %   tools.
 %
+%   You can also pass a directory path instead of a file path to
+%   '-xmlfile'. If you do this, an xml file will be created for each suite,
+%   which Jenkins will be able to present more helpfully.
+%
 %   out = runtests(...) returns a logical value that is true if all the
 %   tests passed.
 %
@@ -143,7 +147,7 @@ if ~isempty(logfile) % Log output to a log file.
     fprintf(logfile_handle, '%s\n\n', datestr(now));
 end
 
-if isempty(xmlfile) % Create an xml file.
+if ~isempty(xmlfile) % Create an xml file.
     loggers{end+1} = {XMLTestRunLogger(xmlfile)};
 end
 

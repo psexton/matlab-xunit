@@ -1,4 +1,4 @@
-classdef MetaTestRunLogger
+classdef MetaTestRunLogger < TestRunMonitor
     %METATESTRUNLOGGER Combine several test run loggers into one
     %   Implement the 4 methods of a matlab-xunit test logger on each of
     %   a cell array of instantiated input loggers.
@@ -38,7 +38,7 @@ classdef MetaTestRunLogger
                 logger = self.loggers{ii}{1};
                 logger.testCaseError(test_case, error_exception);
             end
-        end        
+        end     
     end
     
 end

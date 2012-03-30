@@ -44,8 +44,9 @@ classdef XMLTestRunLogger < TestRunMonitor
                 self.TCNum = self.TCNum + 1;
                 self.Results.testcase{self.TCNum}.ATTRIBUTE.classname = self.CurrentClass;
                 self.Results.testcase{end}.ATTRIBUTE.name = component.Name;
-            else
-                self.CurrentClass = component.Name;
+            elseif isa(component, 'TestSuite')
+                self.testSuiteFinished()
+                self.CurrentClass = component.Name;                
             end
         end
         
@@ -90,7 +91,7 @@ classdef XMLTestRunLogger < TestRunMonitor
     end
     
     methods (Access = protected)
-        function testRunFinished(self)
+        function writeResults(self, filename)
             self.Results.ATTRIBUTE.tests = self.TCNum;
             self.Results.ATTRIBUTE.skip = 0;
             self.Results.ATTRIBUTE.failures = self.FailureNum;
@@ -99,11 +100,35 @@ classdef XMLTestRunLogger < TestRunMonitor
             wPref.StructItem = false;
             wPref.CellItem = false;
             
-            xml_write(self.ReportFile, self.Results, 'testsuite', wPref);
+            xml_write(filename, self.Results, 'testsuite', wPref);            
+        end
+        
+        % ONLY IF the ReportFile is a directory, write an xml file for each
+        % suite.
+        function testSuiteFinished(self)
+            [~, filename] = fileparts(self.ReportFile);
+            if isempty(filename) && ~isempty(self.CurrentClass)
+                self.Results.ATTRIBUTE.name = self.CurrentClass;                
+                self.writeResults(self.getResultFileName());
+                
+                self.Results = struct;
+                self.TCNum = 0;
+            end
+        end
+        
+        function testRunFinished(self)
+            self.writeResults(self.getResultFileName());
         end
     end
     
     methods (Access = private)
+        function filename = getResultFileName(self)
+            [pathname, filename] = fileparts(self.ReportFile);
+            if isempty(filename)
+                filename = fullfile(pathname, ['TEST-' self.CurrentClass '.xml']);
+            end
+        end
+        
         function pushTic(self)
             self.TicStack(end+1) = tic;
         end

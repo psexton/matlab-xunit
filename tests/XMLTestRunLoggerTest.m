@@ -32,6 +32,25 @@ classdef XMLTestRunLoggerTest < TestCaseInDir
             end
         end
 
+        function testLogsResultsToFileIdentifier(self)
+            fileIdentifier = fopen(self.testResultsFilename, 'w');
+            fileCloser = onCleanup(@() fclose(fileIdentifier));
+
+            logger = XMLTestRunLogger(fileIdentifier);
+            suite = TestSuite('TwoPassingTests');
+            suite.run(logger);
+
+            % The XMLTestRunLogger should have created the correct output file
+            assertTrue(self.resultTargetExists());
+
+            % And the resulting file should contain the correct results
+            testResults = xml_read(self.testResultsFilename);
+            assertEqual(testResults.ATTRIBUTE.tests, 2);
+            assertEqual(testResults.ATTRIBUTE.errors, 0);
+            assertEqual(testResults.ATTRIBUTE.failures, 0);
+            assertEqual(testResults.ATTRIBUTE.skip, 0);
+        end
+
         function testLogsResultsToFilename(self)
             logger = XMLTestRunLogger(self.testResultsFilename);
             suite = TestSuite('TwoPassingTests');

@@ -23,6 +23,7 @@ classdef XMLTestRunLogger < TestRunMonitor
         ErrorNum = 0;       % how many errors
         CurrentClass = '';  % the current file unit
         ReportFile = '';    % where to put the output
+        ReportFileIdentifier = -1; % file identifier to be used as a target instead of a filename
     end
     
     methods
@@ -32,7 +33,13 @@ classdef XMLTestRunLogger < TestRunMonitor
             if nargin < 1
                 error('XMLTestRunLogger requires a file to write to');
             end
-            self.ReportFile = reportfile;
+
+            if self.isValidFileIdentifier(reportfile)
+                self.ReportFileIdentifier = reportfile;
+                self.ReportFile = tempname;
+            else
+                self.ReportFile = reportfile;
+            end
             
             self.Results.ATTRIBUTE.name = 'MATLAB xUnit';
         end
@@ -100,10 +107,17 @@ classdef XMLTestRunLogger < TestRunMonitor
             wPref.CellItem = false;
             
             xml_write(self.ReportFile, self.Results, 'testsuite', wPref);
+            if self.ReportFileIdentifier > 0
+                self.synchronizeReportFiles();
+            end
         end
     end
     
     methods (Access = private)
+        function value = isValidFileIdentifier(~, identifier)
+            value = isnumeric(identifier) && any(identifier == fopen('all'));
+        end
+
         function pushTic(self)
             self.TicStack(end+1) = tic;
         end
@@ -111,6 +125,10 @@ classdef XMLTestRunLogger < TestRunMonitor
         function t1 = popTic(self)
             t1 = self.TicStack(end);
             self.TicStack(end) = [];
+        end
+
+        function synchronizeReportFiles(self)
+            fwrite(self.ReportFileIdentifier, fileread(self.ReportFile));
         end
     end
     

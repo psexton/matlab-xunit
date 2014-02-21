@@ -1,7 +1,7 @@
 classdef VerboseTestRunDisplay < TestRunDisplay
 %VerboseTestRunDisplay Print test suite execution results.
 %   VerboseTestRunDisplay is a subclass of
-%   TestRunDisplay.  It supports the -verbose option of runtests.
+%   TestRunDisplay.  It supports the -verbose option of runxunit.
 %
 %   Overriddent methods:
 %       testComponentStarted  - Update Command Window display

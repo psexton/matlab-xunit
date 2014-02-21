@@ -1,5 +1,5 @@
 %% <../index.html MATLAB xUnit Test Framework>: How to Run Tests Silently and Query the Results
-% When you run a test suite using |runtests|, the results are
+% When you run a test suite using |runxunit|, the results are
 % summarized in the Command Window.  This example shows you how to
 % run a test suite so that nothing prints to the Command Window, and
 % it shows you how to write a program to automatically determine the

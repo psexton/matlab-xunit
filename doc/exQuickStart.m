@@ -34,12 +34,12 @@ type testFliplrMatrix
 % inputs are equal. If they are equal, |assertEqual| simply returns silently.
 % If they are not equal, |assertEqual| calls |error|.
 
-%% Run all the tests using |runtests|
-% To run all your test cases, simply call |runtests|.  |runtests| automatically finds
+%% Run all the tests using |runxunit|
+% To run all your test cases, simply call |runxunit|.  |runxunit| automatically finds
 % all the test cases in the current directory, runs them, and reports the
 % results to the Command Window.
 
-runtests
+runxunit
 
 %%
 % <../index.html Back to MATLAB xUnit Test Framework>

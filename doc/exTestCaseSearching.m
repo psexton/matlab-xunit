@@ -1,7 +1,7 @@
-%% <../index.html MATLAB xUnit Test Framework>: How RUNTESTS Searches for Test Cases
-% When you call |runtests| with no input arguments:
+%% <../index.html MATLAB xUnit Test Framework>: How RUNXUNIT Searches for Test Cases
+% When you call |runxunit| with no input arguments:
 %
-%   >> runtests
+%   >> runxunit
 %
 % it automatically searches for all the test cases in the current directory.  It
 % looks for test cases in three types of M-files:
@@ -18,7 +18,7 @@
 % 3. An M-file that defines a subclass of TestCase.  Each method beginning or ending with
 % "test" or "Test" is a test case.
 %
-% |runtests| uses the |TestSuite| static methods |fromName| and |fromPwd| to
+% |runxunit| uses the |TestSuite| static methods |fromName| and |fromPwd| to
 % automatically construct the test suites.
 %
 % Here are a couple of examples.

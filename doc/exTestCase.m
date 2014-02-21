@@ -50,10 +50,10 @@ dbtype TestUsingTestCase 20:26
 dbtype TestUsingTestCase 16:18
 
 %%
-% Run the test cases in the class by calling |runtests| with the name
+% Run the test cases in the class by calling |runxunit| with the name
 % of the class.
 
-runtests TestUsingTestCase
+runxunit TestUsingTestCase
 
 %%
 % <../index.html Back to MATLAB xUnit Test Framework>

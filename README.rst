@@ -12,6 +12,12 @@ mechanism for telling the runner which files to examine is awkward.
 I hope that this is useful to someone, and good luck!
 -Thomas Smith, Jan. 4 2012
 
+Check out the forks of the code!  @adambard has added support for creating more than one output file 
+at once, and @psexton has switched the name of the runtests function to `runxunit` so it doesn't
+conflict with Matlab's now-builtin test runner.
+
+Sadly, this will not run on Octave, because it makes use of Matlab's `classdef` functionality.
+
 README
 ------
 

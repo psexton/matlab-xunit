@@ -22,9 +22,9 @@ cd examples_general
 type testSetupExample
 
 %%
-% Run the tests using |runtests|.
+% Run the tests using |runxunit|.
 
-runtests testSetupExample
+runxunit testSetupExample
 
 %%
 % You might also want to see the 

@@ -4,7 +4,7 @@ function generateDoc
 %   Steven L. Eddins
 %   Copyright 2008-2009 The MathWorks, Inc.
 
-doc_dir = fullfile(fileparts(which('runtests')), '..', 'doc');
+doc_dir = fullfile(fileparts(which('runxunit')), '..', 'doc');
 addpath(doc_dir);
 cd(doc_dir)
 mfiles = dir('*.m');

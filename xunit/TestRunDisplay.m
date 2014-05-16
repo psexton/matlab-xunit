@@ -234,7 +234,7 @@ function new_stack = filterStack(stack)
 % stack trace has left the framework directory, do not follow the stack trace back
 % into the framework directory.
 
-mtest_directory = fileparts(which('runtests'));
+mtest_directory = fileparts(which('runxunit'));
 last_keeper = numel(stack);
 have_left_mtest_directory = false;
 for k = 1:numel(stack)

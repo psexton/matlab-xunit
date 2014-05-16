@@ -22,9 +22,9 @@ cd example_subfunction_tests
 type testFliplr
 
 %%
-% As usual, run the test cases using |runtests|:
+% As usual, run the test cases using |runxunit|:
 
-runtests
+runxunit
 
 %%
 % <../index.html Back to MATLAB xUnit Test Framework>

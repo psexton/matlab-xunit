@@ -4,63 +4,66 @@
 <html><head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
    <!--
-This HTML is auto-generated from an M-file.
-To make changes, update the M-file and republish this document.
-      --><title>MATLAB xUnit Test Framework: How to Test Using a Floating-Point Tolerance</title><meta name="generator" content="MATLAB 7.10"><meta name="date" content="2010-07-29"><meta name="m-file" content="exTolerance"><style type="text/css">
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>MATLAB xUnit Test Framework: How to Test Using a Floating-Point Tolerance</title><meta name="generator" content="MATLAB 8.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2014-02-20"><meta name="DC.source" content="exTolerance.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
-body {
-  background-color: white;
-  margin:10px;
-}
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
 
-h1 {
-  color: #990000; 
-  font-size: x-large;
-}
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
 
-h2 {
-  color: #990000;
-  font-size: medium;
-}
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
 
-/* Make the text shrink to fit narrow windows, but not stretch too far in 
-wide windows. */ 
-p,h1,h2,div.content div {
-  max-width: 600px;
-  /* Hack for IE6 */
-  width: auto !important; width: 600px;
-}
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img { margin-bottom:0px; } 
 
-pre.codeinput {
-  background: #EEEEEE;
-  padding: 10px;
-}
-@media print {
-  pre.codeinput {word-wrap:break-word; width:100%;}
-} 
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
 
-span.keyword {color: #0000FF}
-span.comment {color: #228B22}
-span.string {color: #A020F0}
-span.untermstring {color: #B20000}
-span.syscmd {color: #B28C00}
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
 
-pre.codeoutput {
-  color: #666666;
-  padding: 10px;
-}
+pre, tt, code { font-size:12px; }
+pre { margin:0px 0px 20px; }
+pre.error { color:red; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
 
-pre.error {
-  color: red;
-}
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
 
-p.footer {
-  text-align: right;
-  font-size: xx-small;
-  font-weight: lighter;
-  font-style: italic;
-  color: gray;
-}
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
 
   </style></head><body><div class="content"><h1><a href="../index.html">MATLAB xUnit Test Framework</a>: How to Test Using a Floating-Point Tolerance</h1><p>MATLAB performs arithmetic operations using the floating-point hardware instructions on your processor. Because almost all floating-point operations are subject to round-off error, arithmetic operations can sometimes produce surprising results. Here's an example.</p><pre class="codeinput">a = 1 + 0.1 + 0.1 + 0.1
 </pre><pre class="codeoutput">
@@ -78,13 +81,13 @@ ans =
 </pre><pre class="codeoutput">
 ans =
 
-  2.2204e-016
+   2.2204e-16
 
 </pre><p>As a general rule, when comparing the results of floating-point calculations for equality, it is necessary to use a tolerance value.  Two types of tolerance comparisons are commonly used: absolute tolerance and relative tolerance.  An absolute tolerance comparison of <i>a</i> and <i>b</i> looks like:</p><p><img src="exTolerance_eq55725.png" alt="$$|a-b| \leq T$$"></p><p>A relative tolerance comparison looks like:</p><p><img src="exTolerance_eq28823.png" alt="$$|a-b| \leq T\max(|a|,|b|) + T_f$$"></p><p>where <i>Tf</i> is called the <i>floor tolerance</i>. It acts as an absolute tolerance when <i>a</i> and <i>b</i> are very close to 0.</p><p>For example, suppose that <i>a</i> is 100, <i>b</i> is 101, and T is 0.1.  Then <i>a</i> and <i>b</i> would not be considered equal using an absolute tolerance, because 1 &gt; 0.1.  However, <i>a</i> and <i>b</i> would be considered equal using a relative tolerance, because they differ by only 1 part in 100.</p><p>MATLAB xUnit provides the utility assertion functions called <tt>assertElementsAlmostEqual</tt> and <tt>assertVectorAlmostEqual</tt>. These functions make it easy to write tests involving floating-point tolerances.</p><p><tt>assertElementsAlmostEqual(A,B)</tt> applies the tolerance test independently to every element of <tt>A</tt> and <tt>B</tt>.  The function uses a relative tolerance test by default, but you make it use an absolute tolerance test, or change the tolerance values used, by passing additional arguments to it.</p><p><tt>assertVectorsAlmostEqual(A,B)</tt> applies the tolerance test to the vectors <tt>A</tt> and <tt>B</tt> in the L2-norm sense.  For example, suppose <tt>A</tt> is <tt>[1 1e10</tt>], <tt>B</tt> is <tt>[2 1e10]</tt>, and the tolerance is 1e-8.  Then <tt>A</tt> and <tt>B</tt> would fail an elementwise relative tolerance comparison, because the relative difference between the first elements is 0.5.  However, they would pass a vector relative tolerance comparison, because the relative vector difference between <tt>A</tt> and <tt>B</tt> is only about 1 part in 1e10.</p><p>The <tt>examples_general</tt> directory contains a portion of a unit test for the <tt>sin</tt> function.  The output of <tt>sin</tt> can sometimes be a bit surprising because of floating-point issues.  For example:</p><pre class="codeinput">sin(pi)
 </pre><pre class="codeoutput">
 ans =
 
-  1.2246e-016
+   1.2246e-16
 
 </pre><p>That's very close but not exactly equal to 0.  Here's how the <tt>sin</tt> unit test uses <tt>assertElementsAlmostEqual</tt> to write the <tt>sin(pi)</tt> test with a minimum of fuss.</p><pre class="codeinput">cd <span class="string">examples_general</span>
 type <span class="string">testSin</span>
@@ -92,12 +95,15 @@ type <span class="string">testSin</span>
 function testSin
 
 assertElementsAlmostEqual(sin(pi), 0);
-</pre><p>Run the test using <tt>runtests</tt>.</p><pre class="codeinput">runtests <span class="string">testSin</span>
-</pre><pre class="codeoutput">Starting test run with 1 test case.
+</pre><p>Run the test using <tt>runxunit</tt>.</p><pre class="codeinput">runxunit <span class="string">testSin</span>
+</pre><pre class="codeoutput">Test suite: testSin
+Test suite location: C:\Users\psexton\Documents\GitHub\matlab-xunit-doctest\doc\examples_general\testSin.m
+20-Feb-2014 19:59:11
+
+Starting test run with 1 test case.
 .
-PASSED in 0.023 seconds.
-</pre><p><a href="../index.html">Back to MATLAB xUnit Test Framework</a></p><p class="footer">Copyright 2008-2010 The MathWorks, Inc.<br>
-      Published with MATLAB&reg; 7.10<br></p></div><!--
+PASSED in 0.014 seconds.
+</pre><p><a href="../index.html">Back to MATLAB xUnit Test Framework</a></p><p class="footer">Copyright 2008-2010 The MathWorks, Inc.<br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2012b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% <../index.html MATLAB xUnit Test Framework>: How to Test Using a Floating-Point Tolerance
 % MATLAB performs arithmetic operations using the floating-point
@@ -179,9 +185,9 @@ cd examples_general
 type testSin
 
 %%
-% Run the test using |runtests|.
+% Run the test using |runxunit|.
 
-runtests testSin
+runxunit testSin
 
 %%
 % <../index.html Back to MATLAB xUnit Test Framework>

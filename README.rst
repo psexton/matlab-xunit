@@ -1,23 +1,6 @@
 Matlab xUnit Plus Goodies
 =========================
 
-A quick note
-------------
-
-I have changed jobs, and I no longer work with, or really have access to, Matlab.
-I will not be maintaining this code.
-If someone else feels like picking it up, I would welcome that!
-I believe that the code is in a pretty good state, except that the
-mechanism for telling the runner which files to examine is awkward.
-I hope that this is useful to someone, and good luck!
--Thomas Smith, Jan. 4 2012
-
-Check out the forks of the code!  @adambard has added support for creating more than one output file 
-at once, and @psexton has switched the name of the runtests function to `runxunit` so it doesn't
-conflict with Matlab's now-builtin test runner.
-
-Sadly, this will not run on Octave, because it makes use of Matlab's `classdef` functionality.
-
 README
 ------
 
@@ -28,28 +11,14 @@ Steve Eddins' excellent `Matlab xUnit`_ package.
 
 .. _`Matlab xUnit`: http://www.mathworks.com/matlabcentral/fileexchange/22846-matlab-xunit-test-framework
 
-I've made two additions to that package:  the ability to give output in
-a JUnit-compatible XML format, and the ability to run DocTests, similar
-to the ``doctest`` module in Python or vignettes in R.
+The previous maintainer, Thomas Smith, made two additions to that package:  
+the ability to give output in a JUnit-compatible XML format, and the 
+ability to run DocTests, similar to the ``doctest`` module in Python or 
+vignettes in R.
 
-These modifications, as well as a copy of the upstream source code, are
-available from the `GitHub repository`_.
-
-Here's a list of the branches available on GitHub:
-
-* The `upstream branch`_ contains a plain vanilla version of Steve
-  Eddins' Matlab xUnit.
-* The `bugfixes branch`_ contains vanilla xUnit, plus a few very small
-  fixes to make the xUnit's own test suite pass on Linux.
-* The `xml branch`_ extends xUnit to give XML output.
-* The `master branch`_ includes the bugfixes, XML output, and also
-  DocTests.
-
-.. _`GitHub repository`: https://github.com/tgs/matlab-xunit-doctest
-.. _`upstream branch`: https://github.com/tgs/matlab-xunit-doctest/tree/upstream
-.. _`bugfixes branch`: https://github.com/tgs/matlab-xunit-doctest/tree/bugfixes
-.. _`xml branch`: https://github.com/tgs/matlab-xunit-doctest/tree/xml
-.. _`master branch`: https://github.com/tgs/matlab-xunit-doctest/tree/master
+I've made one additional change: renaming ``runtests`` to ``runxunit`` so
+that it's compatible with MATLAB R2013a and newer. (``runtests`` is now a 
+built-in function.)
 
 XML Output
 ----------
@@ -80,7 +49,7 @@ MATLAB path (using ``addpath``).
 
 Once you've written some unit tests (see `xUnit's help`_), you can then run::
 
-    runtests path/to/test/dir -xmlfile testreport.xml
+    runxunit path/to/test/dir -xmlfile testreport.xml
 
 Unsurprisingly, this will run your unit tests and put the results into
 ``testreport.xml`` in the current directory.
@@ -105,7 +74,7 @@ something like this::
 
     /path/to/matlab -nodisplay -r "try; \
         addpath /path/to/xunit-matlab-doctest/xunit; \
-        runtests -xmlfile testreport.xml the_tests/; \
+        runxunit -xmlfile testreport.xml the_tests/; \
       catch Ex; fprintf(2, Ex.getReport()); quit(1); end; \
       quit(0);"
 
@@ -155,6 +124,6 @@ Running
 The method for causing DocTests to be run is a little bit in flux.  For
 the moment, the best way is to copy the ``testDocTestsHere.m`` file from
 ``xunit/`` into a directory that contains functions with doctests.  Then,
-you can use the normal xUnit ``runtests`` function to run both unit and
+you can use the normal xUnit ``runxunit`` function to run both unit and
 doctests.
 

@@ -100,7 +100,7 @@
 % |TestCase| subclasses in the directory. In addition, it constructs test suites
 % from all the procedural M-files in the directory beginning with "[tT]est".
 %
-% The _File System Test Runner_, |runtests|, provides convenient syntaxes for
+% The _File System Test Runner_, |runxunit|, provides convenient syntaxes for
 % performing test case discovery automatically.
 
 %% FunctionHandleTestCase: For the Procedural World
@@ -208,7 +208,7 @@
 % Here is the output when using the CommandWindowTestRunDisplay object on the
 % MATLAB xUnit's own test suite:
 %
-%    runtests 
+%    runxunit 
 %    Starting test run with 92 test cases.
 %    ....................
 %    ....................
@@ -219,13 +219,13 @@
 
 %% File System Test Runner
 % MATLAB xUnit provides a command-line _File System Test Runner_ called
-% |runtests|.  When called with no input arguments, |runtests| gathers all the 
+% |runxunit|.  When called with no input arguments, |runxunit| gathers all the 
 % test cases from the current directory and runs them, summarizing the results
-% to the Command Window.  |runtests| can also take a string argument specifying
+% to the Command Window.  |runxunit| can also take a string argument specifying
 % which test file, and optionally which specific test case, to run.
 
 %% Test Selection
-% Test selection is supported in |runtests| by passing in a string of the form:
+% Test selection is supported in |runxunit| by passing in a string of the form:
 %
 %     'Location:Name'
 %
@@ -233,7 +233,7 @@
 %
 %     'Location'
 %
-% Both of these forms are handled by |runtests| and by |TestSuite.fromName|.
+% Both of these forms are handled by |runxunit| and by |TestSuite.fromName|.
 %
 % 'Location' is the name of the M-file containing test cases.  'Name' is the
 % name of a specific test case.  Normally, the name of the test case is the name
@@ -287,11 +287,11 @@
 % functions, all further framework functions are filtered out of the stack
 % trace.
 %
-% Here's an example of stack trace display in the output of |runtests|:
+% Here's an example of stack trace display in the output of |runxunit|:
 %
 % <html>
 % <tt>
-% >> runtests testSample<br />
+% >> runxunit testSample<br />
 % Starting test run with 1 test case.<br />
 % F<br />
 % FAILED in 0.081 seconds.<br />

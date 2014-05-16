@@ -2,7 +2,7 @@
 % Version 3.1 (R2010b) 19-Nov-2010
 %
 % Running Unit Tests
-%   runtests                  - Run unit tests
+%   runxunit                  - Run unit tests
 %
 % Writing Unit Tests
 %   assertElementsAlmostEqual - Assert floating-point array elements almost equal

@@ -5,8 +5,8 @@ function test_suite = testDocTestsHere
 % doctests it can find in this directory.  It does not include
 % subdirectories.
 %
-% Once this file is there, you can run 'runtests' in this directory, or if
-% you're somewhere else, 'runtests /path/to/this/dir'.
+% Once this file is there, you can run 'runxunit' in this directory, or if
+% you're somewhere else, 'runxunit /path/to/this/dir'.
 %
 
 % Copyright 2010-2011 Thomas Grenfell Smith

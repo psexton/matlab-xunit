@@ -56,9 +56,9 @@ cd examples_general
 type testCos
 
 %%
-% Run the test using |runtests|.
+% Run the test using |runxunit|.
 
-runtests testCos
+runxunit testCos
 
 %%
 % <../index.html Back to MATLAB xUnit Test Framework>

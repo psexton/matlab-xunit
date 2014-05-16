@@ -6,7 +6,7 @@
 %   integration server could run your tests every night, and make a pretty
 %   web page with a graph of test failures.
 %
-%   To engage this class, use `runtests -xmlfile output.xml`
+%   To engage this class, use `runxunit -xmlfile output.xml`
 %
 %   See also TestRunDisplay, TestRunLogger, TestRunMonitor, TestSuite
 

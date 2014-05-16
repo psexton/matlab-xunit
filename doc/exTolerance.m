@@ -78,9 +78,9 @@ cd examples_general
 type testSin
 
 %%
-% Run the test using |runtests|.
+% Run the test using |runxunit|.
 
-runtests testSin
+runxunit testSin
 
 %%
 % <../index.html Back to MATLAB xUnit Test Framework>

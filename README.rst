@@ -87,6 +87,8 @@ a lovely display of what tests were run, and which failed!
 DocTests
 --------
 
+*(WARNING: DocTests is an experimental feature and not part of the officially supported public API.)*
+
 What are these good for?  Well, often it's nice to have examples in your
 documentation.  Well, now you can automatically run those examples to
 make sure that they still produce the expected output.  This helps

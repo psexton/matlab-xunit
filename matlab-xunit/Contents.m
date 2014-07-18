@@ -1,5 +1,5 @@
-% MATLAB xUnit Test Framework
-% Version 3.1 (R2010b) 19-Nov-2010
+% xUnit Test Framework
+% Version 4.0.0 (R2010b) 2014-07-21
 %
 % Running Unit Tests
 %   runxunit                  - Run unit tests
@@ -27,7 +27,4 @@
 %   TestRunMonitor            - Abstract base class for monitoring test suite
 %   TestSuite                 - Collection of TestComponent objects
 %   TestSuiteInDir            - Test suite requiring temporary directory change
-%   %VerboseTestRunDisplay    - Print test suite execution results
-
-% Steven L. Eddins
-% Copyright 2008-2010 The MathWorks, Inc.
+%   VerboseTestRunDisplay    - Print test suite execution results

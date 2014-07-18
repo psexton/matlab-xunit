@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="matlab-xunit : xUnit for Matlab with JUnit-compatible XML output" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>matlab-xunit</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/psexton/matlab-xunit">View on GitHub</a>
+
+          <h1 id="project_title">matlab-xunit</h1>
+          <h2 id="project_tagline">xUnit for Matlab with JUnit-compatible XML output</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/psexton/matlab-xunit/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/psexton/matlab-xunit/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>Testing is wonderful! Let's make it easier and more rewarding!</p>
+
+<p>The most popular testing platform for MATLAB functions and classes is/was Steve Eddins' excellent <a href="http://www.mathworks.com/matlabcentral/fileexchange/22846-matlab-xunit-test-framework">Matlab xUnit</a> package.</p>
+
+<p>The previous maintainer, <a href="https://github.com/tgs/">Thomas Smith</a>, made two additions to that package: the ability to give output in a JUnit-compatible XML format, and the ability to run DocTests, similar to the <code>doctest</code> module in Python or vignettes in R.</p>
+
+<p>I've made one additional change: renaming <code>runtests</code> to <code>runxunit</code> so that it's compatible with MATLAB R2013a and newer. (<code>runtests</code> is now a built-in function.)</p>
+
+<h1>
+<a name="xml-output" class="anchor" href="#xml-output"><span class="octicon octicon-link"></span></a>XML Output</h1>
+
+<p>Why would you want to do that?  Well, because other tools understand it. In particular, I'm using the Jenkins continuous integration system (<a href="http://jenkins-ci.org/">http://jenkins-ci.org/</a>) to automatically run unit tests when I check in code. Jenkins understands JUnit's XML report format, and can display it in very nice ways. By creating a test report file in the same format, we can leverage all of that.</p>
+
+<p>For example, here's a screenshot of the table Jenkins generates from a single build's report:</p>
+
+<p><img src="doc/images/jenkins_test_results.png" alt="Jenkins test results"></p>
+
+<p>And here's a graph of the test trend:</p>
+
+<p><img src="doc/images/jenkins_trend_graph.png" alt="Jenkins trend graph"></p>
+
+<p>The implementation is based on <a href="http://www.mathworks.com/matlabcentral/fileexchange/12907-xmliotools">xml_io_tools</a> by Jaroslaw Tuszynski, which is a nice way to generate XML in Matlab. It uses about 1/3 the lines of code as Matlab's built-in <code>xmlwrite</code>.</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>To use this feature, clone or download this from GitHub, and put the <code>xunit-matlab/xunit</code> directory on your MATLAB path (using <code>addpath</code>).</p>
+
+<p>Once you've written some unit tests (see <a href="https://cdn.rawgit.com/psexton/matlab-xunit/master/doc/xunit_product_page.html">xUnit's help</a>), you can then run:</p>
+
+<pre><code>runxunit path/to/test/dir -xmlfile testreport.xml
+</code></pre>
+
+<p>Unsurprisingly, this will run your unit tests and put the results into <code>testreport.xml</code> in the current directory.</p>
+
+<h2>
+<a name="usage-with-jenkins" class="anchor" href="#usage-with-jenkins"><span class="octicon octicon-link"></span></a>Usage with Jenkins</h2>
+
+<p>OK, this is really cool, but involves some setup. First, you're going to have to either install Jenkins on the machine that has Matlab, or give Jenkins remote access to that machine (there may be Matlab licensing issues to this, I have no idea). As a note, installing Jenkins is incredibly easy: you download one file and run one command.</p>
+
+<p>Now, you need to create a job that checks out your code from Subversion or whatever, and then runs your tests. I'm not going to run you through the whole thing, but here are the two important points:</p>
+
+<p>First, you need a build step that will run the tests. Mine looks something like this:</p>
+
+<pre><code>/path/to/matlab -nodisplay -r "try; \
+    addpath /path/to/xunit-matlab-doctest/xunit; \
+    runxunit -xmlfile testreport.xml the_tests/; \
+  catch Ex; fprintf(2, Ex.getReport()); quit(1); end; \
+  quit(0);"
+</code></pre>
+
+<p>And second, you need to check the Jenkins box that says "Publish JUnit test result report." I tell it to look at <code>**/testreport.xml</code>.</p>
+
+<p>Now save the configuration, tell the project to Build Now, and you should have a lovely display of what tests were run, and which failed!</p>
+
+<h1>
+<a name="doctests" class="anchor" href="#doctests"><span class="octicon octicon-link"></span></a>DocTests</h1>
+
+<p><em>As of version 4.0.0, DocTests is no longer part of the "core" matlab-xunit and lives in its own repository at <a href="https://github.com/psexton/matlab-xunit-doctests">matlab-xunit-doctests</a>.</em></p>
+
+<h1>
+<a name="versioning" class="anchor" href="#versioning"><span class="octicon octicon-link"></span></a>Versioning</h1>
+
+<p>This codebase is over 5 years old now, and has had several maintainers, so past versioning is kind of a mess. Starting with version 4.0.0, it follows <a href="http://semver.org">Semantic Versioning</a> for versions, and <a href="http://semvername.org">Semanticly Versioned Names</a> for tags and releases.</p>
+
+<h1>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h1>
+
+<ol>
+<li>Fork it ( <a href="https://github.com/psexton/matlab-xunit/fork">https://github.com/psexton/matlab-xunit/fork</a> )</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create a new Pull Request </li>
+</ol><h1>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h1>
+
+<p><a href="http://opensource.org/licenses/BSD-3-Clause">BSD 3-Clause</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">matlab-xunit maintained by <a href="https://github.com/psexton">psexton</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-51498927-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>

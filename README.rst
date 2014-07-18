@@ -43,8 +43,7 @@ code as Matlab's built-in ``xmlwrite``.
 Usage
 ~~~~~
 
-To use this feature, grab either the ``master`` or ``xml`` branches from
-GitHub, and put the ``xunit-matlab-doctest/xunit`` directory on your
+To use this feature, clone or download from GitHub, and put the ``xunit-matlab/xunit`` directory on your
 MATLAB path (using ``addpath``).
 
 Once you've written some unit tests (see `xUnit's help`_), you can then run::

@@ -57,3 +57,20 @@ Now save the configuration, tell the project to Build Now, and you should have a
 # DocTests
 
 _As of version 4.0.0, DocTests is no longer part of the "core" matlab-xunit and lives in its own repository at [matlab-xunit-doctests](https://github.com/psexton/matlab-xunit-doctests)._
+
+# Versioning
+
+This codebase is over 5 years old now, and has had several maintainers, so past versioning is kind of a mess. Starting with version 4.0.0, it follows [Semantic Versioning](http://semver.org) for versions, and [Semanticly Versioned Names](http://semvername.org) for tags and releases.
+
+# Contributing
+
+1. Fork it ( https://github.com/psexton/matlab-xunit/fork )
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request 
+
+#License
+
+[BSD 3-Clause](http://opensource.org/licenses/BSD-3-Clause)
+

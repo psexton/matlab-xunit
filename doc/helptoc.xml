@@ -2,7 +2,7 @@
 
 <toc version="1.0">
 
-<tocitem target="index.html">MATLAB xUnit Test Framework for MATLAB
+<tocitem target="index.html">xUnit Test Framework
     <tocitem target="html/exQuickStart.html">
         Quick Start: How to Write and Run Tests
     </tocitem>
@@ -34,9 +34,9 @@
         How to Write xUnit-Style Tests by Subclassing TestCase
     </tocitem>
     <tocitem target="html/exTestCaseSearching.html">
-        How MATLAB xUnit Searches for Test Cases
+        How xUnit Searches for Test Cases
     </tocitem>
-    <tocitem target="http://www.mathworks.com/matlabcentral/fileexchange/22846" image="$toolbox/matlab/icons/webicon.gif">
+    <tocitem target="http://psexton.github.io/matlab-xunit/" image="$toolbox/matlab/icons/webicon.gif">
     Latest Version
 </tocitem>
 </tocitem>

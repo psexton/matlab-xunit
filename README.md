@@ -51,3 +51,7 @@ First, you need a build step that will run the tests. Mine looks something like 
 And second, you need to check the Jenkins box that says "Publish JUnit test result report." I tell it to look at ``**/testreport.xml``.
 
 Now save the configuration, tell the project to Build Now, and you should have a lovely display of what tests were run, and which failed!
+
+# DocTests
+
+_As of version 4.0.0, DocTests is no longer part of the "core" matlab-xunit and lives in its own repository at [matlab-xunit-doctests](https://github.com/psexton/matlab-xunit-doctests)._

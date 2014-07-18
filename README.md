@@ -24,3 +24,13 @@ And here's a graph of the test trend:
 
 ![Jenkins trend graph](doc/images/jenkins_trend_graph.png)
 
+## Usage
+
+To use this feature, clone or download this from GitHub, and put the ``xunit-matlab/xunit`` directory on your MATLAB path (using ``addpath``).
+
+Once you've written some unit tests (see [xUnit's help](https://cdn.rawgit.com/psexton/matlab-xunit/master/doc/xunit_product_page.html)), you can then run:
+
+    runxunit path/to/test/dir -xmlfile testreport.xml
+
+Unsurprisingly, this will run your unit tests and put the results into ``testreport.xml`` in the current directory.
+

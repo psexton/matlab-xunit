@@ -15,18 +15,29 @@ classdef XMLTestRunLoggerTest < TestCaseInDir
 
     methods
         function self = XMLTestRunLoggerTest(name)
+            % These tests use the TwoPassingTests suite helper class, so
+            % the tests have to be executed in the context of the
+            % helper_classes directory
             self = self@TestCaseInDir(name, ...
               fullfile(fileparts(mfilename('fullpath')), 'helper_classes'));
         end
 
         function setUp(self)
-            % If a the result target exists at the start of the test run do not
-            % remove it after the test run has finished to prevent the test
+            % If the result target exists at the start of the test run do
+            % not remove it after the run has finished to prevent the test
             % from removing files it shouldn't
             self.performCleanup = ~self.resultTargetExists();
+
+            % Call the setUp method on the parent class to set up the
+            % environment such that the TwoPassingTests suite can be found
+            setUp@TestCaseInDir(self);
         end
 
         function tearDown(self)
+            % Call the tearDown method on the parent class to restore the
+            % environment to the state it was in before running the test
+            tearDown@TestCaseInDir(self);
+
             if self.resultTargetExists() && self.performCleanup
                 delete(self.testResultsFilename);
             end
@@ -40,7 +51,7 @@ classdef XMLTestRunLoggerTest < TestCaseInDir
             suite = TestSuite('TwoPassingTests');
             suite.run(logger);
 
-            % The XMLTestRunLogger should have created the correct output file
+            % The XMLTestRunLogger should have created the output file
             assertTrue(self.resultTargetExists());
 
             % And the resulting file should contain the correct results
@@ -56,7 +67,7 @@ classdef XMLTestRunLoggerTest < TestCaseInDir
             suite = TestSuite('TwoPassingTests');
             suite.run(logger);
 
-            % The XMLTestRunLogger should have created the correct output file
+            % The XMLTestRunLogger should have created the output file
             assertTrue(self.resultTargetExists());
 
             % And the resulting file should contain the correct results

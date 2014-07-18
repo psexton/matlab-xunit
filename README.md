@@ -24,6 +24,8 @@ And here's a graph of the test trend:
 
 ![Jenkins trend graph](doc/images/jenkins_trend_graph.png)
 
+The implementation is based on [xml_io_tools](http://www.mathworks.com/matlabcentral/fileexchange/12907-xmliotools) by Jaroslaw Tuszynski, which is a nice way to generate XML in Matlab. It uses about 1/3 the lines of code as Matlab's built-in ``xmlwrite``.
+
 ## Usage
 
 To use this feature, clone or download this from GitHub, and put the ``xunit-matlab/xunit`` directory on your MATLAB path (using ``addpath``).

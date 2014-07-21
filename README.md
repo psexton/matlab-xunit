@@ -8,13 +8,13 @@ Testing is wonderful! Let's make it easier and more rewarding!
 
 The most popular testing platform for MATLAB functions and classes is/was Steve Eddins' excellent [Matlab xUnit](http://www.mathworks.com/matlabcentral/fileexchange/22846-matlab-xunit-test-framework) package.
 
-The previous maintainer, [Thomas Smith](https://github.com/tgs/), made two additions to that package: the ability to give output in a JUnit-compatible XML format, and the ability to run DocTests, similar to the ``doctest`` module in Python or vignettes in R.
+The previous maintainer, [Thomas Smith](https://github.com/tgs/), made two additions to that package: the ability to give output in a JUnit-compatible XML format, and the ability to run DocTests, similar to the `doctest` module in Python or vignettes in R.
 
-I've made one additional change: renaming ``runtests`` to ``runxunit`` so that it's compatible with MATLAB R2013a and newer. (``runtests`` is now a built-in function.)
+I've made one additional change: renaming `runtests` to `runxunit` so that it's compatible with MATLAB R2013a and newer. (`runtests` is now a built-in function.)
 
 ## Installation and Usage
 
-To install matlab-xunit, clone or download this from GitHub, and put the ``matlab-xunit/src`` and ``matlab-xunit/matlab-xunit`` directories on your MATLAB path (using ``addpath``).
+To install matlab-xunit, clone or download this from GitHub, and put the `matlab-xunit/src` and `matlab-xunit/matlab-xunit` directories on your MATLAB path (using `addpath`).
 
 Once you've written some unit tests (see [xUnit's help](https://cdn.rawgit.com/psexton/matlab-xunit/master/doc/xunit_product_page.html)), you can then run:
 
@@ -38,7 +38,7 @@ If everything goes well, you'll see some output like this:
     .............
     PASSED in 2.922 seconds.
 
-If any of the tests failed, they'll be marked with a ``F`` instead of a ``.`` and more info about the failure will be printed at the end. You can also get more verbose info on all tests, both passes and failures, by using the `-verbose` flag.
+If any of the tests failed, they'll be marked with a `F` instead of a `.` and more info about the failure will be printed at the end. You can also get more verbose info on all tests, both passes and failures, by using the `-verbose` flag.
 
 # XML Output
 
@@ -52,7 +52,7 @@ And here's a graph of the test trend:
 
 ![Jenkins trend graph](doc/images/jenkins_trend_graph.png)
 
-The implementation is based on [xml_io_tools](http://www.mathworks.com/matlabcentral/fileexchange/12907-xmliotools) by Jaroslaw Tuszynski, which is a nice way to generate XML in Matlab. It uses about 1/3 the lines of code as Matlab's built-in ``xmlwrite``.
+The implementation is based on [xml_io_tools](http://www.mathworks.com/matlabcentral/fileexchange/12907-xmliotools) by Jaroslaw Tuszynski, which is a nice way to generate XML in Matlab. It uses about 1/3 the lines of code as Matlab's built-in `xmlwrite`.
 
 ## Usage
 
@@ -60,7 +60,7 @@ Once you've written some unit tests (see [xUnit's help](https://cdn.rawgit.com/p
 
     runxunit path/to/test/dir -xmlfile testreport.xml
 
-Unsurprisingly, this will run your unit tests and put the results into ``testreport.xml`` in the current directory.
+Unsurprisingly, this will run your unit tests and put the results into `testreport.xml` in the current directory.
 
 ## Usage with Jenkins
 
@@ -76,7 +76,7 @@ First, you need a build step that will run the tests. Mine looks something like 
       catch Ex; fprintf(2, Ex.getReport()); quit(1); end; \
       quit(0);"
   
-And second, you need to check the Jenkins box that says "Publish JUnit test result report." I tell it to look at ``**/testreport.xml``.
+And second, you need to check the Jenkins box that says "Publish JUnit test result report." I tell it to look at `**/testreport.xml`.
 
 Now save the configuration, tell the project to Build Now, and you should have a lovely display of what tests were run, and which failed!
 

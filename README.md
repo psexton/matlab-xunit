@@ -12,6 +12,34 @@ The previous maintainer, [Thomas Smith](https://github.com/tgs/), made two addit
 
 I've made one additional change: renaming ``runtests`` to ``runxunit`` so that it's compatible with MATLAB R2013a and newer. (``runtests`` is now a built-in function.)
 
+## Installation and Usage
+
+To install matlab-xunit, clone or download this from GitHub, and put the ``xunit-matlab/src`` and ``xunit-matlab/xunit-matlab`` directories on your MATLAB path (using ``addpath``).
+
+Once you've written some unit tests (see [xUnit's help](https://cdn.rawgit.com/psexton/matlab-xunit/master/doc/xunit_product_page.html)), you can then run:
+
+    runxunit path/to/test/dir
+    
+If everything goes well, you'll see some output like this:
+
+    >> runxunit ./tests
+    Test suite: tests
+    Test suite location: ./tests
+    17-Jul-2014 20:49:47
+    
+    Starting test run with 153 test cases.
+    ....................
+    ....................
+    ....................
+    ....................
+    ....................
+    ....................
+    ....................
+    .............
+    PASSED in 2.922 seconds.
+
+If any of the tests failed, they'll be marked with a ``F`` instead of a ``.`` and more info about the failure will be printed at the end. You can also get more verbose info on all tests, both passes and failures, by using the `-verbose` flag.
+
 # XML Output
 
 Why would you want to do that?  Well, because other tools understand it. In particular, I'm using the Jenkins continuous integration system (http://jenkins-ci.org/) to automatically run unit tests when I check in code. Jenkins understands JUnit's XML report format, and can display it in very nice ways. By creating a test report file in the same format, we can leverage all of that.
@@ -27,8 +55,6 @@ And here's a graph of the test trend:
 The implementation is based on [xml_io_tools](http://www.mathworks.com/matlabcentral/fileexchange/12907-xmliotools) by Jaroslaw Tuszynski, which is a nice way to generate XML in Matlab. It uses about 1/3 the lines of code as Matlab's built-in ``xmlwrite``.
 
 ## Usage
-
-To use this feature, clone or download this from GitHub, and put the ``xunit-matlab/xunit`` directory on your MATLAB path (using ``addpath``).
 
 Once you've written some unit tests (see [xUnit's help](https://cdn.rawgit.com/psexton/matlab-xunit/master/doc/xunit_product_page.html)), you can then run:
 

@@ -14,7 +14,7 @@ I've made one additional change: renaming ``runtests`` to ``runxunit`` so that i
 
 ## Installation and Usage
 
-To install matlab-xunit, clone or download this from GitHub, and put the ``xunit-matlab/src`` and ``xunit-matlab/xunit-matlab`` directories on your MATLAB path (using ``addpath``).
+To install matlab-xunit, clone or download this from GitHub, and put the ``matlab-xunit/src`` and ``matlab-xunit/matlab-xunit`` directories on your MATLAB path (using ``addpath``).
 
 Once you've written some unit tests (see [xUnit's help](https://cdn.rawgit.com/psexton/matlab-xunit/master/doc/xunit_product_page.html)), you can then run:
 

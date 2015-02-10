@@ -5,12 +5,15 @@ testSuite = buildFunctionHandleTestSuite(localFunctionHandles);
 
 function test_happyCase
 suite = TestSuite.fromPackageName('xunit.mocktests');
-assertEqual(numel(suite.TestComponents), 5);
+assertEqual(numel(suite.TestComponents), 6);
 
 theTestComponent = findTestComponent(suite, 'xunit.mocktests.subpkg');
 assertEqual(numel(theTestComponent.TestComponents), 1);
 
 theTestComponent = findTestComponent(suite, 'xunit.mocktests.A');
+assertEqual(numel(theTestComponent.TestComponents), 2);
+
+theTestComponent = findTestComponent(suite, 'xunit.mocktests.C');
 assertEqual(numel(theTestComponent.TestComponents), 2);
 
 theTestComponent = findTestComponent(suite, 'xunit.mocktests.FooTest');
@@ -33,8 +36,8 @@ function theTestComponent = findTestComponent(suite, name)
 % This is needed because meta.package.fromName() doesn't sort its list of
 % functions, so the ordering isn't always stable.
 
-components = [suite.TestComponents{:}];
-index = find(strcmp(name, {components.Name}), 1);
+componentNames = cellfun(@(x) x.Name, suite.TestComponents, 'UniformOutput', false);
+index = find(strcmp(name, componentNames), 1);
 assertTrue(~ isempty(index), ['Could not find test component for ' name]);
 
 theTestComponent = suite.TestComponents{index};

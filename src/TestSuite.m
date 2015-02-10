@@ -373,6 +373,8 @@ classdef TestSuite < TestComponent
                 class_names{k} = class_name;
                 if xunit.utils.isTestCaseSubclass(class_name)
                     test_suite.add(TestSuite.fromTestCaseClassName(class_name));
+                elseif xunit.utils.isTestSuiteSubclass(class_name)
+                    test_suite.add(feval(class_name));
                 end
             end
             

@@ -90,7 +90,7 @@ classdef TestRunLogger < TestRunMonitor
         end
     end
     
-    methods (Access = private)
+    methods (Access = protected)
         function appendToLog(self, item)
             self.Log{end+1} = item;
         end

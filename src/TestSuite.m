@@ -231,8 +231,11 @@ classdef TestSuite < TestComponent
             if xunit.utils.isTestCaseSubclass(name)
                 suite = TestSuite.fromTestCaseClassName(name);
                 
+            elseif xunit.utils.isTestSuiteSubclass(name)
+                suite = feval(name);
+                
             elseif ~isempty(meta.class.fromName(name))
-                % Input is the name of a class that is not a TestCase subclass.
+                % Input is the name of a class that is not a TestCase or TestSuite subclass.
                 % Return an empty test suite.
                 suite = TestSuite();
                 suite.Name = name;

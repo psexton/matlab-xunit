@@ -305,15 +305,39 @@ classdef TestSuite < TestComponent
             test_suite.Name = pwd;
             test_suite.Location = pwd;
             
-            mfiles = dir(fullfile('.', '*.m'));
-            for k = 1:numel(mfiles)
-                [path, name] = fileparts(mfiles(k).name);
-                if xunit.utils.isTestCaseSubclass(name)
-                    test_suite.add(TestSuite.fromTestCaseClassName(name));
-                elseif xunit.utils.isTestString(name)
-                    suite_k = TestSuite.fromName(name);
-                    if ~isempty(suite_k.TestComponents)
-                        test_suite.add(suite_k);
+            list = dir();
+            for k = 1:numel(list)
+                if list(k).isdir
+                    % Directories
+                    if strncmpi(list(k).name, '@', 1)
+                        % Class directory
+                        name = list(k).name(2:end);
+                        if xunit.utils.isTestCaseSubclass(name)
+                            test_suite.add(TestSuite.fromTestCaseClassName(name));
+                        elseif xunit.utils.isTestSuiteSubclass(name)
+                            test_suite.add(feval(name));
+                        end
+                    elseif strncmpi(list(k).name, '+', 1)
+                        % Package directory
+                        name = list(k).name(2:end);
+                        test_suite.add(TestSuite.fromPackageName(name));
+                    end
+                else
+                    % Files
+                    [~,~,e] = fileparts(list(k).name);
+                    if strcmpi(e, '.m')
+                        % M-files
+                        [~, name] = fileparts(list(k).name);
+                        if xunit.utils.isTestCaseSubclass(name)
+                            test_suite.add(TestSuite.fromTestCaseClassName(name));
+                        elseif xunit.utils.isTestSuiteSubclass(name)
+                            test_suite.add(feval(name));
+                        elseif xunit.utils.isTestString(name)
+                            suite_k = TestSuite.fromName(name);
+                            if ~isempty(suite_k.TestComponents)
+                                test_suite.add(suite_k);
+                            end
+                        end
                     end
                 end
             end
@@ -324,7 +348,7 @@ classdef TestSuite < TestComponent
             %   test_suite = TestSuite.fromPackageName(name) constructs a
             %   TestSuite object from all the test components found in the
             %   specified package.
-
+            
             package_info = meta.package.fromName(name);
             if isempty(package_info)
                 error('xunit:fromPackageName:invalidName', ...

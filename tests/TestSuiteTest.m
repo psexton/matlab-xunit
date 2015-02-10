@@ -117,9 +117,7 @@ classdef TestSuiteTest < TestCaseInDir
           % test components.
           suite = TestSuite.fromPwd();
           assertTrue(isa(suite, 'TestSuite'));
-          assertTrue(numel(suite.TestComponents) == 16);
+          assertEqual(numel(suite.TestComponents), 17);
       end
-      
    end
-
 end

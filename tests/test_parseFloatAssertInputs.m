@@ -4,12 +4,12 @@ initTestSuite;
 %===============================================================================
 function test_tooFewInputs()
 assertExceptionThrown(@() xunit.utils.parseFloatAssertInputs(), ...
-    'MATLAB:nargchk:notEnoughInputs');
+    'MATLAB:narginchk:notEnoughInputs');
 
 %===============================================================================
 function test_tooManyInputs()
 assertExceptionThrown(@() xunit.utils.parseFloatAssertInputs(1,2,3,4,5,6,7), ...
-    'MATLAB:nargchk:tooManyInputs');
+    'MATLAB:narginchk:tooManyInputs');
 
 %===============================================================================
 function test_twoInputs()

@@ -197,9 +197,30 @@ classdef TestSuite < TestComponent
             %   named 'testA' found in the TestCase subclass MyTests.
             
             if isdir(name)
-                suite = TestSuiteInDir(name);
-                suite.gatherTestCases();
-                return;
+                % The provided name could be a path. However due to the way
+                % MATLAB works it could also be a partial path somewhere on the
+                % MATLAB path. To make sure we only operate on actual folders
+                % some additional logic is necessary
+                folderContents = what(name);
+
+                % Actually existing paths will only return a single element
+                % (cases exist where multiple values are returned, e.g.
+                % what('matlab')). Furthermore the path could be an absolute
+                % path or relative to the current working directory.
+                if numel(folderContents) == 1
+                    if strcmp(name, folderContents.path)
+                        suite = TestSuiteInDir(folderContents.path);
+                        suite.gatherTestCases();
+                        return;
+                    else
+                        relativePath = fullfile(pwd(), name);
+                        if isdir(relativePath)
+                            suite = TestSuiteInDir(relativePath);
+                            suite.gatherTestCases();
+                            return;
+                        end
+                    end
+                end
             end
             
             [name, filter_string] = strtok(name, ':');

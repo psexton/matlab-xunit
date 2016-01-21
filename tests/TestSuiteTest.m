@@ -96,6 +96,20 @@ classdef TestSuiteTest < TestCaseInDir
          assertEqual(suite.Location, cwd_test_dir);
          assertEqual(numel(suite.TestComponents), 3);
       end
+
+      function test_fromName_with_relative_dirname_on_path(self)
+         % Passing a partial directory name that is on the MATLAB path will
+         % cause a crash if not handled properly, see #14. The 'matlab' package
+         % here is used as that will exist multiple times with respect to
+         % `what` used internally. The case for relative paths is implicitly
+         % tested, as that will make other tests in the test suite of this
+         % package fail.
+         suite = TestSuite.fromName('matlab');
+
+         assertEqual(suite.Name, 'matlab');
+         assertEqual(suite.Location, 'Package');
+         assertEqual(numel(suite.TestComponents), 0);
+      end
       
       function test_fromPwd(self)
           % Verify that the fromPwd method returns a nonempty TestSuite object

@@ -1,6 +1,6 @@
 function displayStack(stack, file_handle)
-%displayStack Display stack trace from MException instance
-%   displayStack(stack) prints information about an exception stack to the
+%xunit.displayStack Display stack trace from MException instance
+%   xunit.displayStack(stack) prints information about an exception stack to the
 %   command window.
 
 %   Steven L. Eddins

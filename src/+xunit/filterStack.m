@@ -1,6 +1,6 @@
 function new_stack = filterStack(stack)
-%filterStack Remove unmeaningful stack trace calls
-%    new_stack = filterStack(stack) removes from the input stack trace calls
+%xunit.filterStack Remove unmeaningful stack trace calls
+%    new_stack = xunit.filterStack(stack) removes from the input stack trace calls
 %    that are framework functions and methods that are not likely to be
 %    meaningful to the user.
 

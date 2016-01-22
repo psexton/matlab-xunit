@@ -180,7 +180,7 @@ classdef TestRunDisplay < TestRunMonitor
             %    test error to the command window.
             for k = 1:numel(self.Faults)
                 faultData = self.Faults(k);
-                displayFault(self.FileHandle, faultData.Type, faultData.TestCase, faultData.Exception);
+                xunit.displayFault(self.FileHandle, faultData.Type, faultData.TestCase, faultData.Exception);
             end
         end
         

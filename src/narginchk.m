@@ -15,9 +15,9 @@ function narginchk(minargs, maxargs)
 
 
   if (args < minargs)
-    error ('MATLAB:narginchk:notEnoughInputs', 'not enough input arguments');
+    error ('MATLAB:narginchk:notEnoughInputs', 'Not enough input arguments.');
   elseif (args > maxargs)
-    error ('MATLAB:narginchk:tooManyInputs', 'too many input arguments');
+    error ('MATLAB:narginchk:tooManyInputs', 'Too many input arguments.');
   end
 
 end

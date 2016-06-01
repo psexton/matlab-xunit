@@ -53,7 +53,7 @@ classdef XMLTestRunLogger < TestRunMonitor
                 self.Results.testcase{end}.ATTRIBUTE.name = component.Name;
             elseif isa(component, 'TestSuite')
                 self.testSuiteFinished()
-                self.CurrentClass = component.Name;                
+                self.CurrentClass = component.Name;
             end
         end
         
@@ -119,7 +119,7 @@ classdef XMLTestRunLogger < TestRunMonitor
         function testSuiteFinished(self)
             [~, filename] = fileparts(self.ReportFile);
             if isempty(filename) && ~isempty(self.CurrentClass)
-                self.Results.ATTRIBUTE.name = self.CurrentClass;                
+                self.Results.ATTRIBUTE.name = self.CurrentClass;
                 self.writeResults(self.getResultFileName());
                 
                 self.Results = struct;
@@ -141,6 +141,8 @@ classdef XMLTestRunLogger < TestRunMonitor
             [pathname, filename] = fileparts(self.ReportFile);
             if isempty(filename)
                 filename = fullfile(pathname, ['TEST-' self.CurrentClass '.xml']);
+            else
+                filename = self.ReportFile;
             end
         end
         

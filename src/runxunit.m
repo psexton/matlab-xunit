@@ -1,7 +1,7 @@
 function out = runxunit(varargin)
 %runxunit Run unit tests
-%   runxunit runs all the test cases that can be found in the current directory
-%   and summarizes the results in the Command Window.
+%   runxunit runs all the test cases that can be found in the current
+%   directory and summarizes the results in the Command Window.
 %
 %   Test cases can be found in the following places in the current directory:
 %
@@ -19,27 +19,29 @@ function out = runxunit(varargin)
 %   runxunit(packagename) runs all the test cases found in the specified
 %   package. (This option requires R2009a or later).
 %
-%   runxunit(mfilename) runs test cases found in the specified function or class
-%   name. The function or class needs to be in the current directory or on the
-%   MATLAB path.
+%   runxunit(mfilename) runs test cases found in the specified function or
+%   class name. The function or class needs to be in the current directory
+%   or on the MATLAB path.
 %
-%   runxunit('mfilename:testname') runs the specific test case named 'testname'
-%   found in the function or class 'name'.
+%   runxunit('mfilename:testname') runs the specific test case named
+%   'testname' found in the function or class 'name'.
 %
 %   Multiple directories or file names can be specified by passing multiple
 %   names to runxunit, as in runxunit(name1, name2, ...) or
 %   runxunit({name1, name2, ...}, ...)
 %
-%   runxunit(..., '-verbose') displays the name and result, result, and time
-%   taken for each test case to the Command Window.
+%   runxunit(..., '-verbose') displays the name, result, and time taken for
+%   each test case to the Command Window. 
 %
 %   runxunit(..., '-logfile', filename) directs the output of runxunit to
-%   the specified log file instead of to the Command Window.
+%   the specified log.
 %
 %   runxunit(..., '-xmlfile', filename) directs the output of runxunit to
-%   the specified xUnit-formatted XML log file instead of to the Command
-%   Window.  This format is compatible with JUnit, and can be read by many
-%   tools.
+%   the specified xUnit-formatted XML log file.  This format is compatible
+%   with JUnit, and can be read by many tools.
+%
+%   runxunit(..., '-suppress') suppresses output of runxunit to the Command
+%   Window. 
 %
 %   You can also pass a directory path instead of a file path to
 %   '-xmlfile'. If you do this, an xml file will be created for each suite,

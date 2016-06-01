@@ -40,12 +40,12 @@ function out = runxunit(varargin)
 %   the specified xUnit-formatted XML log file.  This format is compatible
 %   with JUnit, and can be read by many tools.
 %
-%   runxunit(..., '-suppress') suppresses output of runxunit to the Command
-%   Window. 
-%
-%   You can also pass a directory path instead of a file path to
+%   You can also pass an absolute directory path instead of a file path to
 %   '-xmlfile'. If you do this, an xml file will be created for each suite,
 %   which Jenkins will be able to present more helpfully.
+%
+%   runxunit(..., '-suppress') suppresses output of runxunit to the Command
+%   Window. 
 %
 %   out = runxunit(...) returns a logical value that is true if all the
 %   tests passed.

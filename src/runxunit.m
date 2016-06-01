@@ -41,6 +41,10 @@ function out = runxunit(varargin)
 %   Window.  This format is compatible with JUnit, and can be read by many
 %   tools.
 %
+%   You can also pass a directory path instead of a file path to
+%   '-xmlfile'. If you do this, an xml file will be created for each suite,
+%   which Jenkins will be able to present more helpfully.
+%
 %   out = runxunit(...) returns a logical value that is true if all the
 %   tests passed.
 %
@@ -85,11 +89,12 @@ function out = runxunit(varargin)
 
 verbose = false;
 logfile = '';
-isxml = false;
+xmlfile = '';
+suppress = false;
 if nargin < 1
     suite = TestSuite.fromPwd();
 else
-    [name_list, verbose, logfile, isxml] = getInputNames(varargin{:});
+    [name_list, verbose, logfile, xmlfile, suppress] = getInputNames(varargin{:});
     if numel(name_list) == 0
         suite = TestSuite.fromPwd();
     elseif numel(name_list) == 1
@@ -106,17 +111,33 @@ if isempty(suite.TestComponents)
     error('xunit:runxunit:noTestCasesFound', 'No test cases found.');
 end
 
-if ~ isxml
-    if isempty(logfile)
-        logfile_handle = 1; % File handle corresponding to Command Window
+if(suppress && isempty(logfile) && isempty(xmlfile))
+    error('xunit:runtests:noOutputFound', 'You should specify at least one way to get your test results.');
+end
+
+loggers = {};
+
+if ~suppress % Display output to command line
+    if verbose
+        loggers{end+1} = {VerboseTestRunDisplay(1)};
     else
-        logfile_handle = fopen(logfile, 'w');
-        if logfile_handle < 0
+        loggers{end+1} = {TestRunDisplay(1)};
+    end
+end
+
+if ~isempty(logfile) % Log output to a log file.
+    logfile_handle = fopen(logfile, 'w');
+    if logfile_handle < 0
             error('xunit:runxunit:FileOpenFailed', ...
-                'Could not open "%s" for writing.', logfile);
-        else
-            cleanup = onCleanup(@() fclose(logfile_handle));
-        end
+            'Could not open "%s" for writing.', logfile);
+    else
+        cleanup = onCleanup(@() fclose(logfile_handle));
+    end
+    
+    if verbose
+        loggers{end+1} = {VerboseTestRunDisplay(logfile_handle)};
+    else
+        loggers{end+1} = {TestRunDisplay(logfile_handle)};
     end
 
     fprintf(logfile_handle, 'Test suite: %s\n', suite.Name);
@@ -126,24 +147,23 @@ if ~ isxml
     fprintf(logfile_handle, '%s\n\n', datestr(now));
 end
 
-if isxml
-    monitor = XMLTestRunLogger(logfile);
-elseif verbose
-    monitor = VerboseTestRunDisplay(logfile_handle);
-else
-    monitor = TestRunDisplay(logfile_handle);
+if ~isempty(xmlfile) % Create an xml file.
+    loggers{end+1} = {XMLTestRunLogger(xmlfile)};
 end
+
+monitor = MetaTestRunLogger(loggers);
 did_pass = suite.run(monitor);
 
 if nargout > 0
     out = did_pass;
 end
 
-function [name_list, verbose, logfile, isxml] = getInputNames(varargin)
+function [name_list, verbose, logfile, xmlfile, suppress] = getInputNames(varargin)
 name_list = {};
 verbose = false;
 logfile = '';
-isxml = false;
+xmlfile = '';
+suppress = false;
 k = 1;
 while k <= numel(varargin)
     arg = varargin{k};
@@ -152,6 +172,8 @@ while k <= numel(varargin)
     elseif ~isempty(arg) && (arg(1) == '-')
         if strcmp(arg, '-verbose')
             verbose = true;
+        elseif strcmp(arg, '-suppress')
+            suppress = true;            
         elseif strcmp(arg, '-logfile')
             if k == numel(varargin)
                 error('xunit:runxunit:MissingLogfile', ...
@@ -165,8 +187,7 @@ while k <= numel(varargin)
                 error('xunit:runxunit:MissingXMLfile', ...
                     'The option -xmlfile must be followed by a filename.');
             else
-                isxml = true;
-                logfile = varargin{k+1};
+                xmlfile = varargin{k+1};
                 k = k + 1;
             end
         else

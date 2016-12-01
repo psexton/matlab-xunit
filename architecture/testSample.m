@@ -1,5 +1,5 @@
-function test_suite = testSample
-initTestSuite;
+function testSuite = testSample
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function testMyCode
 assertEqual(1, 1);

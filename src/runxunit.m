@@ -10,7 +10,7 @@ function out = runxunit(varargin)
 %
 %       * An M-file function whose name starts or ends with "test" or
 %         "Test" and that contains subfunction tests and uses the
-%         initTestSuite script to return a TestSuite object.
+%         buildFunctionHandleTestSuite funtion to return a TestSuite object.
 %
 %       * An M-file defining a subclass of TestCase.
 %

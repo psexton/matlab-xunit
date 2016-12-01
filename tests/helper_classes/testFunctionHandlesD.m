@@ -1,11 +1,11 @@
-function test_suite = testFunctionHandlesD
+function testSuite = testFunctionHandlesD
 %testFunctionHandlesD Test file used by TestFunctionHandlesTest
 %   Contains two passing tests that use a test fixture with no test data.
 
 %   Steven L. Eddins
 %   Copyright 2008 The MathWorks, Inc.
 
-initTestSuite;
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function setUpFcn
 

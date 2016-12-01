@@ -1,10 +1,10 @@
-function test_suite = testAssertExceptionThrown
+function testSuite = testAssertExceptionThrown
 %testAssertExceptionThrown Unit tests for assertExceptionThrown
 
 %   Steven L. Eddins
 %   Copyright 2008 The MathWorks, Inc.
 
-initTestSuite;
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function test_happyCase
 assertExceptionThrown(...

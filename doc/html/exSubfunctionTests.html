@@ -65,13 +65,13 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1><a href="../index.html">MATLAB xUnit Test Framework</a>: How to Put Multiple Test Cases in One M-file</h1><p>The Quick Start example showed how you can write a simple M-file to be a single test case.  This example shows you how to put multiple test cases in one M-file.</p><p>Name your M-file beginning or ending with "test", like "testMyFunc".  Start by putting the following two lines at the beginning of the file.  It's important that the output variable name on line 1 be <tt>test_suite</tt>.</p><pre>  function test_suite = testMyFunc
-  initTestSuite;</pre><p>Next, add subfunctions to the file.  Each subfunction beginning or ending with "test" becomes an individual test case.</p><p>The directory example_subfunction_tests contains a test M-file containing subfunction test cases for the <tt>fliplr</tt> function.</p><pre class="codeinput">cd <span class="string">example_subfunction_tests</span>
+  </style></head><body><div class="content"><h1><a href="../index.html">MATLAB xUnit Test Framework</a>: How to Put Multiple Test Cases in One M-file</h1><p>The Quick Start example showed how you can write a simple M-file to be a single test case.  This example shows you how to put multiple test cases in one M-file.</p><p>Name your M-file beginning or ending with "test", like "testMyFunc".  Start by putting the following two lines at the beginning of the file.  It's important that the output variable name on line 1 be <tt>testSuite</tt>.</p><pre>  function testSuite = testMyFunc
+  testSuite = buildFunctionHandleTestSuite(localfunctions);</pre><p>Next, add subfunctions to the file.  Each subfunction beginning or ending with "test" becomes an individual test case.</p><p>The directory example_subfunction_tests contains a test M-file containing subfunction test cases for the <tt>fliplr</tt> function.</p><pre class="codeinput">cd <span class="string">example_subfunction_tests</span>
 
 type <span class="string">testFliplr</span>
 </pre><pre class="codeoutput">
-function test_suite = testFliplr
-initTestSuite;
+function testSuite = testFliplr
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function testFliplrMatrix
 in = magic(3);
@@ -97,11 +97,10 @@ PASSED in 0.013 seconds.
 %
 % Name your M-file beginning or ending with "test", like
 % "testMyFunc".  Start by putting the following two lines at the
-% beginning of the file.  It's important that the output variable
-% name on line 1 be |test_suite|.
+% beginning of the file.
 %
-%    function test_suite = testMyFunc
-%    initTestSuite;
+%    function testSuite = testMyFunc
+%    testSuite = buildFunctionHandleTestSuite(localfunctions);
 %
 % Next, add subfunctions to the file.  Each subfunction beginning
 % or ending with "test" becomes an individual test case.

@@ -1,10 +1,10 @@
-function test_suite = testAssertFalse
+function testSuite = testAssertFalse
 %testAssertFalse Unit tests for assertFalse
 
 %   Steven L. Eddins
 %   Copyright 2008 The MathWorks, Inc.
 
-initTestSuite;
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function testAssertFalseHappyCase
 assertFalse(false);

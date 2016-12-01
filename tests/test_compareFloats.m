@@ -1,5 +1,5 @@
-function suite = test_compareFloats
-initTestSuite;
+function testSuite = test_compareFloats
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 %===============================================================================
 function test_elementwiseRelativeTolerance

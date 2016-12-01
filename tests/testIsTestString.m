@@ -1,10 +1,10 @@
-function test_suite = testIsTestString
+function testSuite = testIsTestString
 %testIsTestString Unit tests for isTestString
 
 %   Steven L. Eddins
 %   Copyright 2008 The MathWorks, Inc.
 
-initTestSuite;
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function testOneStringIs
 assertTrue(xunit.utils.isTestString('testFoobar'));

@@ -1,10 +1,10 @@
-function test_suite = test_TestSuiteInDir
+function testSuite = test_TestSuiteInDir
 %test_TestSuiteInDir Unit test for TestSuiteInDir class.
 
 %   Steven L. Eddins
 %   Copyright 2009 The MathWorks, Inc.
 
-initTestSuite;
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function test_constructor
 this_test_path = fileparts(which(mfilename));

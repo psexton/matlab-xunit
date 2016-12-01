@@ -1,10 +1,10 @@
-function test_suite = testAssertTrue
+function testSuite = testAssertTrue
 %testAssertTrue Unit tests for assertTrue
 
 %   Steven L. Eddins
 %   Copyright 2008 The MathWorks, Inc.
 
-initTestSuite;
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function testAssertTrueHappyCase
 assertTrue(true);

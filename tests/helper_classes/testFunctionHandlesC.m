@@ -1,4 +1,4 @@
-function test_suite = testFunctionHandlesC
+function testSuite = testFunctionHandlesC
 %testFunctionHandlesC Test file used by TestFunctionHandlesTest
 %   Contains two passing tests that use a test fixture containing an intentional
 %   error.
@@ -6,7 +6,7 @@ function test_suite = testFunctionHandlesC
 %   Steven L. Eddins
 %   Copyright 2008 The MathWorks, Inc.
 
-initTestSuite;
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function testData = setUpFcn
 testData = 5;

@@ -1,10 +1,10 @@
-function test_suite = testContainsRegexp
+function testSuite = testContainsRegexp
 %testContainsRegexp Unit tests for containsRegexp
 
 %   Steven L. Eddins
 %   Copyright 2008 The MathWorks, Inc.
 
-initTestSuite;
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function testOneStringContains
 assertTrue(xunit.utils.containsRegexp('MATLAB is great', '[A-Z]'));

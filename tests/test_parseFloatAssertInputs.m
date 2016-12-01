@@ -1,5 +1,5 @@
-function suite = test_parseFloatAssertInputs
-initTestSuite;
+function testSuite = test_parseFloatAssertInputs
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 %===============================================================================
 function test_tooFewInputs()

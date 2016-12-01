@@ -68,8 +68,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
   </style></head><body><div class="content"><h1><a href="../index.html">MATLAB xUnit Test Framework</a>: How to Write Tests That Share Common Set-Up Code</h1><p>Sometimes you want to write a set of test cases in which the same set of initialization steps is performed before each test case, or in which the same set of cleanup steps is performed after each test case.  This set of common <i>setup</i> and <i>teardown</i> code is called a <i>test fixture</i>.</p><p>In subfunction-based test files, you can add subfunctions whose names begin with "setup" and "teardown".  These functions will be called before and after every test-case subfunction is called.  If the setup function returns an output argument, that value is saved and passed to every test-case subfunction and also to the teardown function.</p><p>This example shows a setup function that creates a figure and returns its handle.  The figure handle is passed to each test-case subfunction.  The figure handle is also passed to the teardown function, which cleans up after each test case by deleting the figure.</p><pre class="codeinput">cd <span class="string">examples_general</span>
 type <span class="string">testSetupExample</span>
 </pre><pre class="codeoutput">
-function test_suite = testSetupExample
-initTestSuite;
+function testSuite = testSetupExample
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function fh = setup
 fh = figure;

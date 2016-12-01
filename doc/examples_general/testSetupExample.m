@@ -1,5 +1,5 @@
-function test_suite = testSetupExample
-initTestSuite;
+function testSuite = testSetupExample
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function fh = setup
 fh = figure;

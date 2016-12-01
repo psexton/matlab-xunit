@@ -1,10 +1,10 @@
-function test_suite = test_arrayToString
+function testSuite = test_arrayToString
 %test_arrayToString Unit test for arrayToString.
 
 %   Steven L. Eddins
 %   Copyright 2009 The MathWorks, Inc.
 
-initTestSuite;
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function test_smallInput
 A = [1 2 3];

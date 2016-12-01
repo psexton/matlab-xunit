@@ -1,5 +1,5 @@
-function test_suite = testFliplr
-initTestSuite;
+function testSuite = testFliplr
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function testFliplrMatrix
 in = magic(3);

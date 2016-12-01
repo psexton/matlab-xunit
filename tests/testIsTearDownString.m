@@ -1,10 +1,10 @@
-function test_suite = testIsTearDownString
+function testSuite = testIsTearDownString
 %testIsTearDownString Unit tests for isTearDownString
 
 %   Steven L. Eddins
 %   Copyright 2008 The MathWorks, Inc.
 
-initTestSuite;
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function testOneStringIs
 assertTrue(xunit.utils.isTearDownString('teardownfoobar'));

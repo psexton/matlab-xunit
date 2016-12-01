@@ -1,6 +1,8 @@
 % test_that.m is a subfunction test file.
-function test_suite = test_that
-initTestSuite
+function testSuite = test_that
+testSuite = buildFunctionHandleTestSuite( ...
+  cellfun(@str2func, which('-subfun', mfilename('fullpath')), ...
+  'UniformOutput', false));
 
 function test_the_other
 a = magic(3);

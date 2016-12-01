@@ -243,24 +243,45 @@ classdef TestSuite < TestComponent
             else
                 
                 try
+                    % The following attempts to create a test suite given
+                    % `name` can generate exceptions in the case of it not
+                    % being a valid m-file, it being a script or being a valid
+                    % function requiring input arguments. All these cases are
+                    % converted into a single empty test suite which will be
+                    % ignored when the suite is run
                     if nargout(name) == 0
                         suite = TestSuite();
                         suite.Name = name;
                         suite.add(FunctionHandleTestCase(str2func(name), [], []));
                         suite.Location = which(name);
-                        
                     else
-                        suite = feval(name);
-                        if ~isa(suite, 'TestSuite')
-                            error('Function did not return a TestSuite object.');
+                        try
+                            suite = feval(name);
+                            if ~isa(suite, 'TestSuite')
+                                error('xunit:TestSuite:noTestSuiteReturned', ...
+                                  'Function did not return a TestSuite object.');
+                            end
+                        catch
+                            error('xunit:TestSuite:noTestSuiteReturned', ...
+                              'Function did not return a TestSuite object.');
                         end
                     end
                     
-                catch
+                catch exception
+                  notTestSuiteErrors = {
+                    'xunit:TestSuite:noTestSuiteReturned';
+                    'MATLAB:narginout:notValidMfile';
+                    'MATLAB:nargin:isScript'
+                  };
+
+                  if any(strcmp(notTestSuiteErrors, exception.identifier))
                     % Ordinary function does not appear to contain tests.
                     % Return an empty test suite.
                     suite = TestSuite();
                     suite.Name = name;
+                  else
+                    rethrow(exception);
+                  end
                 end
             end
             

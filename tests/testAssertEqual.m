@@ -1,10 +1,10 @@
-function test_suite = testAssertEqual
+function testSuite = testAssertEqual
 %testAssertEqual Unit tests for assertEqual
 
 %   Steven L. Eddins
 %   Copyright 2008 The MathWorks, Inc.
 
-initTestSuite;
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function testAssertEqualHappyCase
 assertEqual(5, 5);

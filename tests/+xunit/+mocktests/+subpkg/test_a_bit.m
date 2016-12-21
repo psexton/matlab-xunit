@@ -1,5 +1,7 @@
-function test_suite = test_a_bit
-initTestSuite
+function testSuite = test_a_bit
+testSuite = buildFunctionHandleTestSuite( ...
+  cellfun(@str2func, which('-subfun', mfilename('fullpath')), ...
+  'UniformOutput', false));
 
 function test_now
 

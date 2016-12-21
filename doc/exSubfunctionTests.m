@@ -6,10 +6,10 @@
 % Name your M-file beginning or ending with "test", like
 % "testMyFunc".  Start by putting the following two lines at the
 % beginning of the file.  It's important that the output variable
-% name on line 1 be |test_suite|.
+% name on line 1 be |testSuite|.
 %
-%    function test_suite = testMyFunc
-%    initTestSuite;
+%    function testSuite = testMyFunc
+%    testSuite = buildFunctionHandleTestSuite(localfunctions);
 %
 % Next, add subfunctions to the file.  Each subfunction beginning
 % or ending with "test" becomes an individual test case.

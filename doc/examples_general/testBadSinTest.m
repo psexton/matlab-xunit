@@ -1,5 +1,5 @@
-function test_suite = testBadSinTest
-initTestSuite;
+function testSuite = testBadSinTest
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function testSinPi
 % Example of a failing test case.  The test writer should have used

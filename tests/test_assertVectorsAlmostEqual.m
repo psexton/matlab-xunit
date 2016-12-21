@@ -1,5 +1,5 @@
-function suite = test_assertVectorsAlmostEqual
-initTestSuite;
+function testSuite = test_assertVectorsAlmostEqual
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 %===============================================================================
 function test_happyCase

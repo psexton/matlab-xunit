@@ -1,5 +1,5 @@
-function test_suite = test_packageName
-initTestSuite;
+function testSuite = test_packageName
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function test_happyCase
 suite = TestSuite.fromPackageName('xunit.mocktests');

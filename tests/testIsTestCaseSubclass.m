@@ -1,10 +1,10 @@
-function test_suite = testIsTestCaseSubclass
+function testSuite = testIsTestCaseSubclass
 %testIsTestCaseSubclass Unit tests for isTestCaseSubclass
 
 %   Steven L. Eddins
 %   Copyright 2008 The MathWorks, Inc.
 
-initTestSuite;
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function testTestCase
 assertTrue(xunit.utils.isTestCaseSubclass('TestCase'));

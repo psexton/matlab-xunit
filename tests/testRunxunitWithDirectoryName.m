@@ -1,7 +1,7 @@
-function test_suite = testRunxunitWithDirectoryName
+function testSuite = testRunxunitWithDirectoryName
 %testRunxunitWithDirectoryName Unit test for mtest('dirname') syntax.
 
-initTestSuite;
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function testDirName
 current_dir = pwd;

@@ -5,14 +5,15 @@
 %   runxunit                  - Run unit tests
 %
 % Writing Unit Tests
-%   assertElementsAlmostEqual - Assert floating-point array elements almost equal
-%   assertEqual               - Assert that inputs are equal
-%   assertFilesEqual          - Assert that two files have the same content
-%   assertExceptionThrown     - Assert that specified exception is thrown
-%   assertFalse               - Assert that input condition is false
-%   assertTrue                - Assert that input condition is true
-%   assertVectorsAlmostEqual  - Assert floating-point vectors almost equal in norm sense
-%   initTestSuite             - Utility script used for subfunction-based tests
+%   assertElementsAlmostEqual    - Assert floating-point array elements almost equal
+%   assertEqual                  - Assert that inputs are equal
+%   assertFilesEqual             - Assert that two files have the same content
+%   assertExceptionThrown        - Assert that specified exception is thrown
+%   assertFalse                  - Assert that input condition is false
+%   assertTrue                   - Assert that input condition is true
+%   assertVectorsAlmostEqual     - Assert floating-point vectors almost equal in norm sense
+%   buildFunctionHandleTestSuite - Utility function used for subfunction-based tests
+%   initTestSuite                - (Deprecated) Utility script used for subfunction-based tests
 %
 % Framework Classes
 %   CommandWindowTestRunDisplay - Print test suite results to command window

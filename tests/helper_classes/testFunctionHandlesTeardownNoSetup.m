@@ -1,7 +1,7 @@
-function suite = testFunctionHandlesTeardownNoSetup
+function testSuite = testFunctionHandlesTeardownNoSetup
 % Verify that test file works if it has a teardown function but no setup
 % function.
-initTestSuite;
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function teardown
 close all

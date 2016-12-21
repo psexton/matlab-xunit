@@ -179,15 +179,14 @@
 % subfunction tests has to begin with these lines:
 %
 %    === File A.m ===
-%    function test_suite = A
-%    initTestSuite;
+%    function testSuite = A
+%    testSuite = buildFunctionHandleTestSuite(localfunctions);
 %    ...
 %
-% |initTestSuite| is a _script_ that runs in the scope of the function |A|.
-% |initTestSuite| determines which subfunctions are test functions, as well as setup
-% or teardown functions.  It forms handles to these functions and constructs a
-% set of FunctionHandleTestCase objects, which function |A| returns as the
-% output argument |test_suite|.
+% |buildFunctionHandleTestSuite(localfunctions)| determines which subfunctions
+% are test functions, as well as setup or teardown functions.  It forms handles
+% to these functions and constructs a set of FunctionHandleTestCase objects,
+% which function |A| returns as the output argument |testSuite|.
 
 %% TestRunMonitor
 % The abstract |TestRunMonitor| class defines the interface for an object that

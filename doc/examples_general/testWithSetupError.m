@@ -1,8 +1,8 @@
-function test_suite = testWithSetupError
+function testSuite = testWithSetupError
 %Example of a test with an error.  The setup function calls cos with
 %too many input arguments.
 
-initTestSuite;
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function testData = setup
 testData = cos(1, 2);

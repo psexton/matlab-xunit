@@ -81,8 +81,8 @@ f =
 </pre><p><tt>assertExceptionThrown</tt> verifies that when <tt>f()</tt> is called, an error results with the specified error identifier.</p><p>Here's our error condition test for the <tt>cos</tt> function.</p><pre class="codeinput">cd <span class="string">examples_general</span>
 type <span class="string">testCos</span>
 </pre><pre class="codeoutput">
-function test_suite = testCos
-initTestSuite;
+function testSuite = testCos
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function testTooManyInputs
 assertExceptionThrown(@() cos(1, 2), 'MATLAB:maxrhs');

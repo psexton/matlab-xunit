@@ -98,9 +98,10 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
      ...</pre><pre>  function C
      ...</pre><pre>  function D
      ...</pre><p>The first function in the file, <tt>A</tt>, has the same name as the file.  When other code outside this function calls <tt>A</tt>, it is this first function that gets called.  Functions <tt>B</tt>, <tt>C</tt>, and <tt>D</tt> are called <i>subfunctions</i>. Normally, these subfunctions are only visible to and can only be called by <tt>A</tt>.  The only way that code elsewhere might be able to call <tt>B</tt>, <tt>C</tt>, or <tt>D</tt> is if function <tt>A</tt> forms handles to them and passes those handles out of its scope.  Normally this would be done by returning the function handles as output arguments.</p><p>Note that no code executing outside the scope of a function in A.m can form function handles to <tt>B</tt>, <tt>C</tt>, or <tt>D</tt>, or can even determine that these functions exist.</p><p>This obviously poses a problem for test discovery!</p><p>The MATLAB xUnit solution is to establish the following convention for subfunction-based tests.  The first function in a test M-file containing subfunction tests has to begin with these lines:</p><pre>  === File A.m ===
-  function test_suite = A
-  initTestSuite;
-  ...</pre><p><tt>initTestSuite</tt> is a <i>script</i> that runs in the scope of the function <tt>A</tt>. <tt>initTestSuite</tt> determines which subfunctions are test functions, as well as setup or teardown functions.  It forms handles to these functions and constructs a set of FunctionHandleTestCase objects, which function <tt>A</tt> returns as the output argument <tt>test_suite</tt>.</p><h2>TestRunMonitor<a name="6"></a></h2><p>The abstract <tt>TestRunMonitor</tt> class defines the interface for an object that "observe" the in-progress execution of a test suite.  MATLAB xUnit provides two subclasses of <tt>TestRunMonitor</tt>:</p><div><ul><li><tt>TestRunLogger</tt> silently logs test suite events and captures the details of any test failures or test errors.</li><li><tt>CommandWindowTestRunDisplay</tt> prints the progress of an executing test suite to the Command Window.</li></ul></div><p><img vspace="5" hspace="5" src="class_diagram_c.gif" alt=""> </p><p>A TestRunMonitor is passed to the <tt>run()</tt> method of a TestComponent object. The <tt>run()</tt> method calls the appropriate notification methods of the monitor.</p><p>Here is the output when using the CommandWindowTestRunDisplay object on the MATLAB xUnit's own test suite:</p><pre>  runxunit
+  function testSuite = A
+  testSuite = buildFunctionHandleTestSuite(localfunctions);
+  ...</pre>
+  <p><tt>buildFunctionHandleTestSuite(localfunctions)</tt> determines which subfunctions are test functions, as well as setup or teardown functions.  It forms handles to these functions and constructs a set of FunctionHandleTestCase objects, which function <tt>A</tt> returns as the output argument <tt>testSuite</tt>.</p><h2>TestRunMonitor<a name="6"></a></h2><p>The abstract <tt>TestRunMonitor</tt> class defines the interface for an object that "observe" the in-progress execution of a test suite.  MATLAB xUnit provides two subclasses of <tt>TestRunMonitor</tt>:</p><div><ul><li><tt>TestRunLogger</tt> silently logs test suite events and captures the details of any test failures or test errors.</li><li><tt>CommandWindowTestRunDisplay</tt> prints the progress of an executing test suite to the Command Window.</li></ul></div><p><img vspace="5" hspace="5" src="class_diagram_c.gif" alt=""> </p><p>A TestRunMonitor is passed to the <tt>run()</tt> method of a TestComponent object. The <tt>run()</tt> method calls the appropriate notification methods of the monitor.</p><p>Here is the output when using the CommandWindowTestRunDisplay object on the MATLAB xUnit's own test suite:</p><pre>  runxunit
   Starting test run with 92 test cases.
   ....................
   ....................
@@ -313,15 +314,14 @@ Second input:<br />
 % subfunction tests has to begin with these lines:
 %
 %    === File A.m ===
-%    function test_suite = A
-%    initTestSuite;
+%    function testSuite = A
+%    testSuite = buildFunctionHandleTestSuite(localfunctions);
 %    ...
 %
-% |initTestSuite| is a _script_ that runs in the scope of the function |A|.
-% |initTestSuite| determines which subfunctions are test functions, as well as setup
-% or teardown functions.  It forms handles to these functions and constructs a
-% set of FunctionHandleTestCase objects, which function |A| returns as the
-% output argument |test_suite|.
+% |buildFunctionHandleTestSuite(localfunctions)| determines which subfunctions
+% are test functions, as well as setup or teardown functions.  It forms
+% handles to these functions and constructs a set of FunctionHandleTestCase
+% objects, which function |A| returns as the output argument |testSuite|.
 
 %% TestRunMonitor
 % The abstract |TestRunMonitor| class defines the interface for an object that

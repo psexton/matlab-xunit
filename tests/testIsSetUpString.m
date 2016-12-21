@@ -1,10 +1,10 @@
-function test_suite = testIsSetUpString
+function testSuite = testIsSetUpString
 %testIsSetUpString Unit tests for isSetUpString
 
 %   Steven L. Eddins
 %   Copyright 2008 The MathWorks, Inc.
 
-initTestSuite;
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function testOneStringIs
 assertTrue(xunit.utils.isSetUpString('setup'));

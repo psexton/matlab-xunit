@@ -1,10 +1,10 @@
-function test_suite = testSubfunctions
+function testSuite = testSubfunctions
 %testSubfunctions Contains two passing subfunction tests
 
 %   Steven L. Eddins
 %   Copyright 2008 The MathWorks, Inc.
 
-initTestSuite;
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function testSub1
 

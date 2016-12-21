@@ -1,10 +1,10 @@
-function test_suite = test_assertFilesEqual
+function testSuite = test_assertFilesEqual
 %test_assertFilesEqual Unit test for assertFilesEqual
 
 %   Steven L. Eddins
 %   Copyright 2009 The MathWorks, Inc.
 
-initTestSuite;
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function test_equal
 assertFilesEqual('black.tif', 'black.tif');

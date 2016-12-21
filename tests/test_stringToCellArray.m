@@ -1,10 +1,10 @@
-function test_suite = test_stringToCellArray
+function testSuite = test_stringToCellArray
 %test_stringToCellArray Unit test for stringToCellArray
 
 %   Steven L. Eddins
 %   Copyright 2009 The MathWorks, Inc.
 
-initTestSuite;
+testSuite = buildFunctionHandleTestSuite(localfunctions);
 
 function test_happyCase
 s = sprintf('Hello\nWorld');

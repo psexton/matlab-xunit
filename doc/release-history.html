@@ -2,11 +2,18 @@
     <head>
         <title>Matlab-xunit Release History</title>
     </head>
-    
+
     <body>
         <h1>Matlab-xunit Release History</h1>
-        
-	<h3>4.0.0 (2014-07-21)</h3>
+
+    <h3>4.1.0 (2016-12-22)</h3>
+    <ul>
+        <li> Add compatibility with R2016b and newer. <a href="https://github.com/psexton/matlab-xunit/issues/19">#19</a></li>
+        <li> Fix issue with a partial path that is also on the MATLAB path. <a href="https://github.com/psexton/matlab-xunit/issues/14">#14</a></li>
+        <li> Fix a broken link in the documentation. <a href="https://github.com/psexton/matlab-xunit/issues/17">#17</a></li>
+    </ul>
+
+    <h3>4.0.0 (2014-07-21)</h3>
 	<ul>
 		<li> Adding JUnit-style XML output.</li>
 		<li> Renaming "runtests" command to "runxunit".</li>
@@ -40,7 +47,7 @@
                 can begin or end with "test" or "Test".
             </li>
         </ul>
-        
+
         <h3>3.0.2 30-Jul-2010</h3>
         <ul>
             <li>
@@ -54,26 +61,26 @@
                 Added home doc links to the various doc pages.
             </li>
         </ul>
-        
+
         <h3>3.0.1 16-Jun-2010</h3>
         <p>
             Fixed handling of TestCase subclasses in a test package.
         </p>
-        
+
         <h3>3.0 12-Jun-2010</h3>
         <ul>
             <li> Added capability to run tests stored inside packages. </li>
             <li> <tt>runtests</tt> errors if no test cases are found instead
             of silently passing. </li>
             <li> Accept function names that end in "test" or "Test" as test functions. </li>
-            <li> In <tt>assertElementsAlmostEqual</tt> and <tt>assertVectorsAlmostEqual</tt>, change the 
+            <li> In <tt>assertElementsAlmostEqual</tt> and <tt>assertVectorsAlmostEqual</tt>, change the
                 default <tt>floor_tol</tt> value to <tt>sqrt(eps)</tt> instead of <tt>eps</tt>. This makes the assertion
             a bit more forgiving when comparing numbers very close to 0.</li>
             <li> Added -verbose option to <tt>runtests</tt>. </li>
             <li> Fixed handling of message strings containing sprintf-style control characters
             in the assert*.m functions. </li>
         </ul>
-                
+
         <h3>2.0.1 04-Aug-2009</h3>
         <p>
             Corrected errors in assertElementsAlmostEqual and assertVectorsAlmostEqual
@@ -83,7 +90,7 @@
             or infinite.  The behavior of xunit.utils.compareFloats has been changed
             to match.
         </p>
-        
+
         <h3>2.0 05-June-2009</h3>
         <ul>
             <li>
@@ -113,14 +120,14 @@
                 put the <tt>obsolete</tt> directory on the MATLAB path.
             </li>
         </ul>
-        
+
         <h3>1.1.3 20-May-2009</h3>
         <p>
             Remove the LICENSE.txt file because the open source BSD license is
             now supplied automatically by the MATLAB Central File Exchange.
             There are no functional changes in this version.
         </p>
-        
+
         <h3>1.1.2 02-Apr-2009</h3>
         <p>
             This release fixes a bug with <tt>assertVectorsAlmostEqual</tt> when
@@ -128,15 +135,15 @@
             because the tolerance was exceeded, the function would issue a
             different error message than expected.
         </p>
-        
+
         <h3>1.1.1 16-Mar-2009</h3>
         <p>
             This release fixes a problem when calling mtest with no input
             arguments. Previously, it was not limiting its test-case discovery
-            to TestCase subclasses and ordinary M-files beginning with "test" 
+            to TestCase subclasses and ordinary M-files beginning with "test"
             or "Test" as documented.
-        </p>        
-        
+        </p>
+
         <p>
             This release also integrates the MTEST documentation with the MATLAB
             Help Browser.
@@ -146,7 +153,7 @@
         <p>
             This release adds new tools for performing floating-point
             comparisons.  Using the new assertion functions
-            <tt>assertElementsAlmostEqual</tt> and 
+            <tt>assertElementsAlmostEqual</tt> and
             <tt>assertVectorsAlmostEqual</tt>, you can perform both
             absolute and relative tolerance comparisons, either elementwise
             or in a vector L2-norm fashion.
@@ -157,51 +164,51 @@
             <tt>assertAlmostEqual</tt>, is still available, but its
             use is discouraged.
         </p>
-         
+
         <h3>1.0 30-Jan-2009</h3>
         <p>
             This release, the first to be posted on the MATLAB Central File
             Exchange, includes a refactoring of TestCase and TestSuite to use
-            the composite design pattern.  Both classes now subclass the 
+            the composite design pattern.  Both classes now subclass the
             abstract class TestComponent, and the individual items contained
             in a TestSuite object are TestComponent objects.  That means
-            a TestSuite object can contain both TestSuite objects and 
-            TestCase objects. 
+            a TestSuite object can contain both TestSuite objects and
+            TestCase objects.
         </p>
-        
+
         <p>
-            TestSuites are now built up hierarchically.  All the test cases 
+            TestSuites are now built up hierarchically.  All the test cases
             in a subfunction-based test M-file become a test suite, which in
             turn can be part of a test suite for an entire test directory.
         </p>
-        
+
         <p>
             The mtest driver function can now take the name of a directory,
             in which case it will automatically discover and run all the test
             cases in that directory.
         </p>
-        
+
         <p>
             The old TestRunObserver class has become the abstract TestRunMonitor
             class, with subclasses TestRunLogger and CommandWindowTestRunDisplay.
         </p>
-        
+
         <p>
             TestCaseInDir has been modified to do a directory change before
             executing the test case. The new class TestCaseWithAddPath makes
             a temporary path addition before executing the test case.
         </p>
-        
+
         <p>
             Subfunction-based test M-files written for one of the alpha versions
-            of MTEST need to be revised so that the output variable name is 
+            of MTEST need to be revised so that the output variable name is
             "test_suite", and so that the first line of code calls the script
             "initTestSuite".
         </p>
-        
+
         <h3>0.9 12-Sep-2008</h3>
         <p>
-            This release is an extensive update that provides simpler ways of 
+            This release is an extensive update that provides simpler ways of
             writing and running test cases.
         </p>
         <ul>
@@ -222,12 +229,12 @@
                 run their first tests in just a few minutes.
             </li>
         </ul>
-        
-        
+
+
         <h3>0.8.1 17-Mar-2008</h3>
         <ul>
             <li>
-                Some of the sample TestCase classes were missing classdef lines.  
+                Some of the sample TestCase classes were missing classdef lines.
                 FIXED
             </li>
             <li>
@@ -240,7 +247,7 @@
                 Edited munit_doc.html by hand to clean up command-window links.
             </li>
         </ul>
-        
+
         <h3>0.8 15-Mar-2008</h3>
         <ul>
             <li>

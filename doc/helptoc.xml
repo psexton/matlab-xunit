@@ -36,6 +36,9 @@
     <tocitem target="html/exTestCaseSearching.html">
         How xUnit Searches for Test Cases
     </tocitem>
+    <tocitem target="html/compatibilityWith2016b.html">
+        How to Alter Your Tests for 2016b
+    </tocitem>
     <tocitem target="http://psexton.github.io/matlab-xunit/" image="$toolbox/matlab/icons/webicon.gif">
     Latest Version
 </tocitem>

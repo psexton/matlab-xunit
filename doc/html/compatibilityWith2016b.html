@@ -1,0 +1,160 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>MATLAB xUnit Test Framework: Compatibility with R2016b</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-12-23"><meta name="DC.source" content="compatibilityWith2016b.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1><a href="../index.html">MATLAB xUnit Test Framework</a>: Compatibility with R2016b</h1><!--introduction--><p>Significant changes were made to MATLAB in R2016b that affect how xUnit works. If you wrote tests using version 4.0.0 or earlier, you may need to make slight changes to your tests to make them work on 2016b and subsequent releases.</p><p>An incredible amount of effort was expended trying to find a solution that would allow all existing tests to continue to run on 2016b and on previous versions, with no changes, but we don't believe that to be possible. (Although you are welcome to try, and submit a pull request if you succeed.)</p><p>Listed below are the different scenarios you may be in, and what to do about it.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">I use class-based tests</a></li><li><a href="#3">I use function-based tests</a></li><li><a href="#5">I use function-based tests (and I only care about 2016a or older)</a></li><li><a href="#6">I use function-based tests (and I only care about 2013b or newer)</a></li><li><a href="#7">I use function-based tests (and I don't fall into either prior category)</a></li></ul></div><h2>I use class-based tests<a name="1"></a></h2><p>My tests start like this:</p><pre class="codeinput">dbtype <span class="string">examples_2016b_compatibility/TestUsingClasses.m</span> <span class="string">1</span>
+</pre><pre class="codeoutput">
+1     classdef TestUsingClasses &lt; TestCase
+</pre><p>Five points for using classes! You can stop reading now. You're not affected.</p><h2>I use function-based tests<a name="3"></a></h2><p>My tests start like this:</p><pre class="codeinput">dbtype <span class="string">examples_2016b_compatibility/testUsingFunctionsDeprecated.m</span> <span class="string">1:2</span>
+</pre><pre class="codeoutput">
+1     function testSuite = testUsingFunctionsDeprecated
+2     inittestsuite
+</pre><p>The way this worked is that <tt>inittestsuite</tt> was actually a script, called from within the scope of your test function. And as a result of that, it had access to all the subfunctions that were your actual tests, and was able to build a test suite that way. Starting with 2016b, scripts called from functions no longer have access to the caller's scope, and this strategy will not (can not) work.</p><p>The replacement is to construct a test suite out of function handles, while still in the scope of <tt>testUsingFunctionsDeprecated</tt>. In 2014b and newer, the built-in function <tt>localfunctions</tt> can be used. In 2013b and 2014a, <tt>localfunctions</tt> is not able to see functions inside of packages, and is somewhat broken for our purposes. In 2013a and older releases, <tt>localfunctions</tt> doesn't exist.</p><p>This gisves us the following three situations you may be in.</p><h2>I use function-based tests (and I only care about 2016a or older)<a name="5"></a></h2><p>You <i>technically</i> don't need to change anything. Your tests will continue to work. However, <tt>inittestsuite</tt> is now deprecated, and you will receive warnings when your tests run. This functionality will be removed in a future major release.</p><h2>I use function-based tests (and I only care about 2013b or newer)<a name="6"></a></h2><p>The replacement for <tt>inittestsuite</tt> is <tt>buildFunctionHandleTestSuite</tt>, and you will pipe the cell array from <tt>localfunctions</tt> into it.</p><pre class="codeinput">dbtype <span class="string">examples_2016b_compatibility/testUsingFunctions.m</span> <span class="string">1:2</span>
+</pre><pre class="codeoutput">
+1     function testSuite = testUsingFunctions
+2     testSuite = buildFunctionHandleTestSuite(localfunctions);
+</pre><h2>I use function-based tests (and I don't fall into either prior category)<a name="7"></a></h2><p>If you have function-based tests that you want or need to run against <b>both</b> 2016b or newer <b>and</b> 2013a or older, then you have additional work to do. You will have to first create the cell array of function handles, using some seriously fugly syntax. Then you can call <tt>buildFunctionHandleTestSuite</tt> with the cell array you created.</p><pre class="codeinput">dbtype <span class="string">examples_2016b_compatibility/testUsingFunctionsAndSubFunHandles.m</span> <span class="string">1:4</span>
+</pre><pre class="codeoutput">
+1     function testSuite = testUsingFunctionsAndSubFunHandles
+2     localFunctionHandles = cellfun(@str2func, ...
+3             which('-subfun', mfilename('fullpath')), 'UniformOutput', false);
+4     testSuite = buildFunctionHandleTestSuite(localFunctionHandles);
+</pre><p>Unfortunately, there is no other way to handle all test suite types across that many releases.</p><p><a href="../index.html">Back to MATLAB xUnit Test Framework</a></p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% <../index.html MATLAB xUnit Test Framework>: Compatibility with R2016b
+% Significant changes were made to MATLAB in R2016b that affect how xUnit 
+% works. If you wrote tests using version 4.0.0 or earlier, you may need
+% to make slight changes to your tests to make them work on 2016b and 
+% subsequent releases.
+% 
+% An incredible amount of effort was expended trying to find a solution that 
+% would allow all existing tests to continue to run on 2016b and on previous versions, 
+% with no changes, but we don't believe that to be possible. (Although you 
+% are welcome to try, and submit a pull request if you succeed.)
+% 
+% Listed below are the different scenarios you may be in, and what to do 
+% about it.
+
+%% I use class-based tests
+% My tests start like this:
+
+dbtype examples_2016b_compatibility/TestUsingClasses.m 1
+
+%%
+% Five points for using classes! You can stop reading now. You're not affected.
+
+%% I use function-based tests
+% My tests start like this:
+
+dbtype examples_2016b_compatibility/testUsingFunctionsDeprecated.m 1:2
+
+%% 
+% The way this worked is that |inittestsuite| was actually a script, called 
+% from within the scope of your test function. And as a result of that, it
+% had access to all the subfunctions that were your actual tests, and was
+% able to build a test suite that way. Starting with 2016b, scripts called
+% from functions no longer have access to the caller's scope, and this
+% strategy will not (can not) work.
+%
+% The replacement is to construct a test suite out of function handles, 
+% while still in the scope of |testUsingFunctionsDeprecated|. In 2014b and 
+% newer, the built-in function |localfunctions| can be used. In 2013b and 
+% 2014a, |localfunctions| is not able to see functions inside of packages, 
+% and is somewhat broken for our purposes. In 2013a and older releases,
+% |localfunctions| doesn't exist.
+%
+% This gisves us the following three situations you may be in.
+
+%% I use function-based tests (and I only care about 2016a or older)
+% You _technically_ don't need to change anything. Your tests will continue
+% to work. However, |inittestsuite| is now deprecated, and you will receive
+% warnings when your tests run. This functionality will be removed in a
+% future major release.
+
+%% I use function-based tests (and I only care about 2013b or newer)
+% The replacement for |inittestsuite| is |buildFunctionHandleTestSuite|,
+% and you will pipe the cell array from |localfunctions| into it.
+
+dbtype examples_2016b_compatibility/testUsingFunctions.m 1:2
+
+%% I use function-based tests (and I don't fall into either prior category)
+% If you have function-based tests that you want or need to run against
+% *both* 2016b or newer *and* 2013a or older, then you have additional work
+% to do. You will have to first create the cell array of function handles,
+% using some seriously fugly syntax. Then you can call
+% |buildFunctionHandleTestSuite| with the cell array you created.
+
+dbtype examples_2016b_compatibility/testUsingFunctionsAndSubFunHandles.m 1:4
+
+%%
+% Unfortunately, there is no other way to handle all test suite types 
+% across that many releases.
+
+%% 
+% <../index.html Back to MATLAB xUnit Test Framework>
+##### SOURCE END #####
+--></body></html>

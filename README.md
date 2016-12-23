@@ -12,6 +12,8 @@ The previous maintainer, [Thomas Smith](https://github.com/tgs/), made two addit
 
 I've made one additional change: renaming `runtests` to `runxunit` so that it's compatible with MATLAB R2013a and newer. (`runtests` is now a built-in function.)
 
+Other contributors have added compatibility with R2016b and newer, bug fixes, and internal refactorings.
+
 ## Installation and Usage
 
 To install matlab-xunit, clone or download this from GitHub, and put the `matlab-xunit/src` and `matlab-xunit/matlab-xunit` directories on your MATLAB path (using `addpath`).

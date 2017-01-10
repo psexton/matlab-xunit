@@ -4,7 +4,9 @@ function testSuite = testIsTestCaseSubclass
 %   Steven L. Eddins
 %   Copyright 2008 The MathWorks, Inc.
 
-testSuite = buildFunctionHandleTestSuite(localfunctions);
+localFunctionHandles = cellfun(@str2func, ...
+  which('-subfun', mfilename('fullpath')), 'UniformOutput', false);
+testSuite = buildFunctionHandleTestSuite(localFunctionHandles);
 
 function testTestCase
 assertTrue(xunit.utils.isTestCaseSubclass('TestCase'));

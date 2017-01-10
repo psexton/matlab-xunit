@@ -4,7 +4,9 @@ function testSuite = test_stringToCellArray
 %   Steven L. Eddins
 %   Copyright 2009 The MathWorks, Inc.
 
-testSuite = buildFunctionHandleTestSuite(localfunctions);
+localFunctionHandles = cellfun(@str2func, ...
+  which('-subfun', mfilename('fullpath')), 'UniformOutput', false);
+testSuite = buildFunctionHandleTestSuite(localFunctionHandles);
 
 function test_happyCase
 s = sprintf('Hello\nWorld');

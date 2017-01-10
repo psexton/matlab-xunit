@@ -1,7 +1,9 @@
 %XUNIT.PRIVATE.TESTRETRIEVESETUPFUNCTION contains a test suite for xunit.private.retrieveSetupFunction
 
 function testSuite = testRetrieveSetupFunction()
-  testSuite = buildFunctionHandleTestSuite(localfunctions);
+  localFunctionHandles = cellfun(@str2func, ...
+    which('-subfun', mfilename('fullpath')), 'UniformOutput', false);
+  testSuite = buildFunctionHandleTestSuite(localFunctionHandles);
 end
 
 function testNoSetupFunction()

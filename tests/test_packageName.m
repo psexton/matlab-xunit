@@ -1,5 +1,7 @@
 function testSuite = test_packageName
-testSuite = buildFunctionHandleTestSuite(localfunctions);
+localFunctionHandles = cellfun(@str2func, ...
+  which('-subfun', mfilename('fullpath')), 'UniformOutput', false);
+testSuite = buildFunctionHandleTestSuite(localFunctionHandles);
 
 function test_happyCase
 suite = TestSuite.fromPackageName('xunit.mocktests');

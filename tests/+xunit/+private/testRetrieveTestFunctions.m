@@ -1,7 +1,9 @@
 %TESTRETRIEVETESTFUNCTIONS contains a test suite for xunit.private.testRetrieveTestFunctions
 
 function testSuite = testRetrieveTestFunctions()
-  testSuite = buildFunctionHandleTestSuite(localfunctions);
+  localFunctionHandles = cellfun(@str2func, ...
+    which('-subfun', mfilename('fullpath')), 'UniformOutput', false);
+  testSuite = buildFunctionHandleTestSuite(localFunctionHandles);
 end
 
 function testNoTestFiles()

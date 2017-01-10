@@ -4,7 +4,9 @@ function testSuite = testIsTestString
 %   Steven L. Eddins
 %   Copyright 2008 The MathWorks, Inc.
 
-testSuite = buildFunctionHandleTestSuite(localfunctions);
+localFunctionHandles = cellfun(@str2func, ...
+  which('-subfun', mfilename('fullpath')), 'UniformOutput', false);
+testSuite = buildFunctionHandleTestSuite(localFunctionHandles);
 
 function testOneStringIs
 assertTrue(xunit.utils.isTestString('testFoobar'));

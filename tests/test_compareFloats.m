@@ -1,5 +1,7 @@
 function testSuite = test_compareFloats
-testSuite = buildFunctionHandleTestSuite(localfunctions);
+localFunctionHandles = cellfun(@str2func, ...
+  which('-subfun', mfilename('fullpath')), 'UniformOutput', false);
+testSuite = buildFunctionHandleTestSuite(localFunctionHandles);
 
 %===============================================================================
 function test_elementwiseRelativeTolerance

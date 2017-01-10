@@ -1,7 +1,9 @@
 function testSuite = testRunxunitWithDirectoryName
 %testRunxunitWithDirectoryName Unit test for mtest('dirname') syntax.
 
-testSuite = buildFunctionHandleTestSuite(localfunctions);
+localFunctionHandles = cellfun(@str2func, ...
+  which('-subfun', mfilename('fullpath')), 'UniformOutput', false);
+testSuite = buildFunctionHandleTestSuite(localFunctionHandles);
 
 function testDirName
 current_dir = pwd;

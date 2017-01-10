@@ -4,7 +4,9 @@ function testSuite = test_TestSuiteInDir
 %   Steven L. Eddins
 %   Copyright 2009 The MathWorks, Inc.
 
-testSuite = buildFunctionHandleTestSuite(localfunctions);
+localFunctionHandles = cellfun(@str2func, ...
+  which('-subfun', mfilename('fullpath')), 'UniformOutput', false);
+testSuite = buildFunctionHandleTestSuite(localFunctionHandles);
 
 function test_constructor
 this_test_path = fileparts(which(mfilename));

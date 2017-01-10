@@ -1,7 +1,9 @@
 %TESTBUILDFUNCTIONHANDLETESTSUITE contains a test suite for buildFunctionHandleTestSuite
 
 function testSuite = testBuildFunctionHandleTestSuite()
-  testSuite = buildFunctionHandleTestSuite(localfunctions);
+  localFunctionHandles = cellfun(@str2func, ...
+    which('-subfun', mfilename('fullpath')), 'UniformOutput', false);
+  testSuite = buildFunctionHandleTestSuite(localFunctionHandles);
 end
 
 function testBuildSuiteNoTests()

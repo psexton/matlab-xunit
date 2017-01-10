@@ -6,7 +6,9 @@ function testSuite = testFunctionHandlesC
 %   Steven L. Eddins
 %   Copyright 2008 The MathWorks, Inc.
 
-testSuite = buildFunctionHandleTestSuite(localfunctions);
+localFunctionHandles = cellfun(@str2func, ...
+  which('-subfun', mfilename('fullpath')), 'UniformOutput', false);
+testSuite = buildFunctionHandleTestSuite(localFunctionHandles);
 
 function testData = setUpFcn
 testData = 5;

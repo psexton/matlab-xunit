@@ -1,12 +1,12 @@
 # matlab-xunit
 
-xUnit for Matlab with JUnit-compatible XML output
+xUnit for MATLAB with JUnit-compatible XML output
 
 # README
 
 Testing is wonderful! Let's make it easier and more rewarding!
 
-The most popular testing platform for MATLAB functions and classes is/was Steve Eddins' excellent [Matlab xUnit](http://www.mathworks.com/matlabcentral/fileexchange/22846-matlab-xunit-test-framework) package.
+The most popular testing platform for MATLAB functions and classes is/was Steve Eddins' excellent [MATLAB xUnit](http://www.mathworks.com/matlabcentral/fileexchange/22846-matlab-xunit-test-framework) package.
 
 The previous maintainer, [Thomas Smith](https://github.com/tgs/), made two additions to that package: the ability to give output in a JUnit-compatible XML format, and the ability to run DocTests, similar to the `doctest` module in Python or vignettes in R.
 
@@ -54,7 +54,7 @@ And here's a graph of the test trend:
 
 ![Jenkins trend graph](doc/images/jenkins_trend_graph.png)
 
-The implementation is based on [xml_io_tools](http://www.mathworks.com/matlabcentral/fileexchange/12907-xmliotools) by Jaroslaw Tuszynski, which is a nice way to generate XML in Matlab. It uses about 1/3 the lines of code as Matlab's built-in `xmlwrite`.
+The implementation is based on [xml_io_tools](http://www.mathworks.com/matlabcentral/fileexchange/12907-xmliotools) by Jaroslaw Tuszynski, which is a nice way to generate XML in MATLAB. It uses about 1/3 the lines of code as MATLAB's built-in `xmlwrite`.
 
 ## Usage
 
@@ -66,7 +66,7 @@ Unsurprisingly, this will run your unit tests and put the results into `testrepo
 
 ## Usage with Jenkins
 
-OK, this is really cool, but involves some setup. First, you're going to have to either install Jenkins on the machine that has Matlab, or give Jenkins remote access to that machine (there may be Matlab licensing issues to this, I have no idea). As a note, installing Jenkins is incredibly easy: you download one file and run one command.
+OK, this is really cool, but involves some setup. First, you're going to have to either install Jenkins on the machine that has MATLAB, or give Jenkins remote access to that machine (there may be MATLAB licensing issues to this, I have no idea). As a note, installing Jenkins is incredibly easy: you download one file and run one command.
 
 Now, you need to create a job that checks out your code from Subversion or whatever, and then runs your tests. I'm not going to run you through the whole thing, but here are the two important points:
 

@@ -1,25 +1,25 @@
 classdef TestComponent < handle
-%TestComponent Abstract base class for TestCase and TestSuite
-%
-%   TestComponent methods:
-%       run          - Run all test cases in test component
-%       print        - Display summary of test component to Command Window
-%       numTestCases - Number of test cases in test component
-%       setUp        - Initialize test fixture
-%       tearDown     - Clean up text fixture
-%
-%   TestComponent properties:
-%       Name - Name of test component
-%       Location - Directory where test component is defined
-%
-%   See TestCase, TestSuite
-
-%   Steven L. Eddins
-%   Copyright 2008-2009 The MathWorks, Inc.
-
+    %TestComponent Abstract base class for TestCase and TestSuite
+    %
+    %   TestComponent methods:
+    %       run          - Run all test cases in test component
+    %       print        - Display summary of test component to Command Window
+    %       numTestCases - Number of test cases in test component
+    %       setUp        - Initialize test fixture
+    %       tearDown     - Clean up text fixture
+    %
+    %   TestComponent properties:
+    %       Name - Name of test component
+    %       Location - Directory where test component is defined
+    %
+    %   See TestCase, TestSuite
+    
+    %   Steven L. Eddins
+    %   Copyright 2008-2009 The MathWorks, Inc.
+    
     properties
-       Name = '';
-       Location = '';
+        Name = ''
+        Location = ''
     end
     
     properties (Access = 'protected')
@@ -54,6 +54,5 @@ classdef TestComponent < handle
             %   writers can override tearDown if necessary to clean up a test
             %   fixture.
         end
-        
     end
 end

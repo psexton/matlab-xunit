@@ -1,24 +1,24 @@
 classdef TestRunDisplay < TestRunMonitor
-%TestRunDisplay Print test suite execution results.
-%   TestRunDisplay is a subclass of TestRunMonitor.  If a TestRunDisplay
-%   object is passed to the run method of a TestComponent, such as a
-%   TestSuite or a TestCase, it will print information to the Command
-%   Window (or specified file handle) as the test run proceeds.
-%
-%   TestRunDisplay methods:
-%       testComponentStarted  - Update Command Window display
-%       testComponentFinished - Update Command Window display
-%       testCaseFailure       - Log test failure information
-%       testCaseError         - Log test error information
-%
-%   TestRunDisplay properties:
-%       TestCaseCount         - Number of test cases executed
-%       Faults                - Struct array of test fault info
-%
-%   See also TestRunLogger, TestRunMonitor, TestSuite
-
-%   Steven L. Eddins
-%   Copyright 2008-2010 The MathWorks, Inc.
+    %TestRunDisplay Print test suite execution results.
+    %   TestRunDisplay is a subclass of TestRunMonitor.  If a TestRunDisplay
+    %   object is passed to the run method of a TestComponent, such as a
+    %   TestSuite or a TestCase, it will print information to the Command
+    %   Window (or specified file handle) as the test run proceeds.
+    %
+    %   TestRunDisplay methods:
+    %       testComponentStarted  - Update Command Window display
+    %       testComponentFinished - Update Command Window display
+    %       testCaseFailure       - Log test failure information
+    %       testCaseError         - Log test error information
+    %
+    %   TestRunDisplay properties:
+    %       TestCaseCount         - Number of test cases executed
+    %       Faults                - Struct array of test fault info
+    %
+    %   See also TestRunLogger, TestRunMonitor, TestSuite
+    
+    %   Steven L. Eddins
+    %   Copyright 2008-2010 The MathWorks, Inc.
     
     properties (SetAccess = private)
         %TestCaseCount - Number of test cases executed
@@ -41,7 +41,7 @@ classdef TestRunDisplay < TestRunMonitor
         %   InitialComponent is set to the first test component executed in the
         %   test run.  This component is saved so that the end of the test run
         %   can be identified.
-        InitialComponent = []   
+        InitialComponent = []
         
     end
     
@@ -50,7 +50,7 @@ classdef TestRunDisplay < TestRunMonitor
         %             Default value of 1 displays to Command Window.
         FileHandle = 1
     end
-        
+    
     
     methods
         function self = TestRunDisplay(output)
@@ -70,7 +70,7 @@ classdef TestRunDisplay < TestRunMonitor
         
         function testComponentStarted(self, component)
             %testComponentStarted Update Command Window display
-            %    If the InitialComponent property is not yet set, 
+            %    If the InitialComponent property is not yet set,
             %    obj.testComponentStarted(component) sets the property and calls
             %    obj.testRunStarted(component).
             
@@ -78,11 +78,11 @@ classdef TestRunDisplay < TestRunMonitor
                 self.InitialComponent = component;
                 self.testRunStarted(component);
             end
-        end    
-            
+        end
+        
         function testComponentFinished(self, component, did_pass)
             %testComponentFinished Update Command Window display
-            %    If component is a TestCase object, then 
+            %    If component is a TestCase object, then
             %    obj.testComponentFinished(component, did_pass) prints pass/fail
             %    information to the Command Window.
             %
@@ -106,7 +106,7 @@ classdef TestRunDisplay < TestRunMonitor
                 self.testRunFinished(did_pass);
             end
         end
-               
+        
         function testCaseFailure(self, test_case, failure_exception)
             %testCaseFailure Log test failure information
             %    obj.testCaseFailure(test_case, failure_exception) logs the test
@@ -161,7 +161,7 @@ classdef TestRunDisplay < TestRunMonitor
             self.displayFaults();
         end
         
-
+        
         
         function logFault(self, type, test_case, exception)
             %logFault Log test fault information

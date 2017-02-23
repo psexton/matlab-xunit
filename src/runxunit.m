@@ -10,7 +10,7 @@ function out = runxunit(varargin)
 %
 %       * An M-file function whose name starts or ends with "test" or
 %         "Test" and that contains subfunction tests and uses the
-%         buildFunctionHandleTestSuite funtion to return a TestSuite object.
+%         buildFunctionHandleTestSuite function to return a TestSuite object.
 %
 %       * An M-file defining a subclass of TestCase.
 %
@@ -106,7 +106,7 @@ if isempty(suite.TestComponents)
     error('xunit:runxunit:noTestCasesFound', 'No test cases found.');
 end
 
-if ~ isxml
+if ~isxml
     if isempty(logfile)
         logfile_handle = 1; % File handle corresponding to Command Window
     else
@@ -118,7 +118,7 @@ if ~ isxml
             cleanup = onCleanup(@() fclose(logfile_handle));
         end
     end
-
+    
     fprintf(logfile_handle, 'Test suite: %s\n', suite.Name);
     if ~strcmp(suite.Name, suite.Location)
         fprintf(logfile_handle, 'Test suite location: %s\n', suite.Location);
@@ -148,7 +148,7 @@ k = 1;
 while k <= numel(varargin)
     arg = varargin{k};
     if iscell(arg)
-        name_list = [name_list; arg];
+        name_list = [name_list; arg]; %#ok<AGROW>
     elseif ~isempty(arg) && (arg(1) == '-')
         if strcmp(arg, '-verbose')
             verbose = true;
@@ -173,8 +173,7 @@ while k <= numel(varargin)
             warning('runxunit:unrecognizedOption', 'Unrecognized option: %s', arg);
         end
     else
-        name_list{end+1} = arg;
+        name_list{end+1} = arg; %#ok<AGROW>
     end
     k = k + 1;
 end
-    

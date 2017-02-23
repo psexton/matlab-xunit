@@ -20,14 +20,14 @@ function assertTrue(condition, message)
 %   Copyright 2008-2010 The MathWorks, Inc.
 
 if nargin < 2
-   message = 'Asserted condition is not true.';
+    message = 'Asserted condition is not true.';
 end
 
 if ~isscalar(condition) || ~islogical(condition)
-   throwAsCaller(MException('assertTrue:invalidCondition', ...
-      'CONDITION must be a scalar logical value.'));
+    throwAsCaller(MException('assertTrue:invalidCondition', ...
+        'CONDITION must be a scalar logical value.'));
 end
 
 if ~condition
-   throwAsCaller(MException('assertTrue:falseCondition', '%s', message));
+    throwAsCaller(MException('assertTrue:falseCondition', '%s', message));
 end

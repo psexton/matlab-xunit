@@ -27,17 +27,17 @@ classdef TestComponent < handle
     end
     
     methods (Abstract)
-       print()
-       %print Display summary of test component to Command Window
-       %   obj.print() displays information about the test component to the
-       %   Command Window.
-       
-       run()
-       %run Execute test cases
-       %   obj.run() executes all the test cases in the test component
-       
-       numTestCases()
-       %numTestCases Number of test cases in test component
+        %print Display summary of test component to Command Window
+        %   obj.print() displays information about the test component to the
+        %   Command Window.
+        print(self, numLeadingBlanks)
+        
+        %run Execute test cases
+        %   obj.run() executes all the test cases in the test component
+        did_pass_out = run(self, monitor)
+        
+        %numTestCases Number of test cases in test component
+        num = numTestCases(self)
     end
     
     methods

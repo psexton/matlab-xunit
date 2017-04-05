@@ -1,16 +1,15 @@
-%TestCaseTest Unit tests for the TestCaseWithAddPath class
-
-%   Steven L. Eddins
-%   Copyright The MathWorks 2008
-
 classdef TestCaseWithAddPathTest < TestCaseWithAddPath
-
+    %TestCaseTest Unit tests for the TestCaseWithAddPath class
+    
+    %   Steven L. Eddins
+    %   Copyright The MathWorks 2008
+    
     methods
         function self = TestCaseWithAddPathTest(name)
             self = self@TestCaseWithAddPath(name, ...
                 fullfile(fileparts(which(mfilename)), 'helper_classes'));
         end
-
+        
         function testPath(self)
             % Verify that a function in helper_classes is seen on the path.
             assertEqual(exist('testFunctionHandlesA', 'file'), 2);
@@ -22,8 +21,7 @@ classdef TestCaseWithAddPathTest < TestCaseWithAddPath
             logger = TestRunLogger();
             suite = TestSuite('testFunctionHandlesA');
             did_pass = suite.run(logger);
-            assertTrue(did_pass);
+            assertEqual(did_pass, true);
         end
     end
-
 end

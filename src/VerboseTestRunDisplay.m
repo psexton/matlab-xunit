@@ -1,17 +1,17 @@
 classdef VerboseTestRunDisplay < TestRunDisplay
-%VerboseTestRunDisplay Print test suite execution results.
-%   VerboseTestRunDisplay is a subclass of
-%   TestRunDisplay.  It supports the -verbose option of runxunit.
-%
-%   Overriddent methods:
-%       testComponentStarted  - Update Command Window display
-%       testComponentFinished - Update Command Window display
-%       testRunFinished       - Update Command Window display at end of run
-%
-%   See also TestRunDisplay, TestRunLogger, TestRunMonitor, TestSuite
-
-%   Steven L. Eddins
-%   Copyright 2010 The MathWorks, Inc.     
+    %VerboseTestRunDisplay Print test suite execution results.
+    %   VerboseTestRunDisplay is a subclass of
+    %   TestRunDisplay.  It supports the -verbose option of runxunit.
+    %
+    %   Overriddent methods:
+    %       testComponentStarted  - Update Command Window display
+    %       testComponentFinished - Update Command Window display
+    %       testRunFinished       - Update Command Window display at end of run
+    %
+    %   See also TestRunDisplay, TestRunLogger, TestRunMonitor, TestSuite
+    
+    %   Steven L. Eddins
+    %   Copyright 2010 The MathWorks, Inc.
     
     properties (SetAccess = private, GetAccess = private)
         TicStack = uint64([])
@@ -42,11 +42,11 @@ classdef VerboseTestRunDisplay < TestRunDisplay
             else
                 fprintf(self.FileHandle, ' %s ', self.leaderDots(component.Name));
             end
-        end    
-            
+        end
+        
         function testComponentFinished(self, component, did_pass)
             %testComponentFinished Update Command Window display
-
+            
             if ~isa(component, 'TestCase')
                 fprintf(self.FileHandle, '%s%s %s ', self.indentationSpaces(), component.Name, ...
                     self.leaderDots(component.Name));

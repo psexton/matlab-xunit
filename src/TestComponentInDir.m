@@ -1,22 +1,22 @@
-%TestComponentInDir Test component requiring temporary directory change
-%   The TestComponentInDir class defines a test component that has to be run by
-%   first changing to a specified directory.
-%
-%   The setUp method adds the starting directory to the path and then uses cd to 
-%   change into the specified directory.  The tearDown method restores the
-%   original path and directory.
-%
-%   TestComponentInDir methods:
-%       TestComponentInDir - Constructor
-%       setUp              - Add test directory to MATLAB path
-%       tearDown           - Restore original MATLAB path
-%
-%   See also TestComponent
-
-%   Steven L. Eddins
-%   Copyright 2008-2009 The MathWorks, Inc.
-
 classdef TestComponentInDir < TestComponent
+    %TestComponentInDir Test component requiring temporary directory change
+    %   The TestComponentInDir class defines a test component that has to be run by
+    %   first changing to a specified directory.
+    %
+    %   The setUp method adds the starting directory to the path and then uses cd to
+    %   change into the specified directory.  The tearDown method restores the
+    %   original path and directory.
+    %
+    %   TestComponentInDir methods:
+    %       TestComponentInDir - Constructor
+    %       setUp              - Add test directory to MATLAB path
+    %       tearDown           - Restore original MATLAB path
+    %
+    %   See also TestComponent
+    
+    %   Steven L. Eddins
+    %   Copyright 2008-2009 The MathWorks, Inc.
+    
     properties (SetAccess = private, GetAccess = protected)
         %TestDirectory - Directory to change to in the test fixture
         TestDirectory
@@ -27,15 +27,15 @@ classdef TestComponentInDir < TestComponent
         %OriginalDirectory - Starting directory
         OriginalDirectory
     end
-
+    
     methods
         function self = TestComponentInDir(testDirectory)
             %TestCaseInDir Constructor
-            %   TestCaseInDir(testName, testDirectory) constructs a test case 
+            %   TestCaseInDir(testName, testDirectory) constructs a test case
             %   using the specified name and located in the specified directory.
             self.TestDirectory = testDirectory;
         end
-
+        
         function setUp(self)
             %setUp Add test directory to MATLAB path
             %   test_case.setUp() saves the current directory in the
@@ -47,7 +47,7 @@ classdef TestComponentInDir < TestComponent
             addpath(pwd);
             cd(self.TestDirectory);
         end
-
+        
         function tearDown(self)
             %tearDown Restore original MATLAB path and directory
             %   test_case.tearDown() restores the original path and directory.

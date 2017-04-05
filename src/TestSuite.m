@@ -1,65 +1,65 @@
-%TestSuite Collection of TestComponent objects
-%   The TestSuite class defines a collection of TestComponent objects.
-%
-%   TestSuite methods:
-%       TestSuite             - Constructor
-%       add                   - Add test component to test suite
-%       print                 - Display test suite summary to Command Window
-%       run                   - Run the test suite
-%       keepMatchingTestCase  - Keep only the named test component
-%       fromName              - Construct test suite from directory or MATLAB function file name
-%       fromTestCaseClassName - Construct test suite from TestCase class name
-%       fromPackageName       - Construct test suite from package name
-%       fromPwd               - Construct test suite from present directory
-%
-%   TestSuite properties:
-%       TestComponents - Cell array of TestComponent objects
-%
-%   Examples
-%   --------
-%   Run all the test cases in the SampleTests1 class.  Display test suite
-%   progress and a summary of results in the Command Window.
-%
-%       TestSuite('SampleTests1').run()
-%
-%   Construct a test suite from all test components found in the current
-%   directory.
-%
-%       suite = TestSuite.fromPwd();
-%
-%   Construct a test suite from all test components found in the package
-%   'mytool.tests'. (Note that the "+" character at the beginning of the package
-%   folder name on disk is not part of the package name.)
-%
-%       suite = TestSuite.fromPackageName('mytool.tests');
-%
-%   Run all the test cases in the SampleTests class.  Display no output to the
-%   Command Window.  Upon completion, query the number of test failures and test
-%   errors.
-%
-%       logger = TestRunLogger();
-%       TestSuite('SampleTests1').run(logger);
-%       numFailures = logger.NumFailures
-%       numErrors = logger.NumErrors
-%
-%   See also CommandWindowTestRunDisplay, TestCase, TestComponent, TestRunLogger
-
-%   Steven L. Eddins
-%   Copyright 2008-2010 The MathWorks, Inc.
-
 classdef TestSuite < TestComponent
+    %TestSuite Collection of TestComponent objects
+    %   The TestSuite class defines a collection of TestComponent objects.
+    %
+    %   TestSuite methods:
+    %       TestSuite             - Constructor
+    %       add                   - Add test component to test suite
+    %       print                 - Display test suite summary to Command Window
+    %       run                   - Run the test suite
+    %       keepMatchingTestCase  - Keep only the named test component
+    %       fromName              - Construct test suite from directory or MATLAB function file name
+    %       fromTestCaseClassName - Construct test suite from TestCase class name
+    %       fromPackageName       - Construct test suite from package name
+    %       fromPwd               - Construct test suite from present directory
+    %
+    %   TestSuite properties:
+    %       TestComponents - Cell array of TestComponent objects
+    %
+    %   Examples
+    %   --------
+    %   Run all the test cases in the SampleTests1 class.  Display test suite
+    %   progress and a summary of results in the Command Window.
+    %
+    %       TestSuite('SampleTests1').run()
+    %
+    %   Construct a test suite from all test components found in the current
+    %   directory.
+    %
+    %       suite = TestSuite.fromPwd();
+    %
+    %   Construct a test suite from all test components found in the package
+    %   'mytool.tests'. (Note that the "+" character at the beginning of the package
+    %   folder name on disk is not part of the package name.)
+    %
+    %       suite = TestSuite.fromPackageName('mytool.tests');
+    %
+    %   Run all the test cases in the SampleTests class.  Display no output to the
+    %   Command Window.  Upon completion, query the number of test failures and test
+    %   errors.
+    %
+    %       logger = TestRunLogger();
+    %       TestSuite('SampleTests1').run(logger);
+    %       numFailures = logger.NumFailures
+    %       numErrors = logger.NumErrors
+    %
+    %   See also CommandWindowTestRunDisplay, TestCase, TestComponent, TestRunLogger
+    
+    %   Steven L. Eddins
+    %   Copyright 2008-2010 The MathWorks, Inc.
     
     properties (SetAccess = protected)
         TestComponents = {};
     end
     
     methods
-        
         function self = TestSuite(name)
             %TestSuite Constructor
-            %   suite = TestSuite constructs an empty test suite. suite =
-            %   TestSuite(name) constructs a test suite by searching for test
-            %   cases defined in an M-file with the specified name.
+            %   suite = TestSuite() constructs an empty test suite.
+            %
+            %   TestSuite(name) is the same as TestSuite.fromName(name).
+            %
+            %   See also TestSuite.fromName, TestSuite.fromPwd.
             
             if nargin >= 1
                 self = TestSuite.fromName(name);
@@ -150,12 +150,11 @@ classdef TestSuite < TestComponent
                 self.TestComponents = self.TestComponents(idx);
             end
         end
-        
     end
     
     methods (Static)
         function suite = fromTestCaseClassName(class_name)
-            %fromTestCaseClassName Construct test suite from TestCase class name
+            %fromTestCaseClassName Construct test suite from TestCase class name.
             %   suite = TestSuite.fromTestCaseClassName(name) constructs a
             %   TestSuite object from the name of a TestCase subclass.
             
@@ -165,7 +164,7 @@ classdef TestSuite < TestComponent
                     class_name);
             end
             
-            suite = TestSuite;
+            suite = TestSuite();
             suite.Name = class_name;
             suite.Location = which(class_name);
             
@@ -180,7 +179,6 @@ classdef TestSuite < TestComponent
                     suite.add(feval(class_name, method_name));
                 end
             end
-            
         end
         
         function suite = fromName(name)
@@ -202,7 +200,7 @@ classdef TestSuite < TestComponent
                 % MATLAB path. To make sure we only operate on actual folders
                 % some additional logic is necessary
                 folderContents = what(name);
-
+                
                 % Actually existing paths will only return a single element
                 % (cases exist where multiple values are returned, e.g.
                 % what('matlab')). Furthermore the path could be an absolute
@@ -241,7 +239,6 @@ classdef TestSuite < TestComponent
                 suite = TestSuite.fromPackageName(name);
                 
             else
-                
                 try
                     % The following attempts to create a test suite given
                     % `name` can generate exceptions in the case of it not
@@ -259,29 +256,29 @@ classdef TestSuite < TestComponent
                             suite = feval(name);
                             if ~isa(suite, 'TestSuite')
                                 error('xunit:TestSuite:noTestSuiteReturned', ...
-                                  'Function did not return a TestSuite object.');
+                                    'Function did not return a TestSuite object.');
                             end
                         catch
                             error('xunit:TestSuite:noTestSuiteReturned', ...
-                              'Function did not return a TestSuite object.');
+                                'Function did not return a TestSuite object.');
                         end
                     end
                     
                 catch exception
-                  notTestSuiteErrors = {
-                    'xunit:TestSuite:noTestSuiteReturned';
-                    'MATLAB:narginout:notValidMfile';
-                    'MATLAB:nargin:isScript'
-                  };
-
-                  if any(strcmp(notTestSuiteErrors, exception.identifier))
-                    % Ordinary function does not appear to contain tests.
-                    % Return an empty test suite.
-                    suite = TestSuite();
-                    suite.Name = name;
-                  else
-                    rethrow(exception);
-                  end
+                    notTestSuiteErrors = {
+                        'xunit:TestSuite:noTestSuiteReturned';
+                        'MATLAB:narginout:notValidMfile';
+                        'MATLAB:nargin:isScript'
+                        };
+                    
+                    if any(strcmp(notTestSuiteErrors, exception.identifier))
+                        % Ordinary function does not appear to contain tests.
+                        % Return an empty test suite.
+                        suite = TestSuite();
+                        suite.Name = name;
+                    else
+                        rethrow(exception);
+                    end
                 end
             end
             
@@ -321,7 +318,7 @@ classdef TestSuite < TestComponent
             %   test_suite = TestSuite.fromPackageName(name) constructs a
             %   TestSuite object from all the test components found in the
             %   specified package.
-
+            
             package_info = meta.package.fromName(name);
             if isempty(package_info)
                 error('xunit:fromPackageName:invalidName', ...

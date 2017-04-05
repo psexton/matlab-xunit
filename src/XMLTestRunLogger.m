@@ -1,19 +1,18 @@
-%XMLTestRunLogger Save test results to JUnit-compatible XML file
-%   XMLTestRunLogger is a subclass of TestRunMonitor that collects
-%   information from a TestSuite or TestCase as it runs, and then records
-%   the results of all the tests to an XML file that is usable in various
-%   external tools.  For instance, the Jenkins/Hudson continuous
-%   integration server could run your tests every night, and make a pretty
-%   web page with a graph of test failures.
-%
-%   To engage this class, use `runxunit -xmlfile output.xml`
-%
-%   See also TestRunDisplay, TestRunLogger, TestRunMonitor, TestSuite
-
-%   Copyright 2011 Thomas G. Smith
-%   https://github.com/tgs/matlab-xunit-doctest (xml branch)
-
 classdef XMLTestRunLogger < TestRunMonitor
+    %XMLTestRunLogger Save test results to JUnit-compatible XML file
+    %   XMLTestRunLogger is a subclass of TestRunMonitor that collects
+    %   information from a TestSuite or TestCase as it runs, and then records
+    %   the results of all the tests to an XML file that is usable in various
+    %   external tools.  For instance, the Jenkins/Hudson continuous
+    %   integration server could run your tests every night, and make a pretty
+    %   web page with a graph of test failures.
+    %
+    %   To engage this class, use `runxunit -xmlfile output.xml`
+    %
+    %   See also TestRunDisplay, TestRunLogger, TestRunMonitor, TestSuite
+    
+    %   Copyright 2011 Thomas G. Smith
+    %   https://github.com/tgs/matlab-xunit-doctest (xml branch)
     
     properties (SetAccess = private, GetAccess = private)
         TicStack = uint64([])   % Keep track of several times at once
@@ -33,7 +32,7 @@ classdef XMLTestRunLogger < TestRunMonitor
             if nargin < 1
                 error('XMLTestRunLogger requires a file to write to');
             end
-
+            
             if self.isValidFileIdentifier(reportfile)
                 self.ReportFileIdentifier = reportfile;
                 self.ReportFile = tempname;
@@ -117,7 +116,7 @@ classdef XMLTestRunLogger < TestRunMonitor
         function value = isValidFileIdentifier(~, identifier)
             value = isnumeric(identifier) && any(identifier == fopen('all'));
         end
-
+        
         function pushTic(self)
             self.TicStack(end+1) = tic;
         end
@@ -126,10 +125,9 @@ classdef XMLTestRunLogger < TestRunMonitor
             t1 = self.TicStack(end);
             self.TicStack(end) = [];
         end
-
+        
         function synchronizeReportFiles(self)
             fwrite(self.ReportFileIdentifier, fileread(self.ReportFile));
         end
     end
-    
 end

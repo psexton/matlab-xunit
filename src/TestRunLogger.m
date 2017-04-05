@@ -1,30 +1,29 @@
-%TestRunLogger Collect data (silently) from running test suite
-%   TestRunLogger is a subclass of TestRunMonitor uses to collect information 
-%   from an executing test component (either a test case or a test suite).
-%   It maintains a record of event notifications received, as well as any test
-%   failures or test errors.
-%
-%   TestRunLogger methods:
-%       testComponentStarted  - Log test component started
-%       testComponentFinished - Log test component finished
-%       testCaseFailure       - Log test case failure
-%       testCaseError         - Log test case error
-%
-%   TestRunLogger properties:
-%       Log          - Cell array of test notification strings
-%       NumFailures  - Number of test failures during execution
-%       NumErrors    - Number of test errors during execution
-%       NumTestCases - Total number of test cases executed
-%       Faults       - Struct array of test fault information
-%
-%   See also CommandWindowTestRunDisplay, TestRunMonitor, TestSuite
-
-%   Steven L. Eddins
-%   Copyright 2008-2009 The MathWorks, Inc.
-
 classdef TestRunLogger < TestRunMonitor
-
-    properties (SetAccess = protected)  
+    %TestRunLogger Collect data (silently) from running test suite
+    %   TestRunLogger is a subclass of TestRunMonitor uses to collect information
+    %   from an executing test component (either a test case or a test suite).
+    %   It maintains a record of event notifications received, as well as any test
+    %   failures or test errors.
+    %
+    %   TestRunLogger methods:
+    %       testComponentStarted  - Log test component started
+    %       testComponentFinished - Log test component finished
+    %       testCaseFailure       - Log test case failure
+    %       testCaseError         - Log test case error
+    %
+    %   TestRunLogger properties:
+    %       Log          - Cell array of test notification strings
+    %       NumFailures  - Number of test failures during execution
+    %       NumErrors    - Number of test errors during execution
+    %       NumTestCases - Total number of test cases executed
+    %       Faults       - Struct array of test fault information
+    %
+    %   See also CommandWindowTestRunDisplay, TestRunMonitor, TestSuite
+    
+    %   Steven L. Eddins
+    %   Copyright 2008-2009 The MathWorks, Inc.
+    
+    properties (SetAccess = protected)
         %Log Cell array of test notification strings
         %   Test notification strings include 'TestRunStarted',
         %   'TestRunFinished', 'TestComponentStarted', 'TestComponentFinished',
@@ -51,7 +50,7 @@ classdef TestRunLogger < TestRunMonitor
     properties (SetAccess = private, GetAccess = private)
         InitialTestComponent = []
     end
-
+    
     methods
         
         function testComponentStarted(self, component)
@@ -66,7 +65,7 @@ classdef TestRunLogger < TestRunMonitor
                 self.NumTestCases = self.NumTestCases + 1;
             end
         end
-            
+        
         function testComponentFinished(self, component, did_pass)
             self.appendToLog('TestComponentFinished');
             

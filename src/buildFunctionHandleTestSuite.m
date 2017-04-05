@@ -46,41 +46,41 @@
 %   >> testSuite = buildFunctionHandleTestSuite(localFunctionHandles);
 
 function testSuite = buildFunctionHandleTestSuite(hLocalFunctions, runImmediately)
-  hSetupFunction = xunit.private.retrieveSetupFunction(hLocalFunctions);
-  hTearDownFunction = xunit.private.retrieveTearDownFunction(hLocalFunctions);
-  hTestFunctions = xunit.private.retrieveTestFunctions(hLocalFunctions);
+hSetupFunction = xunit.private.retrieveSetupFunction(hLocalFunctions);
+hTearDownFunction = xunit.private.retrieveTearDownFunction(hLocalFunctions);
+hTestFunctions = xunit.private.retrieveTestFunctions(hLocalFunctions);
 
-  [callerName, callerFile] = getCallerData();
-  testSuite = TestSuite();
-  testSuite.Name = callerName;
-  testSuite.Location = which(callerFile);
-  for k = 1:numel(hTestFunctions)
+[callerName, callerFile] = getCallerData();
+testSuite = TestSuite();
+testSuite.Name = callerName;
+testSuite.Location = which(callerFile);
+for k = 1:numel(hTestFunctions)
     testSuite.add(FunctionHandleTestCase(hTestFunctions{k}, ...
-      hSetupFunction, hTearDownFunction));
-  end
+        hSetupFunction, hTearDownFunction));
+end
 
-  if nargout == 0 || (nargin > 1 && runImmediately)
+if nargout == 0 || (nargin > 1 && runImmediately)
     testSuite.run();
-  end
+end
 end
 
 function [callerName, callerFile] = getCallerData()
-  [ST,I] = dbstack('-completenames');
+[ST,I] = dbstack('-completenames');
 
-  if numel(ST) <= 2
+if numel(ST) <= 2
     throwAsCaller(MException('xunit:buildFunctionHandleTestSuite:invalidCallingSyntax', ...
-      'This function must be called from within another function'));
-  end
+        'This function must be called from within another function'));
+end
 
-  % TODO: The first branch here exists to accomodate backwards compatibility
-  % with the initTestSuite script approach which worked prior to MATLAB R2016b.
-  % It can be removed once support for this syntax is dropped, otherwise the
-  % names to the local functions cannot be found as the wrong file is checked
-  if strcmp(ST(I + 2).name, 'initTestSuite')
+% TODO: The first branch here exists to accomodate backwards compatibility
+% with the initTestSuite script approach which worked prior to MATLAB R2016b.
+% It can be removed once support for this syntax is dropped, otherwise the
+% names to the local functions cannot be found as the wrong file is checked
+if strcmp(ST(I + 2).name, 'initTestSuite')
     callerFile = ST(I + 3).file;
     callerName = ST(I + 3).name;
-  else
+else
     callerFile = ST(I + 2).file;
     callerName = ST(I + 2).name;
-  end
+end
 end

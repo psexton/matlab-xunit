@@ -98,7 +98,7 @@ This codebase is over 5 years old now, and has had several maintainers, so past 
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request 
 
-#License
+# License
 
 [BSD 3-Clause](http://opensource.org/licenses/BSD-3-Clause)
 

@@ -11,7 +11,12 @@ if nargin < 2, file_handle = 1; end
 for k = 1:numel(stack)
     filename = stack(k).file;
     linenumber = stack(k).line;
-    href = sprintf('matlab: opentoline(''%s'',%d)', filename, linenumber);
-    fprintf(file_handle, '%s at <a href="%s">line %d</a>\n', filename, href, linenumber);
+    terminalMode = ~ usejava('desktop');
+    if terminalMode
+        fprintf(file_handle, '%s at line %d\n', filename, linenumber);
+    else
+        href = sprintf('matlab: opentoline(''%s'',%d)', filename, linenumber);
+        fprintf(file_handle, '%s at <a href="%s">line %d</a>\n', filename, href, linenumber);
+    end
 end
 end

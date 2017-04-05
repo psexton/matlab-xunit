@@ -96,7 +96,9 @@ This codebase is over 5 years old now, and has had several maintainers, so past 
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request 
+5. Create a new Pull Request
+
+Suggestion: Please try to keep contributions to one {bug fix, feature, etc} per pull request. If you've got 3 unrelated bug fixes, submit 3 pull requests. If I can read through your changes in < 5 minutes, I'll probably merge it immediately. If it's a huge patch that touches dozens of files for multiple reasons, I'll probably put off merging it until I can do a more thorough code review. And then it will drop off my mental radar. (But not because I don't like you!)
 
 # License
 

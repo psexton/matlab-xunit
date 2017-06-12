@@ -113,6 +113,18 @@ classdef TestSuiteTest < TestCaseInDir
          assertEqual(numel(suite.TestComponents), 0);
       end
       
+      function test_fromName_with_relative_dirname_shadowing_package(self)
+          oldPwd = pwd();
+          pwdCleaner = onCleanup(@() cd(oldPwd));
+          cd(fullfile(fileparts(mfilename('fullpath')), 'shadow_test'))
+          
+          suite = TestSuite.fromName('shadow');
+          
+          assertEqual(suite.Name, 'shadow');
+          assertEqual(suite.Location, 'shadow');
+          assertEqual(numel(suite.TestComponents), 0);
+      end
+
       function test_fromPwd(self)
           % Verify that the fromPwd method returns a nonempty TestSuite object
           % from the helper_classes directory, with the correct number of

@@ -43,7 +43,7 @@ classdef TestCase < TestComponent
             self.Location = which(class(self));
         end
         
-        function did_pass = run(self, monitor)
+        function did_pass = run(self, monitor, throw)
             %run Execute the test case
             %    test_case.run(monitor) calls the TestCase object's setUp()
             %    method, then the test method, then the tearDown() method.
@@ -53,37 +53,60 @@ classdef TestCase < TestComponent
             %    TestRunMonitor object.  Typically it is either a TestRunLogger
             %    subclass or a CommandWindowTestRunDisplay subclass.
             %
+            %    test_case.run(monitor, throw) the additional argument
+            %    throw is a trul/false flag indicating whether to throw
+            %    errors rather than merely log them. Default is false if
+            %    not supplied.
+            %
             %    test_case.run() automatically uses a
             %    CommandWindowTestRunDisplay object in order to print test
             %    suite execution information to the Command Window.
+            %
+
             
             if nargin < 2
                 monitor = CommandWindowTestRunDisplay();
             end
             
+            if nargin < 3
+                throw = false;
+            end
+            
             did_pass = true;
             monitor.testComponentStarted(self);
             
-            try
+            if throw
+                % user wants errors from the test case to actually be
+                % thrown and stop program execution so they can be debugged
                 self.setUp();
                 f = str2func(self.MethodName);
-                
+                f(self);
+                self.tearDown();
+                did_pass = true;
+            else
+                % normal test behaviour, errors are merely logged
                 try
-                    % Call the test method.
-                    f(self);
-                catch failureException
-                    monitor.testCaseFailure(self, failureException);
+                    self.setUp();
+                    f = str2func(self.MethodName);
+                    
+                    try
+                        % Call the test method.
+                        f(self);
+                    catch failureException
+                        monitor.testCaseFailure(self, failureException);
+                        did_pass = false;
+                    end
+                    
+                    self.tearDown();
+                    
+                catch errorException
+                    monitor.testCaseError(self, errorException);
                     did_pass = false;
                 end
-                
-                self.tearDown();
-                
-            catch errorException
-                monitor.testCaseError(self, errorException);
-                did_pass = false;
             end
             
             monitor.testComponentFinished(self, did_pass);
+            
         end
         
         function num = numTestCases(self)

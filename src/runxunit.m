@@ -41,6 +41,11 @@ function out = runxunit(varargin)
 %   Window.  This format is compatible with JUnit, and can be read by many
 %   tools.
 %
+%   runxunit(..., '-throwerrors') causes runxunit to throw errors when
+%   encountered rather than simply reporting them. Can be useful for
+%   debugging tests, or using tests for development, as well as a
+%   post-feature development tool.
+%
 %   out = runxunit(...) returns a logical value that is true if all the
 %   tests passed.
 %
@@ -89,7 +94,7 @@ isxml = false;
 if nargin < 1
     suite = TestSuite.fromPwd();
 else
-    [name_list, verbose, logfile, isxml] = getInputNames(varargin{:});
+    [name_list, verbose, logfile, isxml, throw] = getInputNames(varargin{:});
     if numel(name_list) == 0
         suite = TestSuite.fromPwd();
     elseif numel(name_list) == 1
@@ -133,17 +138,18 @@ elseif verbose
 else
     monitor = TestRunDisplay(logfile_handle);
 end
-did_pass = suite.run(monitor);
+did_pass = suite.run(monitor, throw);
 
 if nargout > 0
     out = did_pass;
 end
 
-function [name_list, verbose, logfile, isxml] = getInputNames(varargin)
+function [name_list, verbose, logfile, isxml, throw] = getInputNames(varargin)
 name_list = {};
 verbose = false;
 logfile = '';
 isxml = false;
+throw = false;
 k = 1;
 while k <= numel(varargin)
     arg = varargin{k};
@@ -169,6 +175,8 @@ while k <= numel(varargin)
                 logfile = varargin{k+1};
                 k = k + 1;
             end
+        elseif strcmp(arg, '-throwerrors')
+            throw = true;
         else
             warning('runxunit:unrecognizedOption', 'Unrecognized option: %s', arg);
         end

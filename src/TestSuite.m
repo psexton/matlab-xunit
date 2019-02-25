@@ -66,7 +66,7 @@ classdef TestSuite < TestComponent
             end
         end
         
-        function did_pass_out = run(self, monitor)
+        function did_pass_out = run(self, monitor, throw)
             %run Execute test cases in test suite
             %   did_pass = suite.run() executes all test cases in the test
             %   suite, returning a logical value indicating whether or not all
@@ -76,13 +76,17 @@ classdef TestSuite < TestComponent
                 monitor = CommandWindowTestRunDisplay();
             end
             
+            if nargin < 3
+                throw = false;
+            end
+            
             monitor.testComponentStarted(self);
             did_pass = true;
             
             self.setUp();
             
             for k = 1:numel(self.TestComponents)
-                this_component_passed = self.TestComponents{k}.run(monitor);
+                this_component_passed = self.TestComponents{k}.run(monitor, throw);
                 did_pass = did_pass && this_component_passed;
             end
             

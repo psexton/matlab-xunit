@@ -34,7 +34,7 @@ classdef TestComponent < handle
         
         %run Execute test cases
         %   obj.run() executes all the test cases in the test component
-        did_pass_out = run(self, monitor)
+        did_pass_out = run(self, monitor, throw)
         
         %numTestCases Number of test cases in test component
         num = numTestCases(self)

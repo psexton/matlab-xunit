@@ -7,8 +7,7 @@ feedback = {
     '`initTestSuite` script will be removed in the next major release.']
     };
 
-matlabVersionInfo = ver('matlab');
-if str2double(matlabVersionInfo.Version) >= 9.1 % R2016b and later
+if(xunit.private.getMatlabVersion >= 9.1) % R2016b and later
     error(feedback{:});
 else
     warning(feedback{:});

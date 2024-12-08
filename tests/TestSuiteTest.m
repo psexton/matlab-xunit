@@ -99,18 +99,32 @@ classdef TestSuiteTest < TestCaseInDir
 
       function test_fromName_with_relative_dirname_on_path(self)
          % Passing a partial directory name that is on the MATLAB path will
-         % cause a crash if not handled properly, see #14. The 'matlab' package
-         % here is used as that will exist multiple times with respect to
-         % `what` used internally. The case for relative paths is implicitly
-         % tested, as that will make other tests in the test suite of this
-         % package fail.
-         suite = TestSuite.fromName('matlab');
+         % cause a crash if not handled properly, see #14. The
+         % 'add_to_path' directory is temporarily added to the path while
+         % this test executes from 'helper_classes'.
+         test_dir = fullfile(fileparts(mfilename('fullpath')), 'add_to_path');
+         addpath(test_dir);
+         path_cleanup = onCleanup(@() rmpath(test_dir));
+         
+         suite = TestSuite.fromName('add_to_path');
 
-         assertEqual(suite.Name, 'matlab');
-         assertEqual(suite.Location, 'Package');
+         assertEqual(suite.Name, 'add_to_path');
+         assertEqual(suite.Location, '');
          assertEqual(numel(suite.TestComponents), 0);
       end
       
+      function test_fromName_with_relative_dirname_shadowing_package(self)
+          oldPwd = pwd();
+          pwdCleaner = onCleanup(@() cd(oldPwd));
+          cd(fullfile(fileparts(mfilename('fullpath')), 'shadow_test'))
+          
+          suite = TestSuite.fromName('shadow');
+          
+          assertEqual(suite.Name, 'shadow');
+          assertEqual(suite.Location, 'shadow');
+          assertEqual(numel(suite.TestComponents), 0);
+      end
+
       function test_fromPwd(self)
           % Verify that the fromPwd method returns a nonempty TestSuite object
           % from the helper_classes directory, with the correct number of

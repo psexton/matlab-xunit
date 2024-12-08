@@ -1,8 +1,7 @@
 classdef TestInitTestSuite < TestCase
   methods (Static, Access = private)
     function version = getDecimalMatlabVersion()
-      matlabVersionInfo = ver('matlab');
-      version = str2double(matlabVersionInfo.Version);
+      version = xunit.private.getMatlabVersion();
     end
 
     function cleanupHandle = moveToTestDir()

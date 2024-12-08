@@ -1,5 +1,5 @@
-function matlabVersion = getMatlabVersion()
-%GETMATLABVERSION Returns MATLAB's version, as a double
+function decimalVersion = getDecimalMatlabVersion()
+%GETDECIMALMATLABVERSION Returns MATLAB's version, as a double
 %   For 2023b and newer, the integer part is the year, and the fractional
 %   part specifies the release number:
 %   * 2023b = 23.2
@@ -19,7 +19,6 @@ function matlabVersion = getMatlabVersion()
 % version returns a string like "23.2.0.2599560 (R2023b) Update 8", which
 % we can convert to a numerically comparable form by keeping only the part
 % before the second period.
-matlabVersion = str2double(regexp(version, '^\d+\.\d+', 'match', 'once'));
+decimalVersion = str2double(regexp(version, '^\d+\.\d+', 'match', 'once'));
 
 end
-

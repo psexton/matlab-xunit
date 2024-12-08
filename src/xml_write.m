@@ -85,7 +85,7 @@ function DOMnode = xml_write(filename, tree, RootName, Pref)
 % Written by Jarek Tuszynski, SAIC, jaroslaw.w.tuszynski_at_saic.com
 
 %% Check Matlab Version
-if (xunit.private.getMatlabVersion < 7.0)
+if (xunit.private.getDecimalMatlabVersion() < 7.0)
   error('Your MATLAB version is too old. You need version 7.0 or newer.');
 end
 

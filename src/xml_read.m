@@ -91,7 +91,7 @@ tree            = [];
 RootName        = [];
 
 %% Check Matlab Version
-if (xunit.private.getMatlabVersion < 7.1)
+if (xunit.private.getDecimalMatlabVersion() < 7.1)
   error('Your MATLAB version is too old. You need version 7.1 or newer.');
 end
 
